@@ -1,0 +1,29 @@
+{
+  "name": "crypto-server",
+  "version": "1.0.0",
+  "description": "Express server for crypto-quiz",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Express",
+    "Server"
+  ],
+  "author": "Andrew",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "ganache-cli": "^6.12.2",
+    "graphql": "^16.8.1",
+    "graphql-http": "^1.22.1",
+    "mongoose": "^8.3.1",
+    "nodemon": "^3.1.0",
+    "ruru": "^2.0.0-beta.11",
+    "shortid": "^2.2.16",
+    "solc": "^0.8.25",
+    "truffle-contract": "^4.0.31",
+    "web3": "^4.8.0"
+  }
+}
