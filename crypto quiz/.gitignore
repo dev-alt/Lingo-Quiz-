@@ -33,3 +33,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# Ignore Next.js cache
+.next/cache
+.next/cache-loader
+.next/bundle-stats.json
+.next/css
+.next/export
+.next/server
+.next/static
+.next/build-manifest.json
+.next/react-loadable-manifest.json
+.next/webpack-runtime.js
