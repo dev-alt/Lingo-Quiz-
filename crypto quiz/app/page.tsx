@@ -22,35 +22,35 @@ export default function Home() {
 			<div className="inline-block max-w-lg text-center justify-center py-4 gap-8 md:py-10 space-y-4 max-w-4xl">
 				<CourseCard
 					title="Introduction to Cryptography"
-
+					courseId="1"
 					progress={30}
 					maxProgress={100}
 					onResume={() => handleResume(1)}
 				/>
 				<CourseCard
 					title="Introduction to Cryptography"
-
+					courseId="2"
 					progress={30}
 					maxProgress={100}
 					onResume={() => handleResume(1)}
 				/>
 				<CourseCard
 					title="Introduction to Cryptography"
-
+					courseId="3"
 					progress={30}
 					maxProgress={100}
 					onResume={() => handleResume(1)}
 				/>
 				<CourseCard
 					title="Introduction to Cryptography"
-
+					courseId="4"
 					progress={30}
 					maxProgress={100}
 					onResume={() => handleResume(1)}
 				/>
 				<CourseCard
 					title="Introduction to Cryptography"
-
+					courseId="5"
 					progress={30}
 					maxProgress={100}
 					onResume={() => handleResume(1)}
