@@ -1,4 +1,4 @@
-export default function LeaderboardLayout({
+export default function DocsLayout({
 	children,
 }: {
 	children: React.ReactNode;

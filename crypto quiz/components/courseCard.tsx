@@ -1,61 +1,74 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Progress } from "@nextui-org/progress";
+import { Link } from '@nextui-org/link';
+import { Icon } from '@iconify/react';
 
 interface CourseCardProps {
-  title: string;
-  imageUrl: string;
-  progress: number;
-  maxProgress: number;
-  onResume: () => void;
+    title: string;
+    progress: number;
+    maxProgress: number;
+    onResume: () => void;
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({
-  title,
-  imageUrl,
-  progress,
-  maxProgress,
-  onResume,
+    title,
+    progress,
+    maxProgress,
+    onResume,
 }) => {
-  const progressPercentage = (progress / maxProgress) * 100;
+    // Calculate progress percentage
+    const progressPercentage = Math.min((progress / maxProgress) * 100, 100);
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className="course-card relative overflow-hidden rounded-lg shadow-lg border-2 border-teal-500"
-      style={{ backgroundColor: "#FFD600", width: 'calc(80% * 2)' }} // Double the width
-    >
-      <motion.div
-        className="container p-4 md:p-6 bg-black bg-opacity-60 flex items-center justify-between"
-        whileHover={{ scale: 1.05 }}
-        transition={{ duration: 0.2 }}
-      >
-        <div className="title-progress">
-          <h3 className="course-title text-lg md:text-xl font-semibold text-white mb-2">
-            {title}
-          </h3>
-          <div className="progress flex items-center">
+        return (
             <motion.div
-              className="relative w-full h-3 bg-gray-600 rounded-full mr-2"
-              initial={{ width: 0 }}
-              animate={{ width: `${progressPercentage}%` }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-            ></motion.div>
-            <p className="text-xs md:text-sm text-white">{progressPercentage.toFixed(0)}% Completed</p>
-          </div>
-        </div>
-        <motion.button
-          className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded-md text-sm md:text-base"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={onResume}
-        >
-          Resume
-        </motion.button>
-      </motion.div>
-    </motion.div>
-  );
-};
-
-export default CourseCard;
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="course-card relative overflow-hidden rounded-lg shadow-lg border-4 border-teal-500 bg-yellow-400 p-4 md:p-6"
+              style={{ backgroundColor: "#FFD600", width: 'calc(80% * 2.5)' }}
+            >
+              <motion.div
+                className="bg-opacity-60 flex flex-col items-start justify-between h-full" // Changed to flex-col
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                {/* Title */}
+                <div className="flex items-center justify-between w-full"> {/* Flex container for title and button */}
+                  <Link href="/quiz">
+                    <h3 className="course-title text-lg md:text-xl font-semibold text-gray-800 mb-2" style={{ fontFamily: "fontRoboto" }}>
+                      <Icon icon="mdi:trophy-outline" className="mr-2 text-black-400" />
+                      {title}
+                    </h3>
+                  </Link>
+                  <motion.button
+                    className="course-button bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md text-sm md:text-base border-4 border-black shadow-md"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={onResume}
+                  >
+                    Resume
+                  </motion.button>
+                </div>
+                
+                {/* Progress bar */}
+                <div className="border-4 bg-teal-500 border-solid border-black rounded-l-full overflow-hidden w-full">
+                  <Progress
+                    color="danger"
+                    aria-label="Loading..."
+                    value={progressPercentage}
+                    className="h-3 w-full"
+                  />
+                </div>
+                
+                {/* Progress text */}
+                <p className="text-xs md:text-sm text-black font-bold mt-2">
+                  {progressPercentage.toFixed(0)}% Completed
+                </p>
+        
+              </motion.div>
+            </motion.div>
+          );
+        };
+        
+        export default CourseCard;

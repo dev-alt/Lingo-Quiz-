@@ -12,8 +12,13 @@ export const siteConfig = {
       label: "Learn",
       href: "/learn",
     },
+	{
+		label: "Leaderboards",
+		href: "/leaderboard",
+	  },
+	  
     {
-      label: "Practice",
+      label: "Store",
       href: "/store",
     },
 	],

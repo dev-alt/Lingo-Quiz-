@@ -48,16 +48,19 @@ export default function RootLayout({
 						<Navbar />
 						<main className="container mx-auto max-w-14xl pt-16 px-6 flex-grow bg-gray-800">
 							<div className="flex min-h-screen">
-								<div className="flex-grow ">{children}</div>
+								{/* main body */}
+								<div className="flex-1">{children}</div>
+								 {/* sidebar */}
 								<div className="bg-gray-800 min-h-screen w-80 flex flex-col items-stretch p-4 space-y-4">
 									<SidebarItem
 										avatar="https://i.pravatar.cc/150?u=a042581f4e29026024d"
 										username="John Doe"
 										level={5}
 										totalXP={1200}
-										rank={10}
+										rank={"Bronze"}
 										badges={5}
 										streak={3}
+										
 									/>
 									<XpBar />
 									<InviteFriend />
@@ -65,6 +68,7 @@ export default function RootLayout({
 								</div>
 							</div>
 						</main>
+						{/* Footer */}
 						<Footer />
 					</div>
 				</Providers>
