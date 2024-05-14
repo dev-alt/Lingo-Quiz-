@@ -41,8 +41,8 @@ import {
 			  {siteConfig.navItems.map((item) => (
 				<NavbarItem key={item.href}>
 				  <NextLink
-					className={clsx(   // Combines CSS classes conditionally based on link state (active or not)
-					  linkStyles({ color: "danger" }), 
+					className={clsx(
+					  linkStyles({ color: "success" }), 
 					  "data-[active=true]:text-white data-[active=true]:font-medium" 
 					)}
 					color="foreground"
@@ -68,8 +68,8 @@ import {
 		  <div className="mx-4 mt-2 flex flex-col gap-2">
 			{siteConfig.navMenuItems.map((item, index) => ( 
 			  <NavbarMenuItem key={`${item}-${index}`}>
-				<Link  // NextUI link component for each menu item
-				  color={  // Dynamically sets link color based on its position in the menu
+				<Link 
+				  color={  
 					index === 2
 					  ? "primary"
 					  : index === siteConfig.navMenuItems.length - 1

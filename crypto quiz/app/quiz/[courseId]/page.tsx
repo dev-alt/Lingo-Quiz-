@@ -119,10 +119,9 @@ export default function QuizPage() {
                     <ul className="list-none p-0">
                       {quizQuestions[currentQuestion].options.map((option, index) => (
                         <li key={index}>
-                          <Button
-                            color={selectedOption === index ? 'success' : 'default'}
+                          <Button                        
                             onClick={() => handleAnswerSelect(index)}
-                            className="text-black my-2 w-full"
+                            className={`text-black my-2 w-full ${selectedOption === index ? 'bg-green-400' : 'bg-blue-200'}`} 
                           >
                             {option}
                           </Button>
@@ -134,8 +133,7 @@ export default function QuizPage() {
                       <Button
                         isDisabled={selectedOption === null}
                         onClick={handleNextQuestion}
-                        className="bg-teal-500 text-white hover:bg-teal-600"
-                      >
+                        className="text-white bg-teal-400 disabled:bg-gray-900 disabled:text-white hover:bg-teal-600 text-sm rounded-md md:text-base font-bold py-2 px-4 shadow-lg"                        >
                         Next
                       </Button>
                     </div>
@@ -155,8 +153,9 @@ export default function QuizPage() {
               <div className="absolute bottom-0 left-0 mt-4">
                 <Button
                   onClick={() => router.push('/')}
-                  className="bg-red-500 text-white hover:bg-red-600"
-                >
+                  // className="bg-red-500 text-black hover:bg-red-600 font-bold"
+                  className="bg-red-500 hover:bg-blue-900 text-white text-sm rounded-md md:text-base font-bold py-2 px-4 border-2 border-black shadow-lg">
+                
                   Exit
                 </Button>
               </div>

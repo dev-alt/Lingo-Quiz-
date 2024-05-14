@@ -28,10 +28,10 @@ const CourseCard: React.FC<CourseCardProps> = ({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
               className="course-card relative overflow-hidden rounded-lg shadow-lg border-4 border-teal-500 bg-yellow-400 p-4 md:p-6"
-              style={{ backgroundColor: "#FFD600", width: 'calc(80% * 2.5)' }}
+
             >
               <motion.div
-                className="bg-opacity-60 flex flex-col items-start justify-between h-full" // Changed to flex-col
+                className="bg-opacity-60 flex flex-col items-start justify-between h-full" 
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               >
