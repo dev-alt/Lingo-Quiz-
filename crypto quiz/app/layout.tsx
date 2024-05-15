@@ -11,6 +11,7 @@ import XpBar from "@/components/xpBar";
 import { InviteFriend } from "@/components/inviteFriend";
 import { CommunityBar } from "@/components/communityInfo";
 
+
 export const metadata: Metadata = {
 	title: {
 		default: siteConfig.name,
@@ -47,11 +48,9 @@ export default function RootLayout({
 					<div className="relative flex flex-col min-h-screen">
 						<Navbar />
 						<main className="container mx-auto max-w-14xl pt-16 px-6 flex-grow bg-gray-800">
-							<div className="flex min-h-screen">
-								{/* main body */}
-								<div className="flex-1">{children}</div>
-								 {/* sidebar */}
-								<div className="bg-gray-800 min-h-screen w-80 flex flex-col items-stretch p-4 space-y-4">
+							<div className="flex flex-col md:flex-row-reverse">
+								{/* sidebar */}
+								<div className="bg-gray-800 md:min-h-screen md:w-80 flex flex-col items-stretch p-4 space-y-4">
 									<SidebarItem
 										avatar="https://i.pravatar.cc/150?u=a042581f4e29026024d"
 										username="John Doe"
@@ -60,12 +59,22 @@ export default function RootLayout({
 										rank={"Bronze"}
 										badges={5}
 										streak={3}
-										
+
 									/>
-									<XpBar />
-									<InviteFriend />
-									<CommunityBar />
+									
+										<XpBar />
+									
+
+									<div className="hidden md:flex">
+										<InviteFriend />
+									</div>
+									<div className="hidden md:flex">
+										<CommunityBar />
+									</div>
 								</div>
+
+								{/* main body */}
+								<div className="flex-1 mb-8 md:mb-0">{children}</div>
 							</div>
 						</main>
 						{/* Footer */}

@@ -14,10 +14,10 @@ export default function Home() {
 
 	return (
 		<section className="flex flex-col justify-center gap-4 py-8 md:py-10 ">
-			<div className="inline-block max-w-lg text-center justify-center max-w-4xl">
-				<h1 className={title({ color: "violet" })}>LingoQuiz&nbsp;</h1>
+			<div className="text-center overflow-hidden p-4 md:p-6 shadow-[5px_3px_5px_5px_#14b8a6] mr-4">
+				<h1 className={title({ color: "violet" })} >CryptoQuiz&nbsp;</h1>
 			</div>
-			<div className="inline-block text-center justify-center py-4 gap-8 md:py-10 space-y-4 max-w-4xl">
+			<div className="inline-block text-center justify-center py-4 gap-8 md:py-10 space-y-8 max-w-4xl md:ml-10">
 				<CourseCard
 					title="Introduction to Cryptography"
 					courseId="1"

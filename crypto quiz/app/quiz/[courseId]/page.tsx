@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { title, subtitle } from "@/components/primitives";
+import RewardSelection from '@/components/rewardSection';
+
 interface Question {
   id: number;
   text: string;
@@ -17,15 +19,15 @@ interface Question {
 
 const quizQuestions: Question[] = [
   { id: 1, text: "What is the first cryptocurrency?", options: ["Bitcoin", "Ethereum", "Litecoin", "Dogecoin"], correctAnswer: 0 },
-  { id: 2, text: "What is the underlying technology of most cryptocurrencies?", options: ["Artificial Intelligence", "Blockchain", "Cloud Computing", "Internet of Things"], correctAnswer: 1 },
-  { id: 3, text: "What is the process of verifying transactions on a blockchain called?", options: ["Mining", "Trading", "Staking", "Hacking"], correctAnswer: 0 },
-  { id: 4, text: "What is the maximum supply of Bitcoin?", options: ["10 million", "21 million", "100 million", "1 billion"], correctAnswer: 1 },
-  { id: 5, text: "What is the name of the creator of Bitcoin?", options: ["Satoshi Nakamoto", "Vitalik Buterin", "Charlie Lee", "Elon Musk"], correctAnswer: 0 },
-  { id: 6, text: "What is the name of the first decentralized cryptocurrency exchange?", options: ["Binance", "Uniswap", "Coinbase", "EtherDelta"], correctAnswer: 3 },
-  { id: 7, text: "What is the name of the Ethereum token standard used for creating new tokens?", options: ["ERC-20", "ERC-721", "ERC-1155", "ERC-777"], correctAnswer: 0 },
-  { id: 8, text: "What is the name of the consensus algorithm used by Bitcoin?", options: ["Proof of Work", "Proof of Stake", "Delegated Proof of Stake", "Proof of Authority"], correctAnswer: 0 },
-  { id: 9, text: "What is the name of the first stablecoin?", options: ["USDC", "Tether", "DAI", "TrueUSD"], correctAnswer: 1 },
-  { id: 10, text: "What is the name of the first smart contract platform?", options: ["Ethereum", "Cardano", "Polkadot", "Solana"], correctAnswer: 0 },
+   //  { id: 2, text: "What is the underlying technology of most cryptocurrencies?", options: ["Artificial Intelligence", "Blockchain", "Cloud Computing", "Internet of Things"], correctAnswer: 1 },
+   //  { id: 3, text: "What is the process of verifying transactions on a blockchain called?", options: ["Mining", "Trading", "Staking", "Hacking"], correctAnswer: 0 },
+   //  { id: 4, text: "What is the maximum supply of Bitcoin?", options: ["10 million", "21 million", "100 million", "1 billion"], correctAnswer: 1 },
+  // { id: 5, text: "What is the name of the creator of Bitcoin?", options: ["Satoshi Nakamoto", "Vitalik Buterin", "Charlie Lee", "Elon Musk"], correctAnswer: 0 },
+  // { id: 6, text: "What is the name of the first decentralized cryptocurrency exchange?", options: ["Binance", "Uniswap", "Coinbase", "EtherDelta"], correctAnswer: 3 },
+  // { id: 7, text: "What is the name of the Ethereum token standard used for creating new tokens?", options: ["ERC-20", "ERC-721", "ERC-1155", "ERC-777"], correctAnswer: 0 },
+  // { id: 8, text: "What is the name of the consensus algorithm used by Bitcoin?", options: ["Proof of Work", "Proof of Stake", "Delegated Proof of Stake", "Proof of Authority"], correctAnswer: 0 },
+  // { id: 9, text: "What is the name of the first stablecoin?", options: ["USDC", "Tether", "DAI", "TrueUSD"], correctAnswer: 1 },
+  // { id: 10, text: "What is the name of the first smart contract platform?", options: ["Ethereum", "Cardano", "Polkadot", "Solana"], correctAnswer: 0 },
 
 ];
 
@@ -83,12 +85,17 @@ export default function QuizPage() {
     exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
   };
 
+  const handleRewardSelect = (rewardNumber: number) => {
+    console.log('Reward selected:', rewardNumber);
+    // Add your logic to handle reward selection here
+  };
+
   return (
     <div className="container">
       <div><h1 className={title({ color: "violet" })}>Crypto Quiz</h1>
         <h2 className="text-white">Test your knowledge of cryptocurrencies</h2>
       </div>
-      <div className='flex items-center justify-center bg-gray-800'>
+
         <AnimatePresence>
           <motion.div
             key={pathname}
@@ -97,15 +104,19 @@ export default function QuizPage() {
             initial="initial"
             animate="animate"
             exit="exit"
+            whileHover={{ scale: 1.05 }}
           >
-
-            <Card className=" bg-yellow-400 border-4 border-teal-500 relative flex flex-col mt-8">
+            <Card className=" bg-yellow-400 border-4 border-teal-500 relative flex flex-col mt-8 ">
               <CardBody className="text-black flex-grow text-center pb-8">
                 {showResult ? (
                   <div className="flex flex-col items-center">
                     <h3 className="text-2xl md:text-3xl font-bold mb-4">Quiz Finished!</h3>
                     <p className="text-lg">Your final score: {score} out of {quizQuestions.length}</p>
                     <p className="text-lg">Total time taken: {totalTimeTaken} seconds</p>
+                                      {/* Show reward selection if score is greater than 80% */}
+                  {score / quizQuestions.length > 0.8 && (
+                                       <RewardSelection onRewardSelect={handleRewardSelect} />
+                  )}
 
                   </div>
                 ) : (
@@ -149,11 +160,10 @@ export default function QuizPage() {
                   </div>
                 )}
               </CardBody>
-              {/* Exit Button (positioned in bottom-right) */}
+              {/* Exit Button */}
               <div className="absolute bottom-0 left-0 mt-4">
                 <Button
                   onClick={() => router.push('/')}
-                  // className="bg-red-500 text-black hover:bg-red-600 font-bold"
                   className="bg-red-500 hover:bg-blue-900 text-white text-sm rounded-md md:text-base font-bold py-2 px-4 border-2 border-black shadow-lg">
                 
                   Exit
@@ -163,6 +173,6 @@ export default function QuizPage() {
           </motion.div>
         </AnimatePresence>
       </div>
-    </div>
+
   );
 }
