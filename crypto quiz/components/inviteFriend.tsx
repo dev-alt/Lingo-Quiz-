@@ -20,7 +20,7 @@ export const InviteFriend = () => {
       {/* --- Form Section --- */}
       <div className="cta-container">
         <label className="block mb-2">
-          Fill your friend's email address and we'll send them a personal
+          Fill your friends email address and well send them a personal
           invite{' '}
           <Icon icon="mdi:card-giftcard" className="inline text-yellow-400" />
         </label>

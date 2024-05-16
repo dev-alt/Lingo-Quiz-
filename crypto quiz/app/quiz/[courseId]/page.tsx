@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { title, subtitle } from "@/components/primitives";
-import RewardSelection from '@/components/rewardSection';
+import RewardSelection from '@/components/rewardSelection';
 
 interface Question {
   id: number;
@@ -151,7 +151,7 @@ export default function QuizPage() {
                     <div className="mt-4 text-center">
                       {timeUp ? (
                         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                          <h4 color="error">Time's Up!</h4>
+                          <h4 color="error">Times Up!</h4>
                         </motion.div>
                       ) : (
                         <h4>Time Remaining: {timeRemaining} seconds</h4>
@@ -164,8 +164,7 @@ export default function QuizPage() {
               <div className="absolute bottom-0 left-0 mt-4">
                 <Button
                   onClick={() => router.push('/')}
-                  className="bg-red-500 hover:bg-blue-900 text-white text-sm rounded-md md:text-base font-bold py-2 px-4 border-2 border-black shadow-lg">
-                
+                  className="bg-red-500 hover:bg-blue-900 text-white text-sm rounded-md md:text-base font-bold py-2 px-4 border-2 border-black shadow-lg">                
                   Exit
                 </Button>
               </div>

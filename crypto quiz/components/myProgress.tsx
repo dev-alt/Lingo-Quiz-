@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { Icon } from '@iconify/react';
-
+import NextImage from "next/image";
+import { Image } from '@nextui-org/react';
 interface SidebarItemProps {
     avatar: string;
     username: string;
@@ -45,7 +46,10 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
             <div className="p-6">
             {/* Avatar and user info */}
             <div className="flex items-center">
-                <img src={avatar} alt="avatar" className="w-12 h-12 rounded-full mr-4" />
+                <Image
+						as={NextImage}
+						width={300}
+						height={200}src={avatar} alt="avatar" className="w-12 h-12 rounded-full mr-4" />
                 <div className="flex flex-col">
                     <p className="text-white font-semibold whitespace-nowrap">{username}</p>
                     <div className="flex items-start">

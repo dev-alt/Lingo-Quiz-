@@ -9,9 +9,11 @@ import {
 	CardFooter,
 	Divider,
 	Link,
-} from '@nextui-org/react'; // Removed Grid, Row, and Text
+	Image
+} from '@nextui-org/react';
 import { Icon } from '@iconify/react';
-import { CSSProperties } from 'react'; // Import CSSProperties for style typing
+import NextImage from "next/image";
+
 
 interface ProfilePageProps {
 	username: string;
@@ -65,10 +67,14 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
 			<div className=' shadow-lg shadow-slate-100'>
 				{/* Header Section */}
 				<div className="relative">
-					<img
-						src="https://e0.pxfuel.com/wallpapers/774/739/desktop-wallpaper-town-8-bit-resolution-artist-and-background-8-bit-anime.jpg" // Replace with actual image URL
+					<Image
+						as={NextImage}
+						width={300}
+						height={200}
+						src="https://e0.pxfuel.com/wallpapers/774/739/desktop-wallpaper-town-8-bit-resolution-artist-and-background-8-bit-anime.jpg"
 						alt="Profile Banner"
 						className="w-full h-40 object-cover rounded-lg mb-4"
+
 					/>
 					<div className="absolute bottom-4 left-4">
 						<Avatar src={fakeProfileData.avatarUrl} size="lg" color="default" />

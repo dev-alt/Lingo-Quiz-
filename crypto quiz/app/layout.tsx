@@ -52,7 +52,7 @@ export default function RootLayout({
 								{/* sidebar */}
 								<div className="bg-gray-800 md:min-h-screen md:w-80 flex flex-col items-stretch p-4 space-y-4">
 									<SidebarItem
-										avatar="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+										avatar=""
 										username="John Doe"
 										level={5}
 										totalXP={1200}

@@ -54,7 +54,7 @@ import {
 				
 			  ))}
 			</ul>	
-			<Avatar  src="https://i.pravatar.cc/150?u=a042581f4e29026024d"  />
+			<Avatar  src=""  />
 		  </NavbarItem>
 		</NavbarContent>
   
