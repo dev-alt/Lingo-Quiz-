@@ -4,15 +4,8 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 import NextImage from "next/image";
 import { Image } from '@nextui-org/react';
-interface SidebarItemProps {
-    avatar: string;
-    username: string;
-    level: number;
-    totalXP: number;
-    rank: string;
-    badges: number;
-    streak: number;
-}
+import { SidebarItemProps } from '../types/sidebar.types';
+
 
 const SidebarItem: React.FC<SidebarItemProps> = ({
     avatar,

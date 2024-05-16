@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Button, Card, CardBody, Progress, Spacer } from '@nextui-org/react';
 import { Icon } from '@iconify/react';
 import { useParams } from 'next/navigation';
@@ -9,19 +9,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { title, subtitle } from "@/components/primitives";
 import RewardSelection from '@/components/rewardSelection';
-
-interface Question {
-  id: number;
-  text: string;
-  options: string[];
-  correctAnswer: number;
-}
+import { Question, Quiz } from '/types/quiz.types';
 
 const quizQuestions: Question[] = [
   { id: 1, text: "What is the first cryptocurrency?", options: ["Bitcoin", "Ethereum", "Litecoin", "Dogecoin"], correctAnswer: 0 },
-   //  { id: 2, text: "What is the underlying technology of most cryptocurrencies?", options: ["Artificial Intelligence", "Blockchain", "Cloud Computing", "Internet of Things"], correctAnswer: 1 },
-   //  { id: 3, text: "What is the process of verifying transactions on a blockchain called?", options: ["Mining", "Trading", "Staking", "Hacking"], correctAnswer: 0 },
-   //  { id: 4, text: "What is the maximum supply of Bitcoin?", options: ["10 million", "21 million", "100 million", "1 billion"], correctAnswer: 1 },
+  //  { id: 2, text: "What is the underlying technology of most cryptocurrencies?", options: ["Artificial Intelligence", "Blockchain", "Cloud Computing", "Internet of Things"], correctAnswer: 1 },
+  //  { id: 3, text: "What is the process of verifying transactions on a blockchain called?", options: ["Mining", "Trading", "Staking", "Hacking"], correctAnswer: 0 },
+  //  { id: 4, text: "What is the maximum supply of Bitcoin?", options: ["10 million", "21 million", "100 million", "1 billion"], correctAnswer: 1 },
   // { id: 5, text: "What is the name of the creator of Bitcoin?", options: ["Satoshi Nakamoto", "Vitalik Buterin", "Charlie Lee", "Elon Musk"], correctAnswer: 0 },
   // { id: 6, text: "What is the name of the first decentralized cryptocurrency exchange?", options: ["Binance", "Uniswap", "Coinbase", "EtherDelta"], correctAnswer: 3 },
   // { id: 7, text: "What is the name of the Ethereum token standard used for creating new tokens?", options: ["ERC-20", "ERC-721", "ERC-1155", "ERC-777"], correctAnswer: 0 },
@@ -45,11 +39,11 @@ export default function QuizPage() {
   const [endTime, setEndTime] = useState<number | null>(null);
   const [timeUp, setTimeUp] = useState(false);
 
-  const handleAnswerSelect = (optionIndex: number) => {
+  const handleAnswerSelect = useCallback((optionIndex: number) => {
     setSelectedOption(optionIndex);
-  };
+  }, []);
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = useCallback(() => {
     if (selectedOption === quizQuestions[currentQuestion].correctAnswer) {
       setScore(score + 1);
     }
@@ -61,7 +55,8 @@ export default function QuizPage() {
       setEndTime(Date.now());
       setShowResult(true);
     }
-  };
+  }, [currentQuestion, quizQuestions, selectedOption, score]);
+
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
 
@@ -87,91 +82,85 @@ export default function QuizPage() {
 
   const handleRewardSelect = (rewardNumber: number) => {
     console.log('Reward selected:', rewardNumber);
-    // Add your logic to handle reward selection here
   };
 
   return (
     <div className="container">
-      <div><h1 className={title({ color: "violet" })}>Crypto Quiz</h1>
-        <h2 className="text-white">Test your knowledge of cryptocurrencies</h2>
-      </div>
-
-        <AnimatePresence>
-          <motion.div
-            key={pathname}
-            className="w-full max-w-3xl text-center"
-            variants={quizContainerVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            whileHover={{ scale: 1.05 }}
-          >
-            <Card className=" bg-yellow-400 border-4 border-teal-500 relative flex flex-col mt-8 ">
-              <CardBody className="text-black flex-grow text-center pb-8">
-                {showResult ? (
-                  <div className="flex flex-col items-center">
-                    <h3 className="text-2xl md:text-3xl font-bold mb-4">Quiz Finished!</h3>
-                    <p className="text-lg">Your final score: {score} out of {quizQuestions.length}</p>
-                    <p className="text-lg">Total time taken: {totalTimeTaken} seconds</p>
-                                      {/* Show reward selection if score is greater than 80% */}
+      <AnimatePresence>
+        <motion.div
+          key={pathname}
+          className="w-full max-w-3xl text-center"
+          variants={quizContainerVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          whileHover={{ scale: 1.05 }}
+        >
+          <Card className="bg-yellow-400 border-4 border-teal-500 flex flex-col mt-8">
+            <CardBody className="text-black flex-grow text-center pb-8">
+              {showResult ? (
+                <div className="flex flex-col items-center">
+                  <h3 className="text-2xl md:text-3xl font-bold mb-4">Quiz Finished!</h3>
+                  <p className="text-lg">Your final score: {score} out of {quizQuestions.length}</p>
+                  <p className="text-lg">Total time taken: {totalTimeTaken} seconds</p>
+                  {/* Show reward selection if score is greater than 80% */}
                   {score / quizQuestions.length > 0.8 && (
-                                       <RewardSelection onRewardSelect={handleRewardSelect} />
+                    <RewardSelection onRewardSelect={handleRewardSelect} />
                   )}
 
+                </div>
+              ) : (
+                <div>
+                  <Progress
+                    color="primary"
+                    value={((currentQuestion + 1) / quizQuestions.length) * 100}
+                    className="mb-4"
+                  />
+                  <h4>{quizQuestions[currentQuestion].text}</h4>
+                  <ul className="list-none p-0">
+                    {quizQuestions[currentQuestion].options.map((option, index) => (
+                      <li key={index}>
+                        <Button
+                          onClick={() => handleAnswerSelect(index)}
+                          className={`text-black my-2 w-full ${selectedOption === index ? 'bg-green-400' : 'bg-blue-200'}`}
+                        >
+                          {option}
+                        </Button>
+                      </li>
+                    ))}
+                  </ul>
+                  <Spacer y={1} />
+                  <div className="text-right">
+                    <Button
+                      isDisabled={selectedOption === null}
+                      onClick={handleNextQuestion}
+                      className="text-white bg-teal-400 disabled:bg-gray-900 disabled:text-white hover:bg-teal-600 text-sm rounded-md md:text-base font-bold py-2 px-4 shadow-lg"                        >
+                      Next
+                    </Button>
                   </div>
-                ) : (
-                  <div>
-                    <Progress
-                      color="primary"
-                      value={((currentQuestion + 1) / quizQuestions.length) * 100}
-                      className="mb-4"
-                    />
-                    <h4>{quizQuestions[currentQuestion].text}</h4>
-                    <ul className="list-none p-0">
-                      {quizQuestions[currentQuestion].options.map((option, index) => (
-                        <li key={index}>
-                          <Button                        
-                            onClick={() => handleAnswerSelect(index)}
-                            className={`text-black my-2 w-full ${selectedOption === index ? 'bg-green-400' : 'bg-blue-200'}`} 
-                          >
-                            {option}
-                          </Button>
-                        </li>
-                      ))}
-                    </ul>
-                    <Spacer y={1} />
-                    <div className="text-right">
-                      <Button
-                        isDisabled={selectedOption === null}
-                        onClick={handleNextQuestion}
-                        className="text-white bg-teal-400 disabled:bg-gray-900 disabled:text-white hover:bg-teal-600 text-sm rounded-md md:text-base font-bold py-2 px-4 shadow-lg"                        >
-                        Next
-                      </Button>
-                    </div>
-                    <div className="mt-4 text-center">
-                      {timeUp ? (
-                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                          <h4 color="error">Times Up!</h4>
-                        </motion.div>
-                      ) : (
-                        <h4>Time Remaining: {timeRemaining} seconds</h4>
-                      )}
-                    </div>
+                  <div className="mt-4 text-center">
+                    {timeUp ? (
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                        <h4 color="error">Times Up!</h4>
+                      </motion.div>
+                    ) : (
+                      <h4>Time Remaining: {timeRemaining} seconds</h4>
+                    )}
                   </div>
-                )}
-              </CardBody>
-              {/* Exit Button */}
-              <div className="absolute bottom-0 left-0 mt-4">
-                <Button
-                  onClick={() => router.push('/')}
-                  className="bg-red-500 hover:bg-blue-900 text-white text-sm rounded-md md:text-base font-bold py-2 px-4 border-2 border-black shadow-lg">                
-                  Exit
-                </Button>
-              </div>
-            </Card>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
+                </div>
+              )}
+            </CardBody>
+            {/* Exit Button */}
+            <div className="absolute bottom-0 left-0 mt-4">
+              <Button
+                onClick={() => router.push('/')}
+                className="bg-red-500 hover:bg-blue-900 text-white text-sm rounded-md md:text-base font-bold py-2 px-4 border-2 border-black shadow-lg">
+                Exit
+              </Button>
+            </div>
+          </Card>
+        </motion.div>
+      </AnimatePresence>
+    </div>
   );
 }

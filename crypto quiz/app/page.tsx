@@ -1,5 +1,5 @@
 'use client'
-import { Link } from "@nextui-org/link";
+import Link from 'next/link'
 import { Snippet } from "@nextui-org/snippet";
 import { Code } from "@nextui-org/code"
 import { button as buttonStyles } from "@nextui-org/theme";
@@ -18,6 +18,9 @@ export default function Home() {
 				<h1 className={title({ color: "violet" })} >CryptoQuiz&nbsp;</h1>
 			</div>
 			<div className="inline-block text-center justify-center py-4 gap-8 md:py-10 space-y-8 max-w-4xl md:ml-10">
+				<Link href={`/quiz/create/`} className="flex items-center justify-between w-full text-white">	
+					Create New Quiz
+				</Link>
 				<CourseCard
 					title="Introduction to Cryptography"
 					courseId="1"

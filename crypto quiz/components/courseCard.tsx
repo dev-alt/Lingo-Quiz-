@@ -3,14 +3,8 @@ import { motion } from 'framer-motion';
 import { Progress } from "@nextui-org/progress";
 import Link from 'next/link'
 import { Icon } from '@iconify/react';
+import { CourseCardProps } from '../types/quizCard.types';
 
-interface CourseCardProps {
-  title: string;
-  courseId: string;
-  progress: number;
-  maxProgress: number;
-  onResume: () => void;
-}
 
 const CourseCard: React.FC<CourseCardProps> = ({
   title,

@@ -2,19 +2,8 @@
 
 import React from 'react';
 import ProductCard from './productCard';
+import { Product, ProductListProps } from '../types/products.types';
 
-interface Product {
-    id: number;
-    title: string;
-    imageUrl: string;
-    description: string;
-    price: number;
-}
-
-
-interface ProductListProps {
-    products: Product[];
-}
 
 const ProductList: React.FC<ProductListProps> = ({ products }) => (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">

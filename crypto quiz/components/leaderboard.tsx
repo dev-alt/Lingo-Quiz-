@@ -2,14 +2,9 @@
 
 import { Card, CardBody, Tab, Tabs, Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from '@nextui-org/react';
 import { useState } from 'react';
+import { LeaderboardEntry } from '../types/leaderboard.types';
 
-interface LeaderboardEntry {
-  id: number;
-  rank: number;
-  username: string;
-  xp: number;
-  correctAnswers: number;
-}
+
 
 function Leaderboard({ data }: { data: LeaderboardEntry[] }) {
   const columns: { key: keyof LeaderboardEntry; label: string }[] = [

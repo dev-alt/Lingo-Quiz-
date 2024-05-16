@@ -3,8 +3,6 @@ import React, { useState, memo } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 
-
-
 const RewardBox = memo(
     ({ onClick, reward, isSelected }: { onClick: () => void; reward: string; isSelected: boolean }) => {
         const [isExploded, setIsExploded] = useState(isSelected);
