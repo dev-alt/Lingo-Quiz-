@@ -28,7 +28,7 @@ return (
       variants={variants}
       transition={{ duration: 0.5 }}
       onSubmit={handleSubmit}
-      className="bg-white p-8 rounded-lg shadow-md w-80 space-y-4"
+      className="bg-white p-8 rounded-lg shadow-md w-96 space-y-4"
     >
       <h2 className="text-2xl font-semibold text-center">Sign in to save your progress!</h2>
 

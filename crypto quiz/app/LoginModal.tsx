@@ -36,8 +36,7 @@ const LoginModal = () => {
             exit="hidden"
             variants={backdropVariants}
             transition={{ duration: 0.2 }}
-            className="fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50"
-          >
+            className="fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50"          >
             <motion.div
               variants={modalVariants}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}

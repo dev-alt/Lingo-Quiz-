@@ -5,7 +5,7 @@ import { Button, Card, CardBody, Progress, Spacer } from '@nextui-org/react';
 import { Icon } from '@iconify/react';
 import { useParams } from 'next/navigation';
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Reorder } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { title, subtitle } from "@/components/primitives";
 import RewardSelection from '@/components/rewardSelection';
