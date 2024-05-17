@@ -18,10 +18,13 @@ import { Avatar } from "@nextui-org/avatar";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
 import { useState } from "react";
 import { useRef } from "react";
+import { ReactNode } from 'react'; // Import ReactNode for the prop type
+interface NavbarProps {
+	isLoggedIn: boolean;
+	loginElement: ReactNode;
+  }
 
-
-
-export const Navbar = () => {
+  export const Navbar = ({ isLoggedIn, loginElement }: NavbarProps) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const handleMenuItemClick = () => {

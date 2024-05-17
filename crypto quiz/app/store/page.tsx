@@ -5,7 +5,7 @@ import generateFakeProducts from '@/components/generateFakeData';
 import { Button, Spacer, Input } from '@nextui-org/react';
 import { useState } from 'react';
 
-export default function BlogPage() {
+export default function StorePage() {
 	const fakeProducts = generateFakeProducts(10);
 	const [searchQuery, setSearchQuery] = useState('');
 	const filteredProducts = fakeProducts.filter((product) =>
