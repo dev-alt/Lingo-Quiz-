@@ -22,7 +22,7 @@ const ProductCard: React.FC<ProductCardComponentProps> = ({ product, onAddToCart
       ) : (
         <>
           <motion.div 
-            whileHover={{ scale: 1.05 }} 
+            whileHover={{ scale: 1.1 }} 
             className="cursor-pointer mb-4"
           >
             <Image

@@ -86,7 +86,8 @@ export default function QuizPage() {
 
   return (
     <div className="container">
-      <AnimatePresence>
+      <AnimatePresence       
+      >
         <motion.div
           key={pathname}
           className="w-full max-w-3xl text-center"
@@ -98,7 +99,15 @@ export default function QuizPage() {
         >
           <Card className="bg-yellow-400 border-4 border-teal-500 flex flex-col mt-8">
             <CardBody className="text-black flex-grow text-center pb-8">
+            <AnimatePresence mode='wait'>
               {showResult ? (
+                <motion.div
+                key="result"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5, ease: 'easeInOut' }}
+              >
                 <div className="flex flex-col items-center">
                   <h3 className="text-2xl md:text-3xl font-bold mb-4">Quiz Finished!</h3>
                   <p className="text-lg">Your final score: {score} out of {quizQuestions.length}</p>
@@ -109,48 +118,56 @@ export default function QuizPage() {
                   )}
 
                 </div>
+              </motion.div>
               ) : (
-                <div>
-                  <Progress
-                    color="primary"
-                    value={((currentQuestion + 1) / quizQuestions.length) * 100}
-                    className="mb-4"
-                  />
-                  <h4>{quizQuestions[currentQuestion].text}</h4>
-                  <ul className="list-none p-0">
-                    {quizQuestions[currentQuestion].options.map((option, index) => (
-                      <li key={index}>
-                        <Button
-                          onClick={() => handleAnswerSelect(index)}
-                          className={`text-black my-2 w-full ${selectedOption === index ? 'bg-green-400' : 'bg-blue-200'}`}
-                        >
-                          {option}
-                        </Button>
-                      </li>
-                    ))}
-                  </ul>
-                  <Spacer y={1} />
-                  <div className="text-right">
-                    <Button
-                      isDisabled={selectedOption === null}
-                      onClick={handleNextQuestion}
-                      className="text-white bg-teal-400 disabled:bg-gray-900 disabled:text-white hover:bg-teal-600 text-sm rounded-md md:text-base font-bold py-2 px-4 shadow-lg"                        >
-                      Next
-                    </Button>
-                  </div>
-                  <div className="mt-4 text-center">
-                    {timeUp ? (
-                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                        <h4 color="error">Times Up!</h4>
-                      </motion.div>
-                    ) : (
-                      <h4>Time Remaining: {timeRemaining} seconds</h4>
-                    )}
-                  </div>
-                </div>
-              )}
+                <motion.div
+                    key="quiz"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5, ease: 'easeInOut' }}
+                  >
+                    <Progress
+                      color="primary"
+                      value={((currentQuestion + 1) / quizQuestions.length) * 100}
+                      className="mb-4"
+                    />
+                    <h4>{quizQuestions[currentQuestion].text}</h4>
+                    <ul className="list-none p-0">
+                      {quizQuestions[currentQuestion].options.map((option, index) => (
+                        <li key={index}>
+                          <Button
+                            onClick={() => handleAnswerSelect(index)}
+                            className={`text-black my-2 w-full ${selectedOption === index ? 'bg-green-400' : 'bg-blue-200'}`}
+                          >
+                            {option}
+                          </Button>
+                        </li>
+                      ))}
+                    </ul>
+                    <Spacer y={1} />
+                    <div className="text-right">
+                      <Button
+                        isDisabled={selectedOption === null}
+                        onClick={handleNextQuestion}
+                        className="text-white bg-teal-400 disabled:bg-gray-900 disabled:text-white hover:bg-teal-600 text-sm rounded-md md:text-base font-bold py-2 px-4 shadow-lg"
+                      >
+                        Next
+                      </Button>
+                    </div>
+                    <div className="mt-4 text-center">
+                      {timeUp ? (
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                          <h4 color="error">Times Up!</h4>
+                        </motion.div>
+                      ) : (
+                        <h4>Time Remaining: {timeRemaining} seconds</h4>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </CardBody>
-            {/* Exit Button */}
             <div className="absolute bottom-0 left-0 mt-4">
               <Button
                 onClick={() => router.push('/')}
