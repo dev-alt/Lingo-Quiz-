@@ -4,7 +4,6 @@ import { Card, CardBody, Tab, Tabs, Table, TableBody, TableHeader, TableCell, Ta
 import { useState } from 'react';
 import Leaderboard from '@/components/leaderboard';
 
-
 export default function LeaderboardLayout() {
 	const [leaderboardData] = useState({
 		Weekly: [
@@ -33,7 +32,7 @@ export default function LeaderboardLayout() {
 		  <Tabs
 			aria-label="Leaderboard Tabs"
 			items={tabs}
-			className="text-black justify-center mb-4"
+			className="text-black mb-4 mt-4"
 			color="primary"
 		  >
 			{(item) => (

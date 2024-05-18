@@ -55,7 +55,7 @@ export default function QuizPage() {
       setEndTime(Date.now());
       setShowResult(true);
     }
-  }, [currentQuestion, quizQuestions, selectedOption, score]);
+  }, [currentQuestion, selectedOption, score]);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
