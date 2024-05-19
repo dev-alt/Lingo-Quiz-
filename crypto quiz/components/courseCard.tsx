@@ -25,7 +25,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
     >
       {/* Title */}
       <div className="flex items-center justify-between w-full">
-        <Link href={`/quiz/${courseId}`} className="flex items-center justify-between w-full">
+        <Link href={`/quiz/${courseId}`} className="flex items-center justify-between ">
           <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-2" style={{ fontFamily: "fontRoboto" }}>
             <Icon icon="mdi:trophy-outline" className="mr-2 text-black-400" />
             {title}
