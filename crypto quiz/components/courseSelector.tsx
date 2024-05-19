@@ -1,50 +1,93 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface Course {
-  name: string;
-  level: 'Beginner' | 'Intermediate' | 'Advanced'; // Strict typing for levels
+  _id: string;
+  title: string;
+  language: string;
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
 }
 
-const courses: Course[] = [
-  { name: 'Beginner', level: 'Beginner' },
-  { name: 'Intermediate', level: 'Intermediate' },
-  { name: 'Advanced', level: 'Advanced' },
-  { name: 'Chainlink', level: 'Intermediate' },
-  { name: 'MultiversX', level: 'Advanced' },
-  // ... add more courses
-];
-
 const CourseSelector: React.FC = () => {
-  const [selectedLevel, setSelectedLevel] = useState<Course['level'] | null>(null);
+  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
+  const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null);
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
 
-  const handleLevelClick = (level: Course['level']) => {
-    setSelectedLevel(level);
-    // filter the courses based on the selected level
-     const filteredCourses = courses.filter((course) => course.level === level);
-    console.log(filteredCourses);
-    
+  useEffect(() => {
+    const fetchQuizzes = async () => {
+      const response = await fetch('http://localhost:7100/api/quizzes/');
+      if (response.ok) {
+        const data: Course[] = await response.json();
+        setCourses(data);
+        setFilteredCourses(data);
+      } else {
+        console.error('Failed to fetch quizzes');
+      }
+    };
+    fetchQuizzes();
+  }, []);
 
-
+  const handleLanguageClick = (language: string) => {
+    setSelectedLanguage(language);
   };
 
-  return (
-    <div className="bg-gray-900 p-4 rounded-md">
-      <h2 className="text-2xl font-semibold text-white mb-4">Courses</h2>
+  const handleDifficultyClick = (difficulty: string) => {
+    setSelectedDifficulty(difficulty);
+  };
 
-      <div className="flex flex-wrap gap-2">
-        {courses.map((course) => (
-          <button
-            key={course.name}
-            className={`px-4 py-2 rounded-md text-white transition duration-300 ${
-              selectedLevel === course.level
-                ? 'bg-blue-500'
-                : 'bg-gray-700 hover:bg-gray-600'
-            }`}
-            onClick={() => handleLevelClick(course.level)}
-          >
-            {course.name}
-          </button>
+  useEffect(() => {
+    const newFilteredCourses = courses.filter((course) => {
+      const matchesLanguage = !selectedLanguage || course.language === selectedLanguage;
+      const matchesDifficulty = !selectedDifficulty || course.difficulty === selectedDifficulty;
+      return matchesLanguage && matchesDifficulty;
+    });
+    setFilteredCourses(newFilteredCourses);
+  }, [selectedLanguage, selectedDifficulty, courses]);
+
+  const uniqueLanguages = Array.from(new Set(courses.map(course => course.language)));
+  const uniqueDifficulties = Array.from(new Set(courses.map(course => course.difficulty)));
+
+  return (
+    <div className="bg-gray-900 p-6 rounded-md shadow-lg shadow-teal-500 border-2 border-teal-500">
+      <h2 className="text-3xl font-semibold text-white mb-6">Courses</h2>
+      <div className="flex flex-col md:flex-row md:justify-between gap-4 mb-6">
+        <div className="flex flex-wrap gap-2">
+          {uniqueLanguages.map((language) => (
+            <button
+              key={language}
+              className={`px-4 py-2 rounded-md text-white transition duration-300  ${
+                selectedLanguage === language ? 'bg-yellow-600' : 'bg-gray-700 hover:bg-gray-600'
+              }`}
+              onClick={() => handleLanguageClick(language)}
+            >
+              {language}
+            </button>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          {uniqueDifficulties.map((difficulty) => (
+            <button
+              key={difficulty}
+              className={`px-4 py-2 rounded-md text-white transition duration-300 ${
+                selectedDifficulty === difficulty ? 'bg-yellow-600' : 'bg-gray-700 hover:bg-gray-600'
+              }`}
+              onClick={() => handleDifficultyClick(difficulty)}
+            >
+              {difficulty}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filteredCourses.map((course) => (
+          <div key={course._id} className="bg-gray-800 p-4 rounded-md text-white shadow hover:shadow-lg transition duration-300">
+            <h3 className="text-xl font-bold">{course.title}</h3>
+            <p className="mt-2">Language: {course.language}</p>
+            <p>Difficulty: {course.difficulty}</p>
+          </div>
         ))}
       </div>
     </div>
