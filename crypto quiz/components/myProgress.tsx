@@ -85,7 +85,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
 
             {/* My Profile button */}
 
-            <a href="/profile" className="block mt-4 flex justify-center">
+            <a href="/profile" className="mt-4 flex justify-center">
                 <button className="bg-blue-500 hover:bg-blue-900 text-white text-sm rounded-md md:text-base font-bold py-2 px-4 border-2 border-black shadow-lg">
                     My Profile
                 </button>

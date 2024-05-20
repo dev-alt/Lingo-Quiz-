@@ -13,7 +13,7 @@ export default function StorePage() {
 	  );
 	return (
 
-		<div className="max-w-7xl mx-auto py-12  mb-4">
+		<div className="max-w-7xl mx-auto py-12 bg-gray-900 p-6 rounded-md shadow-lg shadow-teal-500 border-2 border-teal-500">
 		<div className="flex items-center justify-between mb-8">
 		<h1 className={title({ color: "violet" })}>
 		  CryptoQuizz Store

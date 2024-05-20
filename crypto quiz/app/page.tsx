@@ -45,7 +45,6 @@ export default function Home() {
               courseId={courseId.toString()} 
               progress={30}
               maxProgress={100}
-              onResume={() => handleResume(courseId)}
             />
           </Reorder.Item>
         ))}

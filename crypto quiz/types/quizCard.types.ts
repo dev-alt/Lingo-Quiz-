@@ -3,5 +3,4 @@ export interface CourseCardProps {
     courseId: string;
     progress: number;
     maxProgress: number;
-    onResume: () => void;
   }
