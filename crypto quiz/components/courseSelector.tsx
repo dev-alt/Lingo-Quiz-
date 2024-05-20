@@ -25,6 +25,8 @@ const GET_COURSES_DATA = gql`
       title
       language
       difficulty
+      duration
+      description
     }
   }
 `;
@@ -61,6 +63,7 @@ const CourseSelector: React.FC = () => {
     setShowSpinner(false);
   }, 1000);
 
+  console.log(data)
   return (
     <div className="bg-gray-900 p-6 rounded-md shadow-lg shadow-teal-500 border-2 border-teal-500">
       <h2 className="text-3xl font-semibold text-white mb-6">
@@ -102,16 +105,11 @@ const CourseSelector: React.FC = () => {
               key={course._id}
               className="bg-gray-800 p-4 rounded-md text-white shadow hover:shadow-lg transition duration-300"
             >
-              <CourseCard
-                title={course.title}
-                courseId={course._id.toString()}
-                progress={0}
-                maxProgress={100}
-              />
+            <CourseCard course={course} />  
             </div>
           ))
         ) : (
-          <p>No courses found for this selection.</p> // Display a message when there are no courses
+          <p>No courses found for this selection.</p>
         )}
       </div>
     </div>

@@ -5,7 +5,7 @@ import { Code } from "@nextui-org/code"
 import { button as buttonStyles } from "@nextui-org/theme";
 import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
-import CourseCard from "@/components/courseCard";
+import CourseCard from "@/components/quizCard";
 import { motion, Reorder } from 'framer-motion'; //
 import { useState } from 'react';
 
