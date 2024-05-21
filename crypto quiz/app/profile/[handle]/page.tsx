@@ -80,7 +80,7 @@ import { useRouter } from 'next/router';
   const ProfilePage: React.FC<ProfilePageDataProps & { params: { handle: string } }> = async ({ params }) => {
 	const router = useRouter();
 	const { handle } = router.query as { handle: string };
-	const encodedHandle = handle ? encodeURIComponent(handle) : ''; // Encode the handle if it exists
+	const encodedHandle = handle ? encodeURIComponent(handle) : ''; 
   
 
 	const profileData = await fetchProfileData(encodedHandle);

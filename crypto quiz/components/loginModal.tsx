@@ -1,7 +1,6 @@
-'use client';
 import { useState } from "react";
 import { AnimatePresence, motion } from 'framer-motion';
-import LoginForm from "./user/page";
+import LoginForm from '../app/user/page'
 
 const LoginModal = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -26,7 +25,7 @@ const LoginModal = () => {
 
   return (
     <div>
-      <button onClick={handleLoginClick} className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Login</button>
+      <button onClick={handleLoginClick}>Login</button>
 
       <AnimatePresence initial={false}>
         {showLogin && (
@@ -36,7 +35,8 @@ const LoginModal = () => {
             exit="hidden"
             variants={backdropVariants}
             transition={{ duration: 0.2 }}
-            className="fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50"          >
+            className="fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50"
+          >
             <motion.div
               variants={modalVariants}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}

@@ -14,7 +14,7 @@ interface LoginFormProps {
 const LoginForm: React.FC<LoginFormProps> = ({ onClose }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(''); 
+  const [error, setError] = useState('');
   const { login } = useAuth();
   const router = useRouter();
 
@@ -24,13 +24,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ onClose }) => {
     try {
       await login(email, password);
       console.log('Logged in successfully');
-      onClose(); 
-
-
+      onClose();
     } catch (err: any) {
-      // Handle errors, show feedback (e.g., using a toast notification)
       setError(err.message);
-      toast.error('Incorrect email or password.'); 
+      toast.error('Incorrect email or password.');
     }
   };
 
@@ -40,7 +37,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onClose }) => {
   };
 
   return (
-    <motion.form 
+    <motion.form
       initial="hidden"
       animate="visible"
       variants={variants}

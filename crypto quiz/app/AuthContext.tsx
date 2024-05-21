@@ -46,24 +46,23 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const token = localStorage.getItem("token");
-        if (token) {
-          const decodedToken = jwtDecode(token);
-          if (
-            decodedToken &&
-            decodedToken.exp &&
-            decodedToken.exp * 1000 > Date.now()
-          ) {
+        if (typeof window !== 'undefined') {
+          const token = localStorage.getItem('token');
+          if (token) {
+            const decodedToken = jwtDecode(token);
+            if (decodedToken && decodedToken.exp && decodedToken.exp * 1000 > Date.now()) {
               setIsLoggedIn(true);
+
+            } else {
+              setIsLoggedIn(false);
+              localStorage.removeItem('token');
+            }
           } else {
             setIsLoggedIn(false);
-            localStorage.removeItem('token');
           }
-        } else {
-          setIsLoggedIn(false);
         }
       } catch (error) {
-        console.error("Authentication check error:", error);
+        console.error('Authentication check error:', error);
         setIsLoggedIn(false);
       } finally {
         setIsLoading(false);
@@ -72,6 +71,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     checkAuthStatus();
   }, []);
+
 
   const login = async (email: string, password: string) => {
     try {
@@ -98,6 +98,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const logout = () => {
+    console.log("Logging out");
     setUser(null);
     setIsLoggedIn(false);
     localStorage.removeItem("token");
