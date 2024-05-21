@@ -5,11 +5,13 @@ import { Icon } from '@iconify/react';
 import NextImage from "next/image";
 import { Image } from '@nextui-org/react';
 import { SidebarItemProps } from '../types/sidebar.types';
+import Link from 'next/link';
 
 
 const SidebarItem: React.FC<SidebarItemProps> = ({
     avatar,
     username,
+    handle,
     level,
     totalXP,
     rank,
@@ -85,11 +87,10 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
 
             {/* My Profile button */}
 
-            <a href="/profile" className="mt-4 flex justify-center">
-                <button className="bg-blue-500 hover:bg-blue-900 text-white text-sm rounded-md md:text-base font-bold py-2 px-4 border-2 border-black shadow-lg">
+            <Link href={`/profile/${handle}`} className="bg-blue-500 hover:bg-blue-900 text-white text-sm rounded-md md:text-base font-bold py-2 px-4 border-2 border-black shadow-lg">
                     My Profile
-                </button>
-            </a>
+              
+            </Link>       
         </div>
         </div >
     );

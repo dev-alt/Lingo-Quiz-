@@ -1,8 +1,5 @@
 'use client'
 import Link from 'next/link'
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code"
-import { button as buttonStyles } from "@nextui-org/theme";
 import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
 import CourseCard from "@/components/quizCard";

@@ -9,10 +9,39 @@ import { InviteFriend } from "@/components/inviteFriend";
 import { CommunityBar } from "@/components/communityInfo";
 import { useAuth } from "./AuthContext";
 import LoginModal from "./LoginModal";
+import { useQuery, gql } from '@apollo/client'; 
 
+
+// GraphQL query to fetch user profile data
+const GET_USER_PROFILE_BY_USER_ID = gql`
+  query GetUserProfileByUserId($userId: ID!) {
+    profileByUserId(userId: $userId) {
+      _id
+      username
+      handle
+      level
+      xp
+      imageUrl
+    }
+  }
+`;
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, user } = useAuth();
+
+    console.log("user",user);
+
+  // Fetch user profile data when logged in
+  const { loading, error, data: profileData } = useQuery(GET_USER_PROFILE_BY_USER_ID, {  
+    variables: { userId: user?.userId },
+    onError: (error) => {
+      console.error("Error fetching user profile:", error);
+    },
+  });
+  console.log(profileData);
+
+
+  console.log("fetching profile",profileData);
 
     return (
         <div className="relative flex flex-col min-h-screen">
@@ -22,14 +51,15 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
                     {/* sidebar */}
                     <div className="bg-gray-800 md:min-h-screen md:w-80 flex flex-col items-stretch p-4 space-y-4">
                         <SidebarItem
-                            avatar=""
-                            username="John Doe"
-                            level={5}
-                            totalXP={1200}
-                            rank={"Bronze"}
-                            badges={5}
-                            streak={3}
-                        />
+                        avatar={profileData?.profileByUserId?.avatarUrl || ""}
+                        username={profileData?.profileByUserId?.username || "Guest"}
+                        handle={profileData?.profileByUserId?.handle || "guest"}
+                        level={profileData?.profileByUserId?.level || 1}
+                        totalXP={profileData?.profileByUserId?.xp || 0}
+                        rank={profileData?.profileByUserId?.rank || "Bronze"}
+                        badges={profileData?.profileByUserId?.badges || []}
+                        streak={profileData?.profileByUserId?.streak || 0}
+                      />
                         <XpBar />
                         <div className="hidden md:flex">
                             <InviteFriend />
