@@ -57,6 +57,11 @@ const CourseSelector: React.FC = () => {
   const handleDifficultyClick = (difficulty: string) => {
     setSelectedDifficulty(difficulty);
   };
+  const handleShowAllCourses = () => {
+    setSelectedLanguage("");
+    setSelectedDifficulty("");
+  };
+
 
   // Timeout for loading spinner
   setTimeout(() => {
@@ -79,7 +84,11 @@ const CourseSelector: React.FC = () => {
           >
             {language}
           </button>
+
         ))}
+        <button color="secondary" onClick={handleShowAllCourses} className="px-4 py-2 rounded-md text-white transition duration-300 bg-gray-700 hover:bg-gray-600">
+          Show All Courses
+        </button>
       </div>
 
       {/* Difficulty Filter (only when a language is selected) */}
@@ -105,7 +114,7 @@ const CourseSelector: React.FC = () => {
               key={course._id}
               className="bg-gray-800 p-4 rounded-md text-white shadow hover:shadow-lg transition duration-300"
             >
-            <CourseCard course={course} />  
+              <CourseCard course={course} />
             </div>
           ))
         ) : (

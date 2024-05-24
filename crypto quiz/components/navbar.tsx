@@ -47,7 +47,7 @@ export const Navbar = ({ isLoggedIn }: NavbarProps) => {
 			<ul className="hidden lg:flex gap-6 justify-start ml-2 items-center">
 			  {siteConfig.navItems.map((item) => (
 				<NavbarItem key={item.href}>
-				  <Link href={item.href} passHref className="relative font-bold text-3xl text-yellow-400 hover:text-blue-500 transition-colors duration-300">
+				  <Link href={item.href} passHref className="relative font-bold text-xl text-yellow-400 hover:text-blue-500 transition-colors duration-300">
 					{item.label}
 				  </Link>
 				</NavbarItem>
