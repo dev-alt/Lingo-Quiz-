@@ -17,7 +17,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
 
   return (
     <motion.div
-      className="relative overflow-hidden rounded-lg bg-yellow-400 p-4 md:p-6 shadow-[5px_5px_0px_0px_rgba(109,40,217)]"
+      className="relative overflow-hidden rounded-lg bg-yellow-400 p-4 md:p-6 shadow-[8px_8px_0px_0px_#2a4365]"
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.2 }}
     >
