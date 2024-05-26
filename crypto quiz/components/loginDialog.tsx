@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useAuth } from "@/app/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// Remove the unused import statement for 'error'
+import { motion } from 'framer-motion'; // Import Framer Motion
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -30,13 +30,22 @@ const LoginDialog: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
     }
   };
 
+  const containerVariants = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+    exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
+  };
+
+
+
   return (
     <Modal
         isOpen={isOpen}
         onClose={onClose}
         className="flex items-center justify-center"
     >
-        <ModalContent className="bg-yellow-400 border-4 border-teal-500 p-8 rounded shadow-md space-y-4">
+        <ModalContent className="border-4 border-teal-500 p-8 rounded shadow-md space-y-4" >
+
             {/* Title */}
             <h2 className="text-2xl font-semibold text-gray-800 text-center mb-4">
                 Sign in to save your progress!
@@ -71,12 +80,14 @@ const LoginDialog: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                 </div>
 
                 {/* Login Button */}
-                <button
-                    type="submit"
-                    className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                >
-                    Login
-                </button>
+                <motion.button
+              type="submit"
+              className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Login
+            </motion.button>
         </form>
       </ModalContent>
       <ToastContainer />
