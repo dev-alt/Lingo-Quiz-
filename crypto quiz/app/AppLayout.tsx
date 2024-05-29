@@ -8,7 +8,6 @@ import XpBar from "@/components/xpBar";
 import { InviteFriend } from "@/components/inviteFriend";
 import { CommunityBar } from "@/components/communityInfo";
 import { useAuth } from "./AuthContext";
-import LoginModal from "./LoginModal";
 import { useQuery, gql } from '@apollo/client'; 
 
 
@@ -21,7 +20,9 @@ const GET_USER_PROFILE_BY_USER_ID = gql`
       handle
       level
       xp
-      imageUrl
+      rank
+      badges
+      streak
     }
   }
 `;
@@ -45,20 +46,13 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
 
     return (
         <div className="relative flex flex-col min-h-screen">
-            <Navbar isLoggedIn={isLoggedIn} loginElement={<LoginModal />} />
+            <Navbar isLoggedIn={isLoggedIn}/>
             <main className="container mx-auto max-w-14xl pt-16 px-6 flex-grow bg-gray-800">
                 <div className="flex flex-col md:flex-row-reverse">
                     {/* sidebar */}
                     <div className="bg-gray-800 md:min-h-screen md:w-80 flex flex-col items-stretch p-4 space-y-4">
                         <SidebarItem
-                        avatar={profileData?.profileByUserId?.avatarUrl || ""}
-                        username={profileData?.profileByUserId?.username || "Guest"}
-                        handle={profileData?.profileByUserId?.handle || "guest"}
-                        level={profileData?.profileByUserId?.level || 1}
-                        totalXP={profileData?.profileByUserId?.xp || 0}
-                        rank={profileData?.profileByUserId?.rank || "Bronze"}
-                        badges={profileData?.profileByUserId?.badges || []}
-                        streak={profileData?.profileByUserId?.streak || 0}
+                        {...profileData?.profileByUserId}
                       />
                         <XpBar />
                         <div className="hidden md:flex">
