@@ -1,66 +1,26 @@
-import { gql, ApolloClient, InMemoryCache } from "@apollo/client";
-import  ProfilePageProps  from "@/components/profilePageProps";
-import ProfileClientComponent from "@/components/profilePageProps";
+"use client";
+import React from "react";
+import { gql, useQuery } from "@apollo/client";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import ProfileClientComponent from "@/components/profileClientComponent";
+import { GET_USER_PROFILE_BY_HANDLE } from "@/queries/graphql";
 
-const GET_USER_PROFILE_BY_HANDLE = gql`
-  query GetUserProfileByHandle($handle: String!) {
-    profile(handle: $handle) {
-      _id
-      userId
-      username
-      handle
-      bio
-      level
-      xp
-      challengesCompleted
-      rank
-      badges
-      streak
-      achievements
-      progress
-      joinDate
-      lastActive
-      avatarUrl
-      bannerUrl
-      ownedBanners {
-        tokenId
-        contractAddress
-      }
-      ownedAvatars {
-        tokenId
-        contractAddress
-      }
-    }
-  }
-`;
 
-async function fetchProfileData(handle: string): Promise<ProfilePageProps | null> {
-  const client = new ApolloClient({
-    uri: "http://localhost:7100/graphql",
-    cache: new InMemoryCache(),
-  });
+export default function ProfilePage() {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const handle = pathname.split("/").pop();
 
-  const { data } = await client.query({
-    query: GET_USER_PROFILE_BY_HANDLE,
+  const { loading, error, data } = useQuery(GET_USER_PROFILE_BY_HANDLE, {
     variables: { handle },
+    fetchPolicy: "cache-first",
+    nextFetchPolicy: "cache-only",
   });
 
-  return data.profile;
-}
 
-interface ProfilePageProps {
-  params: {
-    handle: string;
-  };
-}
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+  if (!data || !data.profileByHandle) return <p>Profile not found</p>;
 
-export default async function ProfilePage({ params }: ProfilePageProps) {
-  const encodedHandle = encodeURIComponent(params.handle);
-  const profileData = await fetchProfileData(encodedHandle);
-
-  if (!profileData) {
-    return <p>Profile not found</p>;
-  }
-
-  return <ProfileClientComponent profileData={profileData} />;
+  return <ProfileClientComponent profileData={data} />;
 }

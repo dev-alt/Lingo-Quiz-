@@ -51,11 +51,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           if (token) {
             const decodedToken = jwtDecode(token);
             if (decodedToken && decodedToken.exp && decodedToken.exp * 1000 > Date.now()) {
+              const userData = localStorage.getItem('user');
+              if (userData) {
+                setUser(JSON.parse(userData));
+              }
               setIsLoggedIn(true);
-
             } else {
               setIsLoggedIn(false);
               localStorage.removeItem('token');
+              localStorage.removeItem('user');
             }
           } else {
             setIsLoggedIn(false);
@@ -84,6 +88,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("token", data.token); 
+        localStorage.setItem("user", JSON.stringify(data.user));
         setUser(data.user); 
         setIsLoggedIn(true);
         router.push('/'); 
@@ -102,6 +107,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setUser(null);
     setIsLoggedIn(false);
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
   };
 
   return (
