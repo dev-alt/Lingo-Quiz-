@@ -31,3 +31,19 @@ export const GET_USER_PROFILE_BY_HANDLE = gql`
     }
   }
 `;
+
+// GraphQL query to fetch user profile data
+export const GET_USER_PROFILE_BY_USER_ID = gql`
+  query GetUserProfileByUserId($userId: ID!) {
+    profileByUserId(userId: $userId) {
+      _id
+      username
+      handle
+      level
+      xp
+      rank
+      badges
+      streak
+    }
+  }
+`;

@@ -1,14 +1,13 @@
 "use client";
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import ProfileClientComponent from "@/components/profileClientComponent";
 import { GET_USER_PROFILE_BY_HANDLE } from "@/queries/graphql";
 
 
 export default function ProfilePage() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const handle = pathname.split("/").pop();
 
   const { loading, error, data } = useQuery(GET_USER_PROFILE_BY_HANDLE, {

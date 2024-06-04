@@ -9,28 +9,14 @@ import { InviteFriend } from "@/components/inviteFriend";
 import { CommunityBar } from "@/components/communityInfo";
 import { useAuth } from "./AuthContext";
 import { useQuery, gql } from '@apollo/client';
+import { GET_USER_PROFILE_BY_USER_ID } from "@/queries/graphql";
+import LandingPage from "@/components/landingPage";
 
 
-// GraphQL query to fetch user profile data
-const GET_USER_PROFILE_BY_USER_ID = gql`
-  query GetUserProfileByUserId($userId: ID!) {
-    profileByUserId(userId: $userId) {
-      _id
-      username
-      handle
-      level
-      xp
-      rank
-      badges
-      streak
-    }
-  }
-`;
+
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const { isLoggedIn, user } = useAuth();
-
-  console.log("user", user);
 
   // Fetch user profile data when logged in
   const { loading, error, data: profileData } = useQuery(GET_USER_PROFILE_BY_USER_ID, {
@@ -38,12 +24,12 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
     onError: (error) => {
       console.error("Error fetching user profile:", error);
     },
+    skip: !isLoggedIn,
   });
-  console.log(profileData);
-
-
-  console.log("fetching profile", profileData);
-
+  
+  if (!isLoggedIn) {
+    return <LandingPage />;
+  }
   return (
     <div className="relative flex flex-col min-h-screen">
       <Navbar isLoggedIn={isLoggedIn} />
@@ -54,7 +40,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
             <SidebarItem
               {...profileData?.profileByUserId}
             />
-            <XpBar />
+            <XpBar {...profileData?.profileByUserId} />
             <div className="hidden md:flex">
               <InviteFriend />
             </div>

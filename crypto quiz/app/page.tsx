@@ -7,9 +7,6 @@ import { motion, Reorder } from 'framer-motion'; //
 import { useState } from 'react';
 
 export default function Home() {
-	const handleResume = (courseId: number) => {
-		console.log('Resuming course:', courseId);
-	};
 	const [courseOrder, setCourseOrder] = useState([1, 2, 3, 4, 5]); 
 	
 	const handleReorder = (newOrder: number[]) => {

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useAuth } from "@/app/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { motion } from 'framer-motion'; // Import Framer Motion
+import { motion } from 'framer-motion';
 
 interface LoginModalProps {
   isOpen: boolean;

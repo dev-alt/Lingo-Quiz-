@@ -1,6 +1,7 @@
 
-export default function XpBar() {
-  const currentXp = 385;
+export default function XpBar({xp}: {xp: number}) {
+  console.log("xp",xp);
+  const currentXp = xp;
   const totalXpForNextLevel = 500;
   const xpToNextLevel = totalXpForNextLevel - currentXp;
   const progressPercentage = (currentXp / totalXpForNextLevel) * 100;

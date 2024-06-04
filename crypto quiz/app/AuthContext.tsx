@@ -3,36 +3,8 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useRouter } from "next/navigation";
 import decode, { jwtDecode } from 'jwt-decode';
+import { User, AuthContextType } from '@/types/index';
 
-interface User {
-  _id: string;
-  userId: string;
-  username: string;
-  handle: string;
-  level: number;
-  xp: number;
-  challengesCompleted: number;
-  rank: string;
-  badges: number;
-  streak: number;
-  achievements: [];
-  progress: [];
-  joinDate: string;
-  lastActive: string;
-  avatarUrl: string | null;
-  bannerUrl: string | null;
-  ownedBanners: [];
-  ownedAvatars: [];
-  __v: number;
-}
-interface AuthContextType {
-  user: User | null; 
-  isLoggedIn: boolean;
-  isLoading: boolean; 
-  error: string | null;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
-}
 
 const AuthContext = createContext<AuthContextType>(null!);
 
