@@ -4,6 +4,8 @@ import CourseCard from './courseCard';
 import { gql, useQuery } from '@apollo/client';
 import { Icon } from '@iconify/react';
 import { Spinner } from '@nextui-org/react';
+import { GET_COURSES_DATA } from '@/queries/graphql';
+
 
 interface Course {
   _id: string;
@@ -16,20 +18,7 @@ interface UserProgress {
   progress: number;
 }
 
-const GET_COURSES_DATA = gql`
-  query GetCoursesData($language: String!, $difficulty: String!) {
-    languages
-    difficulties(language: $language)
-    courses(language: $language, difficulty: $difficulty) {
-      _id
-      title
-      language
-      difficulty
-      duration
-      description
-    }
-  }
-`;
+
 
 const CourseSelector: React.FC = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('English');

@@ -61,7 +61,4 @@ export const siteConfig = {
 	],
 
 
-	links: {
-		github: "https://github.com/nextui-org/nextui"
-	},
 };

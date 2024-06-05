@@ -56,7 +56,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-      console.log("response", response);
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("token", data.token); 

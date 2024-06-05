@@ -1,6 +1,5 @@
 
 export default function XpBar({xp}: {xp: number}) {
-  console.log("xp",xp);
   const currentXp = xp;
   const totalXpForNextLevel = 500;
   const xpToNextLevel = totalXpForNextLevel - currentXp;

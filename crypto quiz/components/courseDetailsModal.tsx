@@ -11,7 +11,6 @@ interface CourseDetailsModalProps {
 }
 
 const CourseDetailsModal: React.FC<CourseDetailsModalProps> = ({ isOpen, onClose, course }) => {
-  console.log(course);
 
   return (
     <Modal isOpen={isOpen} onOpenChange={onClose} size="xl">

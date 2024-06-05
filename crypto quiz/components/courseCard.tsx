@@ -2,17 +2,19 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Button, Card, CardBody, Image, } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
-import { Course } from "@/types";
 import { useDisclosure } from "@nextui-org/react";
 import CourseDetailsModal from "./courseDetailsModal";
+import { Course } from "@/types/";
 
 interface CourseCardProps {
   course: Course;
 }
 
-const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
+const CourseCard: React.FC<CourseCardProps> = ({ course}) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  
+
 
   return (
     <motion.div
