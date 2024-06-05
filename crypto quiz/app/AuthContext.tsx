@@ -68,7 +68,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         throw new Error(errorData.error || "Login failed");
       }
     } catch (error) {
-      console.error("Login error:", error);
       throw error;
     }
   };
@@ -92,7 +91,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 export function useAuth() {
   const context = useContext(AuthContext);
-  console.log("context", context);
   if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
   }

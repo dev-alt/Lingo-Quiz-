@@ -81,7 +81,7 @@ export default function LandingPage() {
                     animate="visible"
                     variants={sectionVariants}
                     transition={{ duration: 0.5, delay: 0.4 }}
-                    className="py-8 md:py-10 bg-gray-900 text-center"
+                    className="py-8 md:py-10 bg-gray-900 text-center border-2 border-teal-500 rounded-lg shadow-lg"
                 >
                     <h2 className="text-2xl md:text-3xl font-bold">Get Started Today</h2>
                     <p className="mt-4 mb-8 text-lg">Join us now and take your language skills to the next level!</p>
