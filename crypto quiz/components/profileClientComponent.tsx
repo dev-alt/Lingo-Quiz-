@@ -22,7 +22,7 @@ export default function ProfileClientComponent({ profileData }: { profileData: a
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-gray-800 rounded-lg p-6 m-4 shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]"
+      className="bg-gray-800 rounded-lg p-6 m-4 shadow-[0_20px_50px_#14b8a6]"
     >
       <h1 className="text-4xl font-bold mb-4 text-white">{username}</h1>
       <div className="text-xl text-gray-300 mb-4">

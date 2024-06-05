@@ -21,7 +21,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course}) => {
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.2 }}
       className="cursor-pointer"
-      onClick={onOpen}
+
     >
       <Card className=' border-4 border-teal-500 bg-teal-100'>
         <CardBody className="flex flex-col relative p-0"> 

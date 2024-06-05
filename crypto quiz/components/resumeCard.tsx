@@ -6,7 +6,7 @@ import { Icon } from '@iconify/react';
 import { CourseCardProps } from '../types/quizCard.types';
 
 
-const CourseCard: React.FC<CourseCardProps> = ({
+const ResumeCard: React.FC<CourseCardProps> = ({
   title,
   courseId,
   progress,
@@ -64,4 +64,4 @@ const CourseCard: React.FC<CourseCardProps> = ({
   );
 };
 
-export default CourseCard;
+export default ResumeCard;
