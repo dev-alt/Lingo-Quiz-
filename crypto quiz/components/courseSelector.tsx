@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import CourseCard from './courseCard';
 import { gql, useQuery } from '@apollo/client';
 import { Icon } from '@iconify/react';
-import { Spinner } from '@nextui-org/react';
+import { Divider, Spinner } from '@nextui-org/react';
 import { GET_COURSES_DATA } from '@/queries/graphql';
 
 
@@ -19,11 +19,9 @@ interface UserProgress {
 }
 
 
-
 const CourseSelector: React.FC = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState('English');
-  const [selectedDifficulty, setSelectedDifficulty] = useState('Beginner');
-  const [showSpinner, setShowSpinner] = useState(true);
+  const [selectedLanguage, setSelectedLanguage] = useState('');
+  const [selectedDifficulty, setSelectedDifficulty] = useState('');
 
   const { loading, error, data } = useQuery(GET_COURSES_DATA, {
     variables: { language: selectedLanguage, difficulty: selectedDifficulty },
@@ -31,7 +29,7 @@ const CourseSelector: React.FC = () => {
 
   const filteredCourses = data?.courses || [];
   const availableLanguages = data?.languages || [];
-  const availableDifficulties = data?.difficulties || [];
+  const availableDifficulties = ['Beginner', 'Intermediate', 'Advanced'];
   const userProgress = data?.userProgress || [];
 
   const userHasProgress = (courseId: string) => {
@@ -39,76 +37,63 @@ const CourseSelector: React.FC = () => {
   };
 
   const handleLanguageClick = (language: string) => {
-    setSelectedLanguage(language);
-    setSelectedDifficulty("");
+    setSelectedLanguage(language === selectedLanguage ? '' : language);
   };
 
   const handleDifficultyClick = (difficulty: string) => {
-    setSelectedDifficulty(difficulty);
+    setSelectedDifficulty(difficulty === selectedDifficulty ? '' : difficulty);
   };
+
   const handleShowAllCourses = () => {
     setSelectedLanguage("");
     setSelectedDifficulty("");
   };
 
-
-  // Timeout for loading spinner
-  setTimeout(() => {
-    setShowSpinner(false);
-  }, 1000);
-
-  console.log(data)
   return (
     <div className="bg-gray-900 p-6 rounded-md shadow-lg shadow-teal-500 border-2 border-teal-500">
-      <h2 className="text-3xl font-semibold text-white mb-6">
-        <Icon icon="mdi:book-open-variant" className="mr-2" /> Choose Your Course
-      </h2>
+      <div className="bg-gray-800 p-4 rounded-md shadow-md flex flex-col items-center">
+        <div className="flex gap-2 mb-4 w-full justify-center">
+          {['', ...availableLanguages].map((language) => (
+            <button
+              key={language}
+              className={`px-4 py-2 rounded-md text-white transition duration-300 ${selectedLanguage === language ? 'bg-yellow-600' : 'bg-gray-700 hover:bg-gray-600'}`}
+              onClick={() => handleLanguageClick(language)}
+            >
+              {language || "All"}
+            </button>
+          ))}
+        </div>
 
-      <div className="flex gap-2 mb-4">
-        {["English", "Spanish", "French", "German"].map((language) => (
-          <button
-            key={language}
-            className={`px-4 py-2 rounded-md text-white transition duration-300 ${selectedLanguage === language ? 'bg-yellow-600' : 'bg-gray-700 hover:bg-gray-600'}`}
-            onClick={() => handleLanguageClick(language)}
-          >
-            {language}
-          </button>
-
-        ))}
-        <button color="secondary" onClick={handleShowAllCourses} className="px-4 py-2 rounded-md text-white transition duration-300 bg-gray-700 hover:bg-gray-600">
-          Show All Courses
-        </button>
-      </div>
-
-      {/* Difficulty Filter (only when a language is selected) */}
-      {selectedLanguage && (
-        <div className="flex flex-wrap gap-2 mb-4">
-          {availableDifficulties.map((difficulty: string) => (
+        {/* Difficulties */}
+        <div className="flex gap-2 w-full justify-center">
+          {['', ...availableDifficulties].map((difficulty: string) => (
             <button
               key={difficulty}
               className={`px-4 py-2 rounded-md text-white transition duration-300 ${selectedDifficulty === difficulty ? 'bg-yellow-600' : 'bg-gray-700 hover:bg-gray-600'}`}
               onClick={() => handleDifficultyClick(difficulty)}
             >
-              {difficulty}
+              {difficulty || "All"}
             </button>
           ))}
         </div>
-      )}
-
-      {/* Course Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredCourses.length > 0 ? (
-          filteredCourses.map((course: Course) => (
-            <div
-              key={course._id}
-              className="bg-gray-800 p-4 rounded-md text-white shadow hover:shadow-lg transition duration-300"
-            >
-              <CourseCard course={course} />
-            </div>
-          ))
-        ) : (
-          <p>No courses found for this selection.</p>
-        )}
+      </div>
+      <Divider className="my-4" />
+      <div>
+        {/* Course Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredCourses.length > 0 ? (
+            filteredCourses.map((course: Course) => (
+              <div
+                key={course._id}
+                className="p-2 rounded-md text-white shadow hover:shadow-lg transition duration-300"
+              >
+                <CourseCard course={course} />
+              </div>
+            ))
+          ) : (
+            <p>No courses found for this selection.</p>
+          )}
+        </div>
       </div>
     </div>
   );

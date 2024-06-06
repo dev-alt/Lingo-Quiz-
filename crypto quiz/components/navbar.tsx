@@ -37,7 +37,7 @@ export const Navbar = ({ isLoggedIn }: NavbarProps) => {
 			<NavbarBrand as="li" className="gap-3 max-w-fit">
 			  <Link href="/" passHref className="flex justify-start items-center gap-2">
 				<Logo />
-				<p className="font-bold text-3xl text-inherit text-yellow-400">CryptoQuiz</p>
+				<p className="font-bold text-3xl text-inherit text-yellow-400">LingoQuiz</p>
 			  </Link>
 			</NavbarBrand>
 		  </NavbarContent>
