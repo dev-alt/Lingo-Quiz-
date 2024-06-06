@@ -84,3 +84,12 @@ export const ENROLL_IN_COURSE = gql`
     }
   }
 `;
+
+export const UNENROLL_FROM_COURSE = gql`
+mutation UnenrollFromCourse($userId: ID!, $courseId: ID!) {
+  unenrollFromCourse(userId: $userId, courseId: $courseId) {
+    success
+    message
+  }
+}
+`;
