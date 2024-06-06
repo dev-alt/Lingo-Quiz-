@@ -65,7 +65,7 @@ export const GET_ENROLLED_COURSES = gql`
 export const GET_COURSES_DATA = gql`
   query GetCoursesData($language: String!, $difficulty: String!) {
     languages
-    difficulties(language: $language)
+    difficulties
     courses(language: $language, difficulty: $difficulty) {
       _id
       title
@@ -92,4 +92,21 @@ mutation UnenrollFromCourse($userId: ID!, $courseId: ID!) {
     message
   }
 }
+`;
+
+export const GET_COURSE = gql`
+  query GetCourse($id: ID!) {
+    getCourse(courseId: $id) {
+      _id
+      title
+      language
+      difficulty
+      description
+      duration
+      quizzes {
+        _id
+        title
+      }
+    }
+  }
 `;
