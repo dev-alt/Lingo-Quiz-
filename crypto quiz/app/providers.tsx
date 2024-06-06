@@ -15,6 +15,8 @@ import {
 	gql,
   } from '@apollo/client';
   import { onError } from '@apollo/client/link/error';
+import { ToastProvider } from "./toastContext";
+import { ToastContainer } from "react-toastify";
   
   export interface ProvidersProps {
 	children: React.ReactNode;
@@ -55,7 +57,12 @@ import {
 	return (
 		<ApolloProvider client={client}>
 		<NextUIProvider navigate={router.push}>
-			<NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+			<NextThemesProvider {...themeProps}>
+			<ToastProvider>
+				{children}
+				<ToastContainer />
+				</ToastProvider>
+				</NextThemesProvider>
 		</NextUIProvider>
 		</ApolloProvider>
 	);

@@ -6,6 +6,8 @@ import { Providers } from "./providers";
 import clsx from "clsx";
 import { AuthProvider } from "./AuthContext";
 import AppLayout from "./AppLayout";
+import { ToastProvider } from "./toastContext";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
 	title: {
@@ -33,6 +35,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		  <body className={clsx("min-h-screen bg-gray-800 font-sans antialiased", fontSans.variable)}>
 			<Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
 			  <AuthProvider> 
+			  <ToastProvider>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+        />
+       </ToastProvider>
 			  <AppLayout>{children}</AppLayout>
 					</AuthProvider>
 				</Providers>

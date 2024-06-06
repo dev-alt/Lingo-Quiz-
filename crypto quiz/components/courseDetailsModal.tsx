@@ -1,11 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Spinner } from "@nextui-org/react";
 import { Course } from '@/types';
 import { useAuth } from '@/app/AuthContext';
 import { ENROLL_IN_COURSE, GET_ENROLLED_COURSES } from '@/queries/graphql';
 import { useMutation, useQuery } from '@apollo/client';
+import {  toast } from "react-toastify";
+import { useToast } from "@/app/toastContext";
 
 interface CourseDetailsModalProps {
   isOpen: boolean;
@@ -13,38 +15,51 @@ interface CourseDetailsModalProps {
   course: Course;
 }
 
-const CourseDetailsModal: React.FC<CourseDetailsModalProps> = ({ isOpen, onClose, course }) => {
+const CourseDetailsModal: React.FC<CourseDetailsModalProps> = ({ isOpen, onClose, course}) => {
   const { user } = useAuth();
-
-  const { data: enrolledCoursesData, loading: enrolledCoursesLoading, refetch } = useQuery(GET_ENROLLED_COURSES, {
+  const [isEnrolled, setIsEnrolled] = useState<boolean>(false);
+  const [enrollmentError, setEnrollmentError] = useState<string | null>(null);
+  
+  const { loading: enrolledCoursesLoading, error } = useQuery(GET_ENROLLED_COURSES, {
     variables: { userId: user?.userId },
     skip: !user,
-    fetchPolicy: 'cache-and-network',
+    onCompleted: (data) => {
+      setIsEnrolled(data.enrolledCourses.some((enrolledCourse: { _id: string; }) => enrolledCourse._id === course._id));
+    },
+    onError: (error) => {
+      console.error("Error fetching enrolled courses:", error);
+    }
   });
-
+  const { showToast } = useToast();
   const [enrollInCourse, { loading: enrolling }] = useMutation(ENROLL_IN_COURSE);
-  const isEnrolled = enrolledCoursesData?.enrolledCourses?.some((enrolledCourse: { _id: string }) => enrolledCourse._id === course._id);
-  
+
   const handleEnroll = async () => {
+    setEnrollmentError(null); 
     if (!user) {
       return;
-    }
-
+    }  
     try {
       const { data } = await enrollInCourse({
         variables: { userId: user.userId, courseId: course._id },
       });
-
+  
       if (data.enrollInCourse.success) {
-        onClose(); 
+        setIsEnrolled(true);
+        showToast("Successfully enrolled in the course!", "success");
+        onClose();
       } else {
-        // Handle enrollment error
+        toast.error(data.enrollInCourse.message, { 
+          position: "top-center"
+        });
       }
     } catch (error) {
-      // Handle mutation error
+      toast.error("An error occurred during enrollment.", { 
+          position: "top-center"
+      });
+      console.error("Error enrolling in course:", error);
     }
   };
-  
+
   return (
     <Modal isOpen={isOpen} onOpenChange={onClose} size="xl">
       <ModalContent className='shadow-[5px_5px_0px_2px_rgba(109,40,217)]'>
@@ -62,14 +77,14 @@ const CourseDetailsModal: React.FC<CourseDetailsModalProps> = ({ isOpen, onClose
           </ModalBody>
           <ModalFooter className="flex justify-end space-x-2">
           {enrolledCoursesLoading ? (
-            <Spinner /> // Loading indicator while fetching enrolled courses
+            <Spinner /> 
           ) : isEnrolled ? (
             <Button className="bg-blue-500 text-white hover:bg-blue-600" onPress={onClose}>
               Resume
             </Button>
           ) : (
             <Button
-              isLoading={enrolling} // Show loading state while enrolling
+              isLoading={enrolling}
               className="bg-green-500 text-white hover:bg-green-600"
               onPress={handleEnroll}
             >

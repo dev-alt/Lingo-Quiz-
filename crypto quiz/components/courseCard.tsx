@@ -5,7 +5,6 @@ import { Icon } from "@iconify/react";
 import { useDisclosure } from "@nextui-org/react";
 import CourseDetailsModal from "./courseDetailsModal";
 import { Course } from "@/types/";
-
 interface CourseCardProps {
   course: Course;
 }
