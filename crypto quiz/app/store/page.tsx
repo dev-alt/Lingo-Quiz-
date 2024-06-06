@@ -16,9 +16,9 @@ export default function StorePage() {
 		<div className="max-w-7xl mx-auto py-12 bg-gray-900 p-6 rounded-md shadow-lg shadow-teal-500 border-2 border-teal-500">
 		<div className="flex items-center justify-between mb-8">
 		<h1 className={title({ color: "violet" })}>
-		  CryptoQuizz Store
+		  LingoQuiz Store
 		</h1>
-		<div className="items-center">
+		<div className="items-center mt-2">
 		<Input
 		  type="text"
 		  placeholder="Search products..."
