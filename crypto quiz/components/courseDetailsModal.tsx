@@ -15,10 +15,13 @@ interface CourseDetailsModalProps {
 
 const CourseDetailsModal: React.FC<CourseDetailsModalProps> = ({ isOpen, onClose, course }) => {
   const { user } = useAuth();
-  const { data: enrolledCoursesData, loading: enrolledCoursesLoading } = useQuery(GET_ENROLLED_COURSES, {
+
+  const { data: enrolledCoursesData, loading: enrolledCoursesLoading, refetch } = useQuery(GET_ENROLLED_COURSES, {
     variables: { userId: user?.userId },
     skip: !user,
+    fetchPolicy: 'cache-and-network',
   });
+
   const [enrollInCourse, { loading: enrolling }] = useMutation(ENROLL_IN_COURSE);
   const isEnrolled = enrolledCoursesData?.enrolledCourses?.some((enrolledCourse: { _id: string }) => enrolledCourse._id === course._id);
   
@@ -33,8 +36,7 @@ const CourseDetailsModal: React.FC<CourseDetailsModalProps> = ({ isOpen, onClose
       });
 
       if (data.enrollInCourse.success) {
-        onClose(); // Close the modal
-        // Optionally, refetch the enrolled courses query or navigate to the course page
+        onClose(); 
       } else {
         // Handle enrollment error
       }
@@ -42,6 +44,7 @@ const CourseDetailsModal: React.FC<CourseDetailsModalProps> = ({ isOpen, onClose
       // Handle mutation error
     }
   };
+  
   return (
     <Modal isOpen={isOpen} onOpenChange={onClose} size="xl">
       <ModalContent className='shadow-[5px_5px_0px_2px_rgba(109,40,217)]'>

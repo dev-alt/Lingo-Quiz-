@@ -23,8 +23,9 @@ const CourseSelector: React.FC = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [selectedDifficulty, setSelectedDifficulty] = useState('');
 
-  const { loading, error, data } = useQuery(GET_COURSES_DATA, {
+  const { loading, error, data, refetch } = useQuery(GET_COURSES_DATA, {
     variables: { language: selectedLanguage, difficulty: selectedDifficulty },
+    fetchPolicy: 'cache-and-network',
   });
 
   const filteredCourses = data?.courses || [];

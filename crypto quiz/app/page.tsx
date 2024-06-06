@@ -20,15 +20,13 @@ export default function Home() {
   const { user } = useAuth();
   const [courseOrder, setCourseOrder] = useState<number[]>([]);
 
-  const { loading, error, data } = useQuery(GET_ENROLLED_COURSES, {
+  const { loading, error, data, refetch } = useQuery(GET_ENROLLED_COURSES, {
     variables: { userId: user?.userId },
     skip: !user,
+    fetchPolicy: 'cache-and-network',
   });
 
 
-  const refetchEnrolledCourses = () => {
-    data?.refetch();
-  };
   useEffect(() => {
     if (data && data.courses) {
       setCourseOrder(data.courses.map((course: { id: any; }) => course.id));
