@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 
 export const GET_USER_PROFILE_BY_HANDLE = gql`
   query GetUserProfileByHandle($handle: String!) {
@@ -73,6 +73,14 @@ export const GET_COURSES_DATA = gql`
       difficulty
       duration
       description
+    }
+  }
+`;
+
+export const ENROLL_IN_COURSE = gql`
+  mutation EnrollInCourse($userId: ID!, $courseId: ID!) {
+    enrollInCourse(userId: $userId, courseId: $courseId) {
+      success
     }
   }
 `;
