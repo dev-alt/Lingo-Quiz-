@@ -7,6 +7,7 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { GET_COURSE } from "@/queries/graphql";
 import { Card, CardBody, Spinner } from "@nextui-org/react";
 import { motion } from "framer-motion";
+import { Icon } from "@iconify/react";
 
 const CoursePage: React.FC = () => {
     const params = useParams();
@@ -16,13 +17,22 @@ const CoursePage: React.FC = () => {
         variables: { id: courseId },
     });
 
+    const languageFlags: { [key: string]: string } = {
+        English: 'twemoji:flag-for-flag-united-kingdom',
+        Japanese: 'twemoji:flag-for-flag-japan',
+        German: 'twemoji:flag-for-flag-germany',
+        Spanish: 'twemoji:flag-for-flag-spain',
+        French: 'twemoji:flag-for-flag-france',
+        Italian: 'twemoji:flag-for-flag-italy',
+    };
+
     if (loading) return (
         <div className="flex justify-center items-center h-screen">
             <Spinner />
         </div>
     );
     if (error) return <p>Error loading course: {error.message}</p>;
-    
+
     return (
         <section className="flex flex-col justify-center gap-4 py-8 md:py-10">
             <div className="text-center overflow-hidden p-4 md:p-6 shadow-[5px_3px_5px_5px_#14b8a6] mr-4">
@@ -43,10 +53,12 @@ const CoursePage: React.FC = () => {
                             className="w-full"
                         >
                             <Link href={`/quiz/${quiz._id}`}>
-                                <Card className="hover:shadow-lg cursor-pointer">
+                                <Card className="hover:shadow-lg cursor-pointer rounded-md bg-yellow-100">
                                     <CardBody className="flex flex-col items-center">
-                                        <h3 className="text-lg font-semibold">{quiz.title}</h3>                                       
+                                                <Icon icon={languageFlags[quiz.language] || "mdi:translate"} className="text-6xl" />
 
+                                        <h3 className="text-lg font-semibold mt-4 text-center">{quiz.title}</h3>
+                                        <p className="text-gray-600 text-center mt-2">Level: {quiz.difficulty}</p>
                                     </CardBody>
                                 </Card>
                             </Link>

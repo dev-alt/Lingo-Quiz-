@@ -106,6 +106,8 @@ export const GET_COURSE = gql`
       quizzes {
         _id
         title
+        language
+        difficulty
       }
     }
   }
