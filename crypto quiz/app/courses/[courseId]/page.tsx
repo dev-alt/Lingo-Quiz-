@@ -16,8 +16,6 @@ const CoursePage: React.FC = () => {
         variables: { id: courseId },
     });
 
-    console.log("Course Data", data)
-
     if (loading) return (
         <div className="flex justify-center items-center h-screen">
             <Spinner />
@@ -44,11 +42,11 @@ const CoursePage: React.FC = () => {
                             transition={{ duration: 0.5 }}
                             className="w-full"
                         >
-                            <Link href={`/quiz/${courseId}/${quiz._id}`}>
+                            <Link href={`/quiz/${quiz._id}`}>
                                 <Card className="hover:shadow-lg cursor-pointer">
                                     <CardBody className="flex flex-col items-center">
-                                        <h3 className="text-lg font-semibold">{quiz.title}</h3>
-                                        {/* Add more quiz details if you want */}
+                                        <h3 className="text-lg font-semibold">{quiz.title}</h3>                                       
+
                                     </CardBody>
                                 </Card>
                             </Link>

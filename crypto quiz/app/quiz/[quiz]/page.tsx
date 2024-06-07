@@ -1,34 +1,31 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from "react";
-import { Button, Card, CardBody, Progress, Spacer } from '@nextui-org/react';
-import { Icon } from '@iconify/react';
-import { useParams } from 'next/navigation';
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { Button, Card, CardBody, Progress, Spacer } from "@nextui-org/react";
+import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence, Reorder } from 'framer-motion';
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 import { title, subtitle } from "@/components/primitives";
-import RewardSelection from '@/components/rewardSelection';
-import { Question, Quiz } from '/types/quiz.types';
-
-const quizQuestions: Question[] = [
-  { id: 1, text: "What is the first cryptocurrency?", options: ["Bitcoin", "Ethereum", "Litecoin", "Dogecoin"], correctAnswer: 0 },
-  //  { id: 2, text: "What is the underlying technology of most cryptocurrencies?", options: ["Artificial Intelligence", "Blockchain", "Cloud Computing", "Internet of Things"], correctAnswer: 1 },
-  //  { id: 3, text: "What is the process of verifying transactions on a blockchain called?", options: ["Mining", "Trading", "Staking", "Hacking"], correctAnswer: 0 },
-  //  { id: 4, text: "What is the maximum supply of Bitcoin?", options: ["10 million", "21 million", "100 million", "1 billion"], correctAnswer: 1 },
-  // { id: 5, text: "What is the name of the creator of Bitcoin?", options: ["Satoshi Nakamoto", "Vitalik Buterin", "Charlie Lee", "Elon Musk"], correctAnswer: 0 },
-  // { id: 6, text: "What is the name of the first decentralized cryptocurrency exchange?", options: ["Binance", "Uniswap", "Coinbase", "EtherDelta"], correctAnswer: 3 },
-  // { id: 7, text: "What is the name of the Ethereum token standard used for creating new tokens?", options: ["ERC-20", "ERC-721", "ERC-1155", "ERC-777"], correctAnswer: 0 },
-  // { id: 8, text: "What is the name of the consensus algorithm used by Bitcoin?", options: ["Proof of Work", "Proof of Stake", "Delegated Proof of Stake", "Proof of Authority"], correctAnswer: 0 },
-  // { id: 9, text: "What is the name of the first stablecoin?", options: ["USDC", "Tether", "DAI", "TrueUSD"], correctAnswer: 1 },
-  // { id: 10, text: "What is the name of the first smart contract platform?", options: ["Ethereum", "Cardano", "Polkadot", "Solana"], correctAnswer: 0 },
-
-];
+import { useQuery } from "@apollo/client";
+import { GET_QUIZ } from "@/queries/graphql";
+import RewardSelection from "@/components/rewardSelection";
+import { Question, Quiz } from "/types/quiz.types";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function QuizPage() {
   const router = useRouter();
   const pathname = usePathname();
-  const { courseId } = useParams() as { courseId: string };
+  const params = useParams();
+  const quizId = params.quiz as string; 
+  console.log("Quiz ID:", quizId);
+
+  // Fetch quiz data using useQuery hook
+  const { loading, error, data } = useQuery(GET_QUIZ, {
+    variables: { quizId },
+  });
+
+  const quiz: Quiz | undefined = data?.quiz;
+
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [score, setScore] = useState(0);
@@ -44,18 +41,21 @@ export default function QuizPage() {
   }, []);
 
   const handleNextQuestion = useCallback(() => {
-    if (selectedOption === quizQuestions[currentQuestion].correctAnswer) {
+    if (
+      selectedOption ===
+      (quiz?.questions[currentQuestion]?.correctAnswer || 0)
+    ) {
       setScore(score + 1);
     }
 
-    if (currentQuestion < quizQuestions.length - 1) {
+    if (currentQuestion < (quiz?.questions.length || 0) - 1) {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedOption(null);
     } else {
       setEndTime(Date.now());
       setShowResult(true);
     }
-  }, [currentQuestion, selectedOption, score]);
+  }, [currentQuestion, quiz?.questions, selectedOption, score]);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
@@ -72,7 +72,9 @@ export default function QuizPage() {
     return () => clearInterval(intervalId);
   }, [timeRemaining, timerRunning]);
 
-  const totalTimeTaken = endTime ? Math.round((endTime - startTime.current) / 1000) : 0;
+  const totalTimeTaken = endTime
+    ? Math.round((endTime - startTime.current) / 1000)
+    : 0;
 
   const quizContainerVariants = {
     initial: { opacity: 0, y: 20 },
@@ -81,8 +83,19 @@ export default function QuizPage() {
   };
 
   const handleRewardSelect = (rewardNumber: number) => {
-    console.log('Reward selected:', rewardNumber);
+    console.log("Reward selected:", rewardNumber);
   };
+
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Loading...
+      </div>
+    );
+  if (error) return <p>Error loading quiz: {error.message}</p>;
+  if (!quiz || !quiz.questions || quiz.questions.length === 0) {
+    return <p>Quiz not found or empty.</p>;
+  }
 
   return (
     <div className="container">
@@ -110,10 +123,10 @@ export default function QuizPage() {
               >
                 <div className="flex flex-col items-center">
                   <h3 className="text-2xl md:text-3xl font-bold mb-4">Quiz Finished!</h3>
-                  <p className="text-lg">Your final score: {score} out of {quizQuestions.length}</p>
+                  <p className="text-lg">Your final score: {score} out of {quiz?.questions.length}</p>
                   <p className="text-lg">Total time taken: {totalTimeTaken} seconds</p>
                   {/* Show reward selection if score is greater than 80% */}
-                  {score / quizQuestions.length > 0.8 && (
+                  {score / (quiz?.questions.length || 0) > 0.8 && (
                     <RewardSelection onRewardSelect={handleRewardSelect} />
                   )}
 
@@ -129,12 +142,12 @@ export default function QuizPage() {
                   >
                     <Progress
                       color="primary"
-                      value={((currentQuestion + 1) / quizQuestions.length) * 100}
+                      value={((currentQuestion + 1) / (quiz?.questions.length || 0)) * 100}
                       className="mb-4"
                     />
-                    <h4>{quizQuestions[currentQuestion].text}</h4>
+                    <h4>{quiz?.questions[currentQuestion].question}</h4>
                     <ul className="list-none p-0">
-                      {quizQuestions[currentQuestion].options.map((option, index) => (
+                      {quiz?.questions[currentQuestion].options.map((option, index) => (
                         <li key={index}>
                           <Button
                             onClick={() => handleAnswerSelect(index)}

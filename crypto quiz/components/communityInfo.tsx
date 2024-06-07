@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Icon } from '@iconify/react';
+import Link from 'next/link';
 
 export const CommunityBar = () => {
   return (
@@ -10,8 +11,8 @@ export const CommunityBar = () => {
         Make friends and learn together in the CryptoQuizz Community
       </h3>
       <div className="opc-stats">
-        <ul className="list-none p-0"> {/* Remove default padding */}
-          <li className="flex items-center mb-2"> {/* Add margin-bottom */}
+        <ul className="list-none p-0"> 
+          <li className="flex items-center mb-2"> 
             <Icon icon="mdi:account-group-outline" className="mr-2 text-teal-400" />
             <p>398 Members</p>
           </li>
@@ -25,11 +26,13 @@ export const CommunityBar = () => {
           </li>
         </ul>
       </div>
-      <div className="mt-4 text-center"> {/* Add top margin and center the button */}
+      <div className="mt-4 text-center">
+        <Link href="/community">
       <button className="arrow bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-4 rounded-md flex items-center">
         <span className="mr-2">Join the Community</span>
         <Icon icon="mdi:arrow-right" />
       </button>
+    </Link>
       </div>
     </div>
   );

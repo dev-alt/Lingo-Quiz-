@@ -110,3 +110,17 @@ export const GET_COURSE = gql`
     }
   }
 `;
+
+export const GET_QUIZ = gql`
+  query quiz($quizId: ID!) {
+    quiz(id: $quizId) {
+      _id
+      title
+      questions {
+        question
+        options
+        answer
+      }
+    }
+  }
+`;
