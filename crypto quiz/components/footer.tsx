@@ -9,7 +9,7 @@ export const Footer = () => {
         {/* Logo and Slogan */}
         <div className="mb-4 md:mb-0">
           <h2 className="text-2xl font-semibold flex items-center">
-            <p className="mr-2 text-blue-500" /> CryptoQuizz
+            <p className="mr-2 text-blue-500" /> LingoQuizz
           </h2>
           <p className="text-sm">Learn, Quiz, Earn.</p>
         </div>
@@ -35,7 +35,7 @@ export const Footer = () => {
 
       {/* Copyright and Powered By */}
       <div className="mt-8 text-center text-xs">
-        <p>&copy; {new Date().getFullYear()} CryptoQuizz. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} LingoQuizz. All rights reserved.</p>
         <p>
           Powered by <span className="text-primary">NextUI</span>
         </p>

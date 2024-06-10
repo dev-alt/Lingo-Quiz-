@@ -51,9 +51,9 @@ const CourseSelector: React.FC = () => {
 
   return (
     <div className="bg-gray-900 p-6 rounded-md shadow-lg shadow-teal-500 border-2 border-teal-500">
-      <div className="bg-gray-800 p-4 rounded-md shadow-md flex flex-col items-center">
+      <div className="bg-gray-800 p-4 rounded-md shadow-md flex flex-col items-center min-h-full">
 
-        <div className="flex gap-2 mb-4 w-full justify-center">
+        <div className="flex gap-2 mb-4 w-full justify-center min-h-full">
           {['', ...availableLanguages].map((language) => (
             <button
               key={language}
@@ -81,7 +81,7 @@ const CourseSelector: React.FC = () => {
       <Divider className="my-4" />
       <div>
         {/* Course Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 min-h-full">
           {filteredCourses.length > 0 ? (
             filteredCourses.map((course: Course) => (
               <div
