@@ -75,6 +75,7 @@ const CourseDetailsModal: React.FC<CourseDetailsModalProps> = ({ isOpen, onClose
       if (data.unenrollFromCourse.success) {
         setIsEnrolled(false);
         toast.success(data.unenrollFromCourse.message, { position: "top-center" });
+        onClose();
       } else {
         toast.error(data.unenrollFromCourse.message, { position: "top-center" });
       }

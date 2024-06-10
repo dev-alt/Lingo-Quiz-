@@ -28,11 +28,12 @@ export interface Quiz {
   language: string;
   difficulty: "Beginner" | "Intermediate" | "Advanced";
   questions: Question[];
+  isCompleted?: boolean;
 }
 
 export interface Question {
   id: number;
-  text: string;
+  question: string;
   options: string[];
   correctAnswer: number;
 }
@@ -85,4 +86,52 @@ export interface AuthContextType {
   error: string | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
+}
+export interface Question {
+  id: number; // Unique identifier
+  text: string; // Question text
+  options: string[]; // Array of answer options
+  correctAnswer: number; // Index of the correct answer
+}
+
+export interface Quiz {
+  title: string;
+  description: string; // Optional description
+  courseId: string; // If you're using course IDs
+  questions: Question[];
+}
+export interface QuestionResult {
+  questionText: string;
+  correctAnswer: string;
+  userAnswer: string;
+  isCorrect: boolean;
+}
+export interface QuizResult {
+  // ... other quiz properties ...
+  score: number;
+  timeTaken: number;
+  results: {
+    questionText: string;
+    correctAnswer: string;
+    userAnswer: string;
+    isCorrect: boolean;
+  }[];
+}
+export interface SubmitQuizResultResponse {
+  storeQuizResult: {
+    success: boolean;
+    message: string;
+    txHash: string;
+    result: QuizResult
+  }
+}
+
+export interface Response {
+  score: number;
+  results: {
+    questionText: string;
+    correctAnswer: string;
+    userAnswer: string;
+    isCorrect: boolean;
+  }[];
 }

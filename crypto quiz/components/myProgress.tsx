@@ -33,61 +33,55 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
     }
     
     return (
-        <div className="bg-gray-800 p-4 rounded-lg shadow-md border-4 border-teal-500 relative">
-          {/* My Progress section */}
+      <div className="bg-gray-800 p-4 rounded-lg shadow-md border-4 border-teal-500 relative">
           <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 px-4 py-2 rounded-full shadow-lg">
-            <h3 className="text-white text-lg font-semibold">My Progress</h3>
+              <h3 className="text-white text-lg font-semibold">My Progress</h3>
           </div>
           <div className="p-4">
-            {/* Avatar and user info */}
-            <div className="flex items-center mb-2 bg-zinc-700  w-full" >
-              <Image
-                as={NextImage}
-                width={48}
-                height={48}
-                src={avatar}
-                alt="avatar"
-                className="w-12 h-12 rounded-full mr-4"
-              />
-              <div className="flex flex-col">
-                <p className="text-white font-semibold whitespace-nowrap">{username}</p>
-                <div className="flex items-start">
-                  <p className="text-white text-sm">Level {level}</p>
-                </div>
+              <div className="flex items-center mb-4">
+                  <Image
+                      as={NextImage}
+                      width={48}
+                      height={48}
+                      src={avatar}
+                      alt="avatar"
+                      className="w-12 h-12 rounded-full mr-4"
+                  />
+                  <div className="flex flex-col">
+                      <p className="text-white font-semibold">{username}</p>
+                      <p className="text-gray-400 text-sm">Level {level}</p>
+                  </div>
               </div>
-            </div>
-    
-            {/* Stats grid */}
-            <div className="grid grid-cols-2 gap-2 mb-6 place-items-center">
-              <div className="text-white bg-zinc-700 w-full">
-                <p className="font-semibold">Total XP</p>
-                <div className="flex items-center">
-                  <Icon icon="mdi:star-four-points-outline" className="mr-1 text-yellow-500" />
-                  <p className="ml-1">{xp}</p>
-                </div>
+              <div className="grid grid-cols-2 gap-4 mb-6">
+                  <div className="text-white bg-gray-700 rounded-lg p-4">
+                      <p className="font-semibold">Total XP</p>
+                      <div className="flex items-center">
+                          <Icon icon="mdi:star-four-points-outline" className="mr-1 text-yellow-500" />
+                          <p className="ml-1">{xp}</p>
+                      </div>
+                  </div>
+                  <div className="text-white bg-gray-700 rounded-lg p-4">
+                      <p className="font-semibold">Rank</p>
+                      <div className="flex items-center">
+                          <Icon icon={getRankIcon(rank)} className="mr-1 text-teal-400" />
+                          <p className="ml-1">{rank}</p>
+                      </div>
+                  </div>
+                  <div className="text-white bg-gray-700 rounded-lg p-4">
+                      <p className="font-semibold">Badges</p>
+                      <div className="flex items-center">
+                          <Icon icon="mdi:shield-account-outline" className="mr-1 text-blue-400" />
+                          <p className="ml-1">{badges}</p>
+                      </div>
+                  </div>
+                  <div className="text-white bg-gray-700 rounded-lg p-4">
+                      <p className="font-semibold">Streak</p>
+                      <div className="flex items-center">
+                          <Icon icon="mdi:fire" className="mr-1 text-red-500" />
+                          <p className="ml-1">{streak}</p>
+                      </div>
+                  </div>
               </div>
-              <div className="text-white bg-zinc-700  w-full">
-                <p className="font-semibold">Rank</p>
-                <div className="flex items-center">
-                  <Icon icon={getRankIcon(rank)} className="mr-1 text-teal-400" />
-                  <p className="ml-1">{rank}</p>
-                </div>
-              </div>
-              <div className="text-white bg-zinc-700  w-full">
-                <p className="font-semibold">Badges</p>
-                <div className="flex items-center">
-                  <Icon icon="mdi:shield-account-outline" className="mr-1 text-blue-400" />
-                  <p className="ml-1">{badges}</p>
-                </div>
-              </div>
-              <div className="text-white bg-zinc-700  w-full">
-                <p className="font-semibold">Streak</p>
-                <div className="flex items-center">
-                  <Icon icon="mdi:fire" className="mr-1 text-red-500" />
-                  <p className="ml-1">{streak}</p>
-                </div>
-              </div>
-            </div>
 
             {/* My Profile button */}
             <div className="flex justify-center">

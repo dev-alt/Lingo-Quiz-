@@ -2,32 +2,44 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Button, Card, CardBody, Progress, Spacer } from "@nextui-org/react";
-import { useParams } from "next/navigation";
-import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
-import { title, subtitle } from "@/components/primitives";
+import { useParams, useRouter, usePathname } from "next/navigation";
 import { useQuery } from "@apollo/client";
 import { GET_QUIZ } from "@/queries/graphql";
-import RewardSelection from "@/components/rewardSelection";
-import { Question, Quiz } from "/types/quiz.types";
 import { AnimatePresence, motion } from "framer-motion";
+import { title, subtitle } from "@/components/primitives";
+import {
+  Question,
+  Quiz,
+  QuizResult as QuizResultType,
+  Response as QuizResponse,
+  SubmitQuizResultResponse
+} from "@/types/";
+import QuizHeader from "@/components/quizHeader";
+import QuestionDisplay from "@/components/questionDisplay";
+import QuizResult from "@/components/quizResult";
+import { useAuth } from "@/app/AuthContext";
+import { toast } from "react-toastify";
+
 
 export default function QuizPage() {
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
-  const quizId = params.quiz as string; 
-  console.log("Quiz ID:", quizId);
+  const quizId = params.quiz as string;
+  const { user } = useAuth();
 
   // Fetch quiz data using useQuery hook
   const { loading, error, data } = useQuery(GET_QUIZ, {
     variables: { quizId },
   });
 
+  console.log("Quiz Data:", data)
+
   const quiz: Quiz | undefined = data?.quiz;
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
+  const [quizResults, setQuizResults] = useState<QuizResultType | null>(null); 
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(30);
@@ -35,27 +47,114 @@ export default function QuizPage() {
   const startTime = useRef(Date.now());
   const [endTime, setEndTime] = useState<number | null>(null);
   const [timeUp, setTimeUp] = useState(false);
-
+  const [selectedAnswers, setSelectedAnswers] = useState<number[]>(
+    Array(quiz?.questions.length || 0).fill(null)
+  );
+  const token = localStorage.getItem('token');
   const handleAnswerSelect = useCallback((optionIndex: number) => {
     setSelectedOption(optionIndex);
   }, []);
 
-  const handleNextQuestion = useCallback(() => {
-    if (
-      selectedOption ===
-      (quiz?.questions[currentQuestion]?.correctAnswer || 0)
-    ) {
-      setScore(score + 1);
+  const handleSubmitQuiz = useCallback(async () => {
+    if (!quiz) return;
+    if (!user) {
+      return;
     }
+    try {
+      const validationResponse = await fetch(
+        "http://localhost:7100/api/quizzes/validate-answers",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            quizId,
+            userAnswers: selectedOption,
+            quizTimeTaken: 30 - timeRemaining,
+          }),
+        }
+      );
+      const data: QuizResponse = await validationResponse.json();
 
-    if (currentQuestion < (quiz?.questions.length || 0) - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-      setSelectedOption(null);
-    } else {
-      setEndTime(Date.now());
-      setShowResult(true);
+      if (data.score !== null) {
+        // Store results if the last question has been reached
+        const recordProgressResponse = await fetch(
+          "http://localhost:7100/api/transactions/record-progress",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              quizId,
+              courseId: quiz.courseId,
+              quizScore: data.score,
+              quizTimeTaken: 30 - timeRemaining,
+            }),
+          }
+        );
+
+        if (recordProgressResponse.ok) {
+          const recordProgressData =
+            await recordProgressResponse.json();
+            setQuizResults({
+              score: data.score,
+              results: data.results,
+              timeTaken: 30 - timeRemaining,
+            });
+          setShowResult(true);
+        } else {
+          toast.error("Failed to record quiz results", {
+            position: "top-center",
+          });
+        }
+      } else {
+        toast.error("An error occurred while validating answers", {
+          position: "top-center",
+        });
+      }
+    } catch (error) {
+      toast.error("An error occurred while validating answers", {
+        position: "top-center",
+      });
+      console.error("Error validating quiz answers:", error);
     }
-  }, [currentQuestion, quiz?.questions, selectedOption, score]);
+  }, [
+    quiz,
+    user?.userId,
+    quizId,
+    selectedOption,
+    timeRemaining,
+  ]);
+
+  const handleNextQuestion = useCallback(async () => {
+    if (selectedOption !== null) {
+      // Store the selected option for the current question
+      setSelectedAnswers(prevAnswers => [
+        ...prevAnswers.slice(0, currentQuestion),
+        selectedOption,
+        ...prevAnswers.slice(currentQuestion + 1)
+      ]);
+
+      if (currentQuestion < (quiz?.questions.length || 0) - 1) {
+        setCurrentQuestion(currentQuestion + 1);
+        setSelectedOption(null);
+      } else {
+        setEndTime(Date.now());
+        await handleSubmitQuiz();
+        setShowResult(true);
+      }
+    }
+  }, [
+    currentQuestion,
+    quiz?.questions,
+    selectedOption,
+    setSelectedAnswers,
+    handleSubmitQuiz,
+  ]);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
@@ -68,7 +167,6 @@ export default function QuizPage() {
       setTimeUp(true);
       setShowResult(true);
     }
-
     return () => clearInterval(intervalId);
   }, [timeRemaining, timerRunning]);
 
@@ -99,8 +197,7 @@ export default function QuizPage() {
 
   return (
     <div className="container">
-      <AnimatePresence       
-      >
+      <AnimatePresence>
         <motion.div
           key={pathname}
           className="w-full max-w-3xl text-center"
@@ -111,80 +208,42 @@ export default function QuizPage() {
           whileHover={{ scale: 1.05 }}
         >
           <Card className="bg-yellow-400 border-4 border-teal-500 flex flex-col mt-8">
-            <CardBody className="text-black flex-grow text-center pb-8">
-            <AnimatePresence mode='wait'>
-              {showResult ? (
-                <motion.div
-                key="result"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5, ease: 'easeInOut' }}
-              >
-                <div className="flex flex-col items-center">
-                  <h3 className="text-2xl md:text-3xl font-bold mb-4">Quiz Finished!</h3>
-                  <p className="text-lg">Your final score: {score} out of {quiz?.questions.length}</p>
-                  <p className="text-lg">Total time taken: {totalTimeTaken} seconds</p>
-                  {/* Show reward selection if score is greater than 80% */}
-                  {score / (quiz?.questions.length || 0) > 0.8 && (
-                    <RewardSelection onRewardSelect={handleRewardSelect} />
-                  )}
 
-                </div>
-              </motion.div>
+            {/* Quiz Header */}
+            <QuizHeader
+              quizTitle={quiz.title}
+              currentQuestionIndex={currentQuestion}
+              totalQuestions={quiz.questions.length}
+              timeRemaining={timeRemaining}
+              timeUp={timeUp}
+            />
+
+            {/* Question or Result Display (Conditional Rendering) */}
+            <AnimatePresence mode="wait">
+              {showResult ? (
+                <QuizResult
+                  score={score || 0}
+                  results={[]}
+                  totalQuestions={quiz.questions.length}
+                  totalTimeTaken={totalTimeTaken}
+                  onRewardSelect={handleRewardSelect}
+                />
               ) : (
-                <motion.div
-                    key="quiz"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.5, ease: 'easeInOut' }}
-                  >
-                    <Progress
-                      color="primary"
-                      value={((currentQuestion + 1) / (quiz?.questions.length || 0)) * 100}
-                      className="mb-4"
-                    />
-                    <h4>{quiz?.questions[currentQuestion].question}</h4>
-                    <ul className="list-none p-0">
-                      {quiz?.questions[currentQuestion].options.map((option, index) => (
-                        <li key={index}>
-                          <Button
-                            onClick={() => handleAnswerSelect(index)}
-                            className={`text-black my-2 w-full ${selectedOption === index ? 'bg-green-400' : 'bg-blue-200'}`}
-                          >
-                            {option}
-                          </Button>
-                        </li>
-                      ))}
-                    </ul>
-                    <Spacer y={1} />
-                    <div className="text-right">
-                      <Button
-                        isDisabled={selectedOption === null}
-                        onClick={handleNextQuestion}
-                        className="text-white bg-teal-400 disabled:bg-gray-900 disabled:text-white hover:bg-teal-600 text-sm rounded-md md:text-base font-bold py-2 px-4 shadow-lg"
-                      >
-                        Next
-                      </Button>
-                    </div>
-                    <div className="mt-4 text-center">
-                      {timeUp ? (
-                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                          <h4 color="error">Times Up!</h4>
-                        </motion.div>
-                      ) : (
-                        <h4>Time Remaining: {timeRemaining} seconds</h4>
-                      )}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </CardBody>
+                <QuestionDisplay
+                  question={quiz.questions[currentQuestion]}               
+                  selectedOption={selectedOption}
+                  onAnswerSelect={handleAnswerSelect}
+                  onNextQuestion={handleNextQuestion}
+                />
+              )}
+            </AnimatePresence>
+
+            {/* Exit Button */}
             <div className="absolute bottom-0 left-0 mt-4">
               <Button
-                onClick={() => router.push('/')}
-                className="bg-red-500 hover:bg-blue-900 text-white text-sm rounded-md md:text-base font-bold py-2 px-4 border-2 border-black shadow-lg">
+                onClick={() => router.push("/")}
+                className="bg-red-500 hover:bg-blue-900 text-white text-sm rounded-md md:text-base font-bold py-2 px-4 border-2 border-black shadow-lg"
+              >
                 Exit
               </Button>
             </div>

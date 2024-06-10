@@ -8,7 +8,7 @@ export const CommunityBar = () => {
   return (
     <div className="bg-gray-800 p-8 rounded-lg shadow-md text-white border-4 border-teal-500">
       <h3 className="text-lg font-semibold mb-4 text-center">
-        Make friends and learn together in the CryptoQuizz Community
+        Make friends and learn together in the LingoQuiz Community
       </h3>
       <div className="opc-stats">
         <ul className="list-none p-0"> 

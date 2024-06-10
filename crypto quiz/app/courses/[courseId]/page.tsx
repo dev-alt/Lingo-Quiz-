@@ -44,31 +44,40 @@ const CoursePage: React.FC = () => {
                 <h2 className="text-2xl font-semibold mb-4 text-center">Quizzes</h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {data.getCourse.quizzes.map((quiz: Quiz) => (
-                        <motion.div
-                            key={quiz._id}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5 }}
-                            className="w-full"
-                        >
-                            <Link href={`/quiz/${quiz._id}`}>
-                                <Card className="hover:shadow-lg cursor-pointer rounded-md bg-yellow-100">
-                                    <CardBody className="flex flex-col items-center">
-                                                <Icon icon={languageFlags[quiz.language] || "mdi:translate"} className="text-6xl" />
-
-                                        <h3 className="text-lg font-semibold mt-4 text-center">{quiz.title}</h3>
-                                        <p className="text-gray-600 text-center mt-2">Level: {quiz.difficulty}</p>
-                                    </CardBody>
-                                </Card>
-                            </Link>
-                        </motion.div>
-                    ))}
-                </div>
+    {data.getCourse.quizzes.map((quiz: Quiz) => (
+        <motion.div
+            key={quiz._id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="w-full"
+        >
+            {/* Conditionally render Link only if quiz is not completed */}
+            {!quiz.isCompleted ? (
+                <Link href={`/quiz/${quiz._id}`}>
+                    <Card className="hover:shadow-lg cursor-pointer rounded-md bg-yellow-100">
+                        <CardBody className="flex flex-col items-center">
+                            <Icon icon={languageFlags[quiz.language] || "mdi:translate"} className="text-6xl" />
+                            <h3 className="text-lg font-semibold mt-4 text-center">{quiz.title}</h3>
+                            <p className="text-gray-600 text-center mt-2">Level: {quiz.difficulty}</p>
+                        </CardBody>
+                    </Card>
+                </Link>
+            ) : (
+                <Card className="cursor-not-allowed rounded-md bg-gray-300">
+                    <CardBody className="flex flex-col items-center">
+                        <Icon icon={languageFlags[quiz.language] || "mdi:translate"} className="text-6xl" />
+                        <h3 className="text-lg font-semibold mt-4 text-center">{quiz.title}</h3>
+                        <p className="text-gray-600 text-center mt-2">Level: {quiz.difficulty}</p>
+                    </CardBody>
+                </Card>
+            )}
+        </motion.div>
+    ))}
+</div>
             </div>
         </section>
     );
 }
-
 
 export default CoursePage;

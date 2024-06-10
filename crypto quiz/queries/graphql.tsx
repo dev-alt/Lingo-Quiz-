@@ -108,6 +108,7 @@ export const GET_COURSE = gql`
         title
         language
         difficulty
+        isCompleted
       }
     }
   }
