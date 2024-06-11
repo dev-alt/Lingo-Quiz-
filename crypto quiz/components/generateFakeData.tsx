@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 
 const generateFakeProduct = () => {
     return {
-        id: faker.number.int(),
+        id: faker.number.int().toString(),
         title: faker.commerce.productName(),
         imageUrl: faker.image.url(),
         description: faker.lorem.paragraph(),

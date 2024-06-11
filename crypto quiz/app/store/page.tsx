@@ -11,6 +11,14 @@ export default function StorePage() {
 	const filteredProducts = fakeProducts.filter((product) =>
 		product.title.toLowerCase().includes(searchQuery.toLowerCase())
 	  );
+
+	  const handleBuy = (productId: string) => {
+		const product = fakeProducts.find(p => p.id === productId);
+		if (product) {
+		  alert(`You have bought ${product.title} for $${product.price}!`);
+		  // Add additional purchase logic here
+		}
+	  };
 	return (
 
 		<div className="max-w-7xl mx-auto py-12 bg-gray-900 p-6 rounded-md shadow-lg shadow-teal-500 border-2 border-teal-500">
@@ -28,7 +36,7 @@ export default function StorePage() {
 		/>
 		</div>
 	  </div>
-	  <ProductList products={filteredProducts} />
+      <ProductList products={filteredProducts} onBuy={handleBuy} />
 	  </div>
 
 	);

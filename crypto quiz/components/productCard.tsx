@@ -7,9 +7,11 @@ import { ProductCardProps } from '../types/products.types';
 
 interface ProductCardComponentProps extends ProductCardProps {
   isLoading: boolean;
+  onBuy: (productId: string) => void;
+  
 }
 
-const ProductCard: React.FC<ProductCardComponentProps> = ({ product, onAddToCart, isLoading }) => {
+const ProductCard: React.FC<ProductCardComponentProps> = ({ product, onBuy, isLoading }) => {
 
   return (
     <div className="relative group overflow-hidden p-4 rounded-lg hover:shadow-[2px_2px_10px_1px_#4299e1] max-w-xs mx-auto">
@@ -46,7 +48,7 @@ const ProductCard: React.FC<ProductCardComponentProps> = ({ product, onAddToCart
           </motion.h4>
 
           <motion.button
-            onClick={() => onAddToCart(product.id)}
+            onClick={() => onBuy(product.id)}
             className={`
     w-full text-white font-bold py-2 px-4 rounded-lg
     bg-gradient-to-r from-blue-500 to-purple-500

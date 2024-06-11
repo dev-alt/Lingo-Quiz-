@@ -1,5 +1,5 @@
 export interface Product {
-    id: number;
+    id: string;
     title: string;
     imageUrl: string;
     description: string;
@@ -8,15 +8,17 @@ export interface Product {
 
 export interface ProductListProps {
     products: Product[];
+    onBuy: (productId: string) => void;
 }
 
 export interface ProductCardProps {
     product: {
-        id: number;
+        id: string;
         title: string;
         imageUrl: string;
         description: string;
         price: number;
     };
-    onAddToCart: (productId: number) => void;
+    onBuy: (productId: string) => void;
+
 }
