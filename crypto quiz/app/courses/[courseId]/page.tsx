@@ -5,7 +5,7 @@ import { gql, useQuery } from "@apollo/client";
 import { Course, Quiz } from "@/types";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { GET_COURSE } from "@/queries/graphql";
-import { Accordion, AccordionItem, Card, CardBody, Spinner } from "@nextui-org/react";
+import { Accordion, AccordionItem, Card, CardBody, Divider, Spinner } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { useEffect } from "react";
@@ -50,8 +50,9 @@ const CoursePage: React.FC = () => {
                 </h1>
                 <p className="text-lg text-white">{data.getCourse.description}</p>
             </div>
-            <div className="flex flex-col items-center">
-                <h2 className="text-2xl font-semibold mb-4 text-center">Quizzes</h2>
+            <div className="flex flex-col items-center mt-4">
+                <h2 className="text-2xl font-semibold mb-4 text-center text-white">Quizzes</h2>
+                <Divider  className="my-4"/>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {data.getCourse.quizzes.map((quiz: Quiz) => (
