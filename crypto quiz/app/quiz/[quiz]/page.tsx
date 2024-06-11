@@ -39,7 +39,7 @@ export default function QuizPage() {
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
-  const [quizResults, setQuizResults] = useState<QuizResultType | null>(null); 
+  const [quizResults, setQuizResults] = useState<QuizResultType | null>(null);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(30);
@@ -100,11 +100,11 @@ export default function QuizPage() {
         if (recordProgressResponse.ok) {
           const recordProgressData =
             await recordProgressResponse.json();
-            setQuizResults({
-              score: data.score,
-              results: data.results,
-              timeTaken: 30 - timeRemaining,
-            });
+          setQuizResults({
+            score: data.score,
+            results: data.results,
+            timeTaken: 30 - timeRemaining,
+          });
           setShowResult(true);
         } else {
           toast.error("Failed to record quiz results", {
@@ -230,7 +230,7 @@ export default function QuizPage() {
                 />
               ) : (
                 <QuestionDisplay
-                  question={quiz.questions[currentQuestion]}               
+                  question={quiz.questions[currentQuestion]}
                   selectedOption={selectedOption}
                   onAnswerSelect={handleAnswerSelect}
                   onNextQuestion={handleNextQuestion}
@@ -241,7 +241,7 @@ export default function QuizPage() {
             {/* Exit Button */}
             <div className="absolute bottom-0 left-0 mt-4">
               <Button
-                onClick={() => router.push("/")}
+                onClick={() => router.back()}
                 className="bg-red-500 hover:bg-blue-900 text-white text-sm rounded-md md:text-base font-bold py-2 px-4 border-2 border-black shadow-lg"
               >
                 Exit

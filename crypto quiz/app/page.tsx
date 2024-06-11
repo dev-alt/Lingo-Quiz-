@@ -52,10 +52,10 @@ export default function Home() {
         <div className="text-center mt-4">
           <p className="text-lg text-white">No enrolled courses.</p>
           <div className="max-w-md mx-auto mt-5">
-            <div className=" rounded-lg shadow-md p-6 bg-yellow-500">
+            <div className=" rounded-lg shadow-md p-6 bg-slate-400">
               <h2 className="text-xl font-semibold mb-4">Explore available courses</h2>
               <p className="text-black mb-6">You have not enrolled in any courses yet. Start your learning journey by exploring available courses.</p>
-              <Link href="/learn" className="block w-full text-center bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600 transition duration-300 ease-in-out">Explore Courses
+              <Link href="/learn" className="block w-full text-center bg-yellow-500 text-black py-2 px-4 rounded-md shadow-md hover:bg-blue-600 transition duration-300 ease-in-out">Explore Courses
               </Link>
             </div>
           </div>
