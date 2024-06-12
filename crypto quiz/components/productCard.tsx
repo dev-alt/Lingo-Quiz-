@@ -3,11 +3,11 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Image, Skeleton } from '@nextui-org/react';
-import { ProductCardProps } from '../types/products.types';
+import { ProductCardProps, Product } from '../types/products.types';
 
 interface ProductCardComponentProps extends ProductCardProps {
   isLoading: boolean;
-  onBuy: (productId: string) => void;
+  onBuy: (product: Product) => void;
   
 }
 
@@ -48,7 +48,8 @@ const ProductCard: React.FC<ProductCardComponentProps> = ({ product, onBuy, isLo
           </motion.h4>
 
           <motion.button
-            onClick={() => onBuy(product.id)}
+           type="button" 
+            onClick={() => onBuy(product)}
             className={`
     w-full text-white font-bold py-2 px-4 rounded-lg
     bg-gradient-to-r from-blue-500 to-purple-500

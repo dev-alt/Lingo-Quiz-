@@ -8,7 +8,7 @@ export interface Product {
 
 export interface ProductListProps {
     products: Product[];
-    onBuy: (productId: string) => void;
+    onBuy: (product: Product) => void;
 }
 
 export interface ProductCardProps {
@@ -19,6 +19,6 @@ export interface ProductCardProps {
         description: string;
         price: number;
     };
-    onBuy: (productId: string) => void;
+    onBuy: (product: Product) => void;
 
 }

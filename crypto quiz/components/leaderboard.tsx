@@ -1,53 +1,192 @@
-'use client';
+"use client";
 
-import { Card, CardBody, Tab, Tabs, Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from '@nextui-org/react';
-import { useState } from 'react';
-import { LeaderboardEntry } from '../types/leaderboard.types';
+import { Avatar, Card, CardBody, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
+import { useState } from "react";
+import { LeaderboardEntry } from "@/types";
+import { AnimatePresence, motion } from "framer-motion";
+import { Icon } from "@iconify/react";
+
+function TopThree({ topPlayers }: { topPlayers: LeaderboardEntry[] }) {
+  return (
+    <div className="flex justify-center gap-2 mb-2 relative">
+
+      {/* Second Place (index 0 in the array) */}
+      <motion.div
+        key={topPlayers[1].id}
+        className="p-3 text-center relative rounded-lg text-black"
+        style={{
+          zIndex: topPlayers.length - 0,
+          width: "25%",
+          transform: "translateX(-20%)",
+        }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        whileHover={{ scale: 1.05 }}
+        transition={{ duration: 0.5, delay: 0 * 0.2 }}
+      >
+        <Card className="w-full bg-gradient-to-r from-slate-400 to-slate-500 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out" style={{ height: '90%' }}>
+          <CardBody className="flex flex-col items-center p-4">
+            <div className="bg-slate-200 text-slate-800 rounded-full px-3 py-1 mb-2 shadow-inner">
+              <span className="text-lg md:text-xl font-bold">2nd</span>
+            </div>
+            <Avatar src="{topPlayers[0].avatar}" alt="Avatar" className="w-24 h-24 rounded-full shadow-md border-4 border-slate-300 mb-2" />
+            <h3 className="text-xl md:text-2xl font-bold mt-2">{topPlayers[1].username}</h3>
+            <div className="text-md md:text-lg mt-1">XP: {topPlayers[1].xp}</div>
+            <div className="text-md md:text-lg">
+              Correct Answers: {topPlayers[1].correctAnswers}
+            </div>
+            <div className="mt-4">
+              <span className="inline-block bg-slate-600 text-white rounded-full px-3 py-1 text-sm font-semibold">Outstanding Performer</span>
+            </div>
+          </CardBody>
+        </Card>
+      </motion.div>
+
+
+      {/* First Place (index 1 in the array) */}
+      <motion.div
+        key={topPlayers[0].id}
+        className="p-4 text-center relative rounded-md text-black" // Gold for 1st
+        style={{
+          zIndex: topPlayers.length - 1,
+          width: "50%",
+          transform: "translateY(-16px)",
+        }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        whileHover={{ scale: 1.05 }}
+        transition={{ duration: 0.5, delay: 1 * 0.2 }}
+      >
+        <Card className="w-full h-full bg-gradient-to-r from-yellow-400 to-yellow-500 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
+          <CardBody className="flex flex-col items-center p-6">
+            <div className="bg-yellow-200 text-yellow-800 rounded-full px-3 py-1 mb-2 shadow-inner">
+              <span className="text-lg md:text-xl font-bold">1st</span>
+            </div>
+            <Avatar src="{topPlayers[1].avatar}" alt="Avatar" className="w-24 h-24 rounded-full shadow-md border-4 border-yellow-300" />
+            <h3 className="text-xl md:text-2xl font-bold mt-2">{topPlayers[0].username}</h3>
+            <div className="text-md md:text-lg mt-1">XP: {topPlayers[0].xp}</div>
+            <div className="text-md md:text-lg">
+              Correct Answers: {topPlayers[0].correctAnswers}
+            </div>
+            <div className="mt-4">
+              <span className="inline-block bg-yellow-600 text-white rounded-full px-3 py-1 text-sm font-semibold">Top Performer</span>
+            </div>
+          </CardBody>
+        </Card>
+
+      </motion.div>
+
+      {/* Third Place (index 2 in the array) */}
+      <motion.div
+        key={topPlayers[2].id}
+        className="p-3 text-center relative rounded-lg text-black"
+        style={{
+          zIndex: topPlayers.length - 2,
+          width: "25%",
+          transform: "translateX(20%)",
+        }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        whileHover={{ scale: 1.05 }}
+        transition={{ duration: 0.5, delay: 2 * 0.2 }}
+      >
+        <Card className="w-full bg-gradient-to-r from-amber-500 to-amber-600 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out" style={{ height: '90%' }}>
+          <CardBody className="flex flex-col items-center p-4">
+            <div className="bg-amber-200 text-amber-800 rounded-full px-3 py-1 mb-2 shadow-inner">
+              <span className="text-lg md:text-xl font-bold">3rd</span>
+            </div>
+            <Avatar src="{topPlayers[2].avatar}" alt="Avatar" className="w-24 h-24 rounded-full shadow-md border-4 border-amber-300 mb-2" />
+            <h3 className="text-xl md:text-2xl font-bold mt-2">{topPlayers[2].username}</h3>
+            <div className="text-md md:text-lg mt-1">XP: {topPlayers[2].xp}</div>
+            <div className="text-md md:text-lg">
+              Correct Answers: {topPlayers[2].correctAnswers}
+            </div>
+            <div className="mt-4">
+              <span className="inline-block bg-amber-700 text-white rounded-full px-3 py-1 text-sm font-semibold">Achiever</span>
+            </div>
+          </CardBody>
+        </Card>
+      </motion.div>
+
+    </div>
+  );
+}
 
 
 
-function Leaderboard({ data }: { data: LeaderboardEntry[] }) {
-  const columns: { key: keyof LeaderboardEntry; label: string }[] = [
-    { key: 'rank', label: 'Rank' },
-    { key: 'username', label: 'Username' },
-    { key: 'xp', label: 'XP' },
-    { key: 'correctAnswers', label: 'Correct Answers' },
+function RemainingPlayers({ players }: { players: LeaderboardEntry[] }) {
+  const columns = [
+    { key: "username", label: "Username" },
+    { key: "xp", label: "XP" },
+    { key: "correctAnswers", label: "Correct Answers" },
   ];
 
   return (
-    <div className="w-full p-4 overflow-x-auto"> 
-    <Table aria-label="Leaderboard Table"    
-          selectionMode="single" 
-          classNames={{
-             table: "p-0 m-0 w-full h-full overflow-x-auto ",
-            // thead: "[&>tr]:first:shadow-none [&>tr]:first:rounded-none border-b-2 border-default-200",
-            // th: "bg-transparent font-bold text-lg text-green-500 border-r-2 border-default-200 last:border-none pb-0 rounded-none first:rounded-t-none first:rounded-b-none last:rounded-t-none last:rounded-b-none last:rounded-t-none",
-            // base: "h-full max-w-5xl h-fit",
-            // td: "text-lg border-r-2 last:border-none border-default-200",
-             wrapper: " bg-gray-800 border-4 shadow-lg border-teal-400 rounded-lg",
-            // tbody: "border-t",
-            // tr: "even:bg-green-500 even:bg-opacity-50 data-[selected=true]:bg-default-100",
-          }}
-    >
+    <div className="mt-4">
+      <Table
+        aria-label="Leaderboard Table"
+        selectionMode="single"
+        classNames={{
+          table: "min-w-full divide-y divide-gray-200 bg-gray-800 shadow-md rounded-lg",
+          th: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+          td: "px-6 py-4 whitespace-nowrap text-sm text-gray-200",
+        }}
+      >
         <TableHeader columns={columns}>
-          {(column) => (
-            <TableColumn key={column.key} 
-                        className="bg-teal-500 text-white font-semibold ">
+          {column => (
+            <TableColumn key={column.key}>
               {column.label}
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody items={data}>
+        <TableBody items={players}>
           {(item) => (
             <TableRow key={item.id}>
-              {columns.map((column) => (
-                <TableCell key={column.key} className="bg-yellow-100 text-black">{item[column.key]}</TableCell>
-              ))}
+              <TableCell>{item.username}</TableCell>
+              <TableCell>{item.xp}</TableCell>
+              <TableCell>{item.correctAnswers}</TableCell>
             </TableRow>
           )}
         </TableBody>
       </Table>
     </div>
+  );
+}
+
+function Leaderboard({ data }: { data: LeaderboardEntry[] }) {
+  const sortedData = data.sort((a, b) => a.rank - b.rank);
+  const topPlayers = sortedData.slice(0, 3);
+  const remainingPlayers = sortedData.slice(3);
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.4,
+      }
+    },
+  };
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
+  return (
+    <motion.div
+      className="w-full p-4 overflow-x-auto"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      {/* Top Three Players */}
+      <AnimatePresence>
+        <motion.div variants={itemVariants}>
+          <TopThree topPlayers={topPlayers} />
+        </motion.div>
+      </AnimatePresence>
+      <RemainingPlayers players={remainingPlayers} />
+    </motion.div>
   );
 }
 

@@ -9,6 +9,15 @@ export default function LeaderboardLayout() {
 		Weekly: [
 			{ id: 1, rank: 1, username: 'AliceCrypto', xp: 1500, correctAnswers: 95 },
 			{ id: 2, rank: 2, username: 'BobChain', xp: 1250, correctAnswers: 88 },
+			{ id: 3, rank: 3, username: 'BobChain3', xp: 1250, correctAnswers: 88 },
+			{ id: 4, rank: 4, username: 'BobChain', xp: 1250, correctAnswers: 88 },
+			{ id: 5, rank: 5, username: 'BobChain', xp: 1250, correctAnswers: 88 },
+			{ id: 6, rank: 6, username: 'BobChain', xp: 1250, correctAnswers: 88 },
+			{ id: 7, rank: 7, username: 'BobChain', xp: 1250, correctAnswers: 88 },
+			{ id: 8, rank: 8, username: 'BobChain', xp: 1250, correctAnswers: 88 },
+			{ id: 9, rank: 9, username: 'BobChain', xp: 1250, correctAnswers: 88 },
+			{ id: 10, rank: 10, username: 'BobChain', xp: 1250, correctAnswers: 88 },
+
 		],
 		Monthly: [
 			{ id: 1, rank: 1, username: 'CarolCoin', xp: 2200, correctAnswers: 112 },
@@ -28,7 +37,7 @@ export default function LeaderboardLayout() {
 
 
 	return (
-		<div className="flex w-full flex-col p-4">
+		<div className="flex w-full flex-col p-4 border-teal-400 border-2">
 		  <Tabs
 			aria-label="Leaderboard Tabs"
 			items={tabs}

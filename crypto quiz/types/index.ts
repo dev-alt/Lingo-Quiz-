@@ -3,7 +3,13 @@ import {SVGProps} from "react";
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
-
+export interface LeaderboardEntry {
+  id: number;
+  rank: number;
+  username: string;
+  xp: number;
+  correctAnswers: number;
+}
 export interface Course {
   _id: string;
   title: string;
