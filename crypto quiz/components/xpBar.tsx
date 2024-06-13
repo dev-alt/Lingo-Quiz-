@@ -10,9 +10,9 @@ export default function XpBar({xp}: {xp: number}) {
       <h2 className="text-lg font-semibold text-center mb-2">Level Up</h2>
 
       {/* Progress Bar */}
-      <div className="mb-2 relative rounded-full overflow-hidden h-4 bg-gray-600">
+      <div className="mb-2 relative rounded-full overflow-hidden h-4 bg-gray-700">
         <div 
-          className="absolute top-0 left-0 h-full bg-blue-500" 
+          className="absolute top-0 left-0 h-full bg-blue-600" 
           style={{ width: `${progressPercentage}%` }}
         ></div>
       </div>

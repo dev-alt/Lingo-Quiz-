@@ -24,9 +24,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const progressControls = useAnimation();
   const totalQuizzes = course.quizzes?.length || 0;
-  // Calculate completedQuizzesCount based on isCompleted
   const completedQuizzesCount = course.quizzes?.filter((quiz) => quiz.isCompleted).length || 0;
-
   const progress = Math.round((completedQuizzesCount / totalQuizzes) * 100);
 
   useEffect(() => {

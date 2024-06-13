@@ -97,16 +97,16 @@ export interface AuthContextType {
   logout: () => void;
 }
 export interface Question {
-  id: number; // Unique identifier
-  text: string; // Question text
-  options: string[]; // Array of answer options
-  correctAnswer: number; // Index of the correct answer
+  id: number;
+  text: string; 
+  options: string[]; 
+  correctAnswer: number; 
 }
 
 export interface Quiz {
   title: string;
-  description: string; // Optional description
-  courseId: string; // If you're using course IDs
+  description: string; 
+  courseId: string; 
   questions: Question[];
 }
 export interface QuestionResult {
@@ -116,7 +116,6 @@ export interface QuestionResult {
   isCorrect: boolean;
 }
 export interface QuizResult {
-  // ... other quiz properties ...
   score: number;
   timeTaken: number;
   results: {

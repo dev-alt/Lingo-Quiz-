@@ -15,7 +15,7 @@ import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@
 import { useState } from "react";
 import { useAuth } from "@/app/AuthContext";
 import { useDisclosure } from "@nextui-org/modal";
-import LoginDialog from "./loginDialog";
+import AuthModal from "./authModal";
 
 interface NavbarProps {
 	isLoggedIn: boolean;
@@ -25,7 +25,6 @@ export const Navbar = ({ isLoggedIn }: NavbarProps) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const { isLoggedIn: isAuthenticated, logout } = useAuth();
 	const { isOpen, onOpen, onClose } = useDisclosure();
-
 	const handleMenuItemClick = () => {
 		setIsMenuOpen(false);
 	};
@@ -36,7 +35,6 @@ export const Navbar = ({ isLoggedIn }: NavbarProps) => {
 		  <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
 			<NavbarBrand as="li" className="gap-3 max-w-fit">
 			  <Link href="/" passHref className="flex justify-start items-center gap-2">
-				<Logo />
 				<p className="font-bold text-3xl text-inherit text-yellow-400">LingoQuiz</p>
 			  </Link>
 			</NavbarBrand>
@@ -76,7 +74,7 @@ export const Navbar = ({ isLoggedIn }: NavbarProps) => {
 				  <Button color="primary" onClick={onOpen}>
 					Login
 				  </Button>
-				  <LoginDialog isOpen={isOpen} onClose={onClose} />
+				  <AuthModal isOpen={isOpen} onClose={onClose} />
 				</div>
 			)}
 		</NavbarContent>

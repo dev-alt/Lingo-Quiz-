@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react"; 
+import Image from "next/image";
 export default function ProfileClientComponent({ profileData }: { profileData: any }) {
   const {
     username,
@@ -22,7 +23,7 @@ export default function ProfileClientComponent({ profileData }: { profileData: a
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-gray-900 rounded-lg p-6 m-4 shadow-[0_20px_50px_#14b8a6]"
+      className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg p-8 shadow-lg"
     >
       <h1 className="text-4xl font-bold mb-4 text-white">Username: {username}</h1>
       <div className="text-xl text-gray-300 mb-4">

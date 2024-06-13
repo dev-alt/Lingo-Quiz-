@@ -12,6 +12,7 @@ import HeroSection from '@/components/heroSection';
 import NoCourseEnrolled from '@/components/noCourseEnrolled';
 import CTACard from '@/components/ctaCard';
 import { Course } from '@/types';
+import LeaderboardCTA from '@/components/leaderboardCTA';
 
 export default function Home() {
   const { user } = useAuth();
@@ -44,7 +45,7 @@ export default function Home() {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <section className="bg-gradient-to-br from-blue-900 to-purple-900 text-white py-8 md:py-12 mt-4 h-screen">
+    <section className="border-1 border-teal-500 bg-gradient-to-br from-blue-900 to-purple-900 text-white py-8 md:py-12 mt-4 h-screen">
       <HeroSection />
       <CTACard />
 
@@ -67,6 +68,7 @@ export default function Home() {
               ))}
             </motion.div>
           )}
+          <LeaderboardCTA />
         </AnimatePresence>
       </div>
 
