@@ -17,43 +17,21 @@ export default function LeaderboardLayout() {
 			{ id: 8, rank: 8, username: 'BobChain', xp: 1250, correctAnswers: 88 },
 			{ id: 9, rank: 9, username: 'BobChain', xp: 1250, correctAnswers: 88 },
 			{ id: 10, rank: 10, username: 'BobChain', xp: 1250, correctAnswers: 88 },
-
-		],
-		Monthly: [
-			{ id: 1, rank: 1, username: 'CarolCoin', xp: 2200, correctAnswers: 112 },
-			{ id: 2, rank: 2, username: 'AliceCrypto', xp: 2000, correctAnswers: 105 },
-		],
-		Overall: [
-			{ id: 1, rank: 1, username: 'DavidNode', xp: 5000, correctAnswers: 250 },
-			{ id: 2, rank: 2, username: 'CarolCoin', xp: 4800, correctAnswers: 240 },
-		],
+		]
 	});
 
-	const tabs = [
-		{ id: "Weekly", label: "Weekly" },
-		{ id: "Monthly", label: "Monthly" },
-		{ id: "Overall", label: "Overall" },
-	];
 
 
 	return (
 		<div className="flex w-full flex-col p-4 border-teal-400 border-2">
-		  <Tabs
-			aria-label="Leaderboard Tabs"
-			items={tabs}
-			className="text-black mb-4 mt-4"
-			color="primary"
-		  >
-			{(item) => (
-			  <Tab key={item.id} title={item.label}>
-				<Card className="bg-gray-800">
-				  <CardBody className="">
-					<Leaderboard data={leaderboardData[item.id as keyof typeof leaderboardData]} />
-				  </CardBody>
-				</Card>
-			  </Tab>
-			)}
-		  </Tabs>
+		  {Object.entries(leaderboardData).map(([key, leaderboard]) => (
+			<Card key={key} className="bg-gray-800 mb-4">
+			  <CardBody className="flex flex-col items-center">
+
+				<Leaderboard data={leaderboard} />
+			  </CardBody>
+			</Card>
+		  ))}
 		</div>
 	  );
 	}

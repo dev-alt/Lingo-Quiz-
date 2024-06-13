@@ -116,6 +116,7 @@ function TopThree({ topPlayers }: { topPlayers: LeaderboardEntry[] }) {
 
 function RemainingPlayers({ players }: { players: LeaderboardEntry[] }) {
   const columns = [
+    { key: "rank", label: "Rank" },
     { key: "username", label: "Username" },
     { key: "xp", label: "XP" },
     { key: "correctAnswers", label: "Correct Answers" },
@@ -130,6 +131,7 @@ function RemainingPlayers({ players }: { players: LeaderboardEntry[] }) {
           table: "min-w-full divide-y divide-gray-200 bg-gray-800 shadow-md rounded-lg",
           th: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
           td: "px-6 py-4 whitespace-nowrap text-sm text-gray-200",
+          wrapper: "after:bg-foreground after:text-background text-background bg-gray-800 border-2",
         }}
       >
         <TableHeader columns={columns}>
@@ -142,6 +144,7 @@ function RemainingPlayers({ players }: { players: LeaderboardEntry[] }) {
         <TableBody items={players}>
           {(item) => (
             <TableRow key={item.id}>
+              <TableCell>{item.rank}</TableCell>
               <TableCell>{item.username}</TableCell>
               <TableCell>{item.xp}</TableCell>
               <TableCell>{item.correctAnswers}</TableCell>
