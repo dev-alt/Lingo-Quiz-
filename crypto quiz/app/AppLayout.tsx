@@ -4,7 +4,7 @@ import "@/styles/globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import SidebarItem from "@/components/sidebar/myProgress";
-import XpBar from "@/components/xpBar";
+import XpBar from "@/components/sidebar/xpBar";
 import { InviteFriend } from "../components/sidebar/inviteFriend";
 import { CommunityBar } from "@/components/sidebar/communityInfo";
 import { useAuth } from "./AuthContext";
@@ -40,7 +40,6 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
             <SidebarItem
               {...profileData?.profileByUserId}
             />
-            <XpBar {...profileData?.profileByUserId} />
             <div className="hidden md:flex">
               <InviteFriend />
             </div>
