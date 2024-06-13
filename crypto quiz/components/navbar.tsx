@@ -31,7 +31,7 @@ export const Navbar = ({ isLoggedIn }: NavbarProps) => {
 
 	return (
 		<NextUINavbar maxWidth="xl" position="sticky" className="bg-gray-900 text-white py-4 shadow-lg z-50">
-		  {/* Left side (Logo and Brand) */}
+		  {/* Left side */}
 		  <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
 			<NavbarBrand as="li" className="gap-3 max-w-fit">
 			  <Link href="/" passHref className="flex justify-start items-center gap-2">
@@ -69,7 +69,6 @@ export const Navbar = ({ isLoggedIn }: NavbarProps) => {
 				</DropdownMenu>
 			  </Dropdown>
 			) : (
-				// Button to open Login Dialog
 				<div>
 				  <Button color="primary" onClick={onOpen}>
 					Login

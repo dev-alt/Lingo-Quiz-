@@ -3,10 +3,10 @@
 import "@/styles/globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import SidebarItem from "@/components/myProgress";
+import SidebarItem from "@/components/sidebar/myProgress";
 import XpBar from "@/components/xpBar";
-import { InviteFriend } from "@/components/inviteFriend";
-import { CommunityBar } from "@/components/communityInfo";
+import { InviteFriend } from "../components/sidebar/inviteFriend";
+import { CommunityBar } from "@/components/sidebar/communityInfo";
 import { useAuth } from "./AuthContext";
 import { useQuery, gql } from '@apollo/client';
 import { GET_USER_PROFILE_BY_USER_ID } from "@/queries/graphql";

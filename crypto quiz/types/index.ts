@@ -143,3 +143,40 @@ export interface Response {
     isCorrect: boolean;
   }[];
 }
+export interface LeaderboardEntry {
+  id: number;
+  rank: number;
+  username: string;
+  xp: number;
+  correctAnswers: number;
+}
+export interface Product {
+  id: string;
+  title: string;
+  imageUrl: string;
+  description: string;
+  price: number;
+}
+
+export interface ProductListProps {
+  products: Product[];
+  onBuy: (product: Product) => void;
+}
+
+export interface ProductCardProps {
+  product: {
+      id: string;
+      title: string;
+      imageUrl: string;
+      description: string;
+      price: number;
+  };
+  onBuy: (product: Product) => void;
+
+}
+export interface CourseCardProps {
+  title: string;
+  courseId: string;
+  progress: number;
+  maxProgress: number;
+}

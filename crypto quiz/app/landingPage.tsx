@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Navbar } from '@/components/navbar';
 import { title } from '@/components/primitives';
 import { Footer } from '@/components/footer';
-// import LoginDialog from '@/components/loginDialog';
-// import SignUpDialog from '@/components/signUpDialog';
 import { useDisclosure } from "@nextui-org/modal";
 import { motion } from "framer-motion";
 import Image from 'next/image';
@@ -11,10 +9,7 @@ import Testimonials from '../components/Testimonials';
 import AuthModal from '@/components/authModal';
 
 export default function LandingPage() {
-    const { isOpen: isSignUpOpen, onOpen: onSignUpOpen, onClose: onSignUpClose } = useDisclosure();
-    const { isOpen: isLogInOpen, onOpen: onLogInOpen, onClose: onLogInClose } = useDisclosure();
     const [isModalOpen, setIsModalOpen] = useState(false);
-
     const handleOpenModal = () => setIsModalOpen(true);
     const handleCloseModal = () => setIsModalOpen(false);
     const sectionVariants = {
@@ -26,10 +21,8 @@ export default function LandingPage() {
     };
 
     return (
-
         <div className="relative flex flex-col min-h-screen bg-gray-800 text-white">
             <Navbar isLoggedIn={false} />
-
             <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
                 <motion.section
                     initial="hidden"
@@ -92,16 +85,16 @@ export default function LandingPage() {
                     <h2 className="text-2xl md:text-3xl font-bold">Get Started Today</h2>
                     <p className="mt-4 mb-8 text-lg">Join us now and take your language skills to the next level!</p>
                     <div className="flex justify-center gap-4">
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="bg-teal-500 hover:bg-teal-700 text-white text-sm md:text-base font-bold py-2 px-4 rounded-md shadow-lg transition-colors duration-300"
-        onClick={handleOpenModal}
-      >
-        Sign Up / Log In
-      </motion.button>
-      <AuthModal isOpen={isModalOpen} onClose={handleCloseModal} /> {/* Render the AuthModal component */}
-    </div>
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="bg-teal-500 hover:bg-teal-700 text-white text-sm md:text-base font-bold py-2 px-4 rounded-md shadow-lg transition-colors duration-300"
+                            onClick={handleOpenModal}
+                        >
+                            Sign Up / Log In
+                        </motion.button>
+                        <AuthModal isOpen={isModalOpen} onClose={handleCloseModal} />
+                    </div>
                 </motion.section>
 
                 <Testimonials />

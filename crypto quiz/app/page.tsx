@@ -1,9 +1,6 @@
 'use client'
-import Link from 'next/link'
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
 import CourseCard from "@/components/courseCard";
-import { AnimatePresence, motion, Reorder } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { GET_ENROLLED_COURSES } from '@/queries/graphql';
@@ -45,7 +42,7 @@ export default function Home() {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <section className="border-1 border-teal-500 bg-gradient-to-br from-blue-900 to-purple-900 text-white py-8 md:py-12 mt-4 h-screen">
+    <section className="border-1 border-teal-500 bg-gradient-to-br from-blue-900 to-purple-900 text-white py-8 md:py-12 mt-4 h-screen mb-2">
       <HeroSection />
       <CTACard />
 
@@ -53,7 +50,9 @@ export default function Home() {
       <div className="max-w-6xl mx-auto">
         <AnimatePresence>
           {data.enrolledCourses.length === 0 ? (
+            <motion.div key="noCourses" variants={containerVariants} className="p-2">
             <NoCourseEnrolled />
+          </motion.div>
           ) : (
             <motion.div
               variants={containerVariants}
