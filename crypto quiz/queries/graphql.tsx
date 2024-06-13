@@ -48,6 +48,7 @@ export const GET_USER_PROFILE_BY_USER_ID = gql`
   }
 `;
 
+
 export const GET_ENROLLED_COURSES = gql`
   query GetEnrolledCourses($userId: ID!) {
     enrolledCourses(userId: $userId) {
@@ -56,12 +57,14 @@ export const GET_ENROLLED_COURSES = gql`
       language
       difficulty
       description
-      imageUrl
       duration
+      quizzes {
+      _id
+      isCompleted
+      }
     }
   }
 `;
-
 export const GET_COURSES_DATA = gql`
   query GetCoursesData($language: String!, $difficulty: String!) {
     languages
@@ -122,7 +125,6 @@ export const GET_QUIZ = gql`
       questions {
         question
         options
-        answer
       }
     }
   }

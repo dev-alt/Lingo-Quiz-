@@ -31,10 +31,10 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
     return <LandingPage />;
   }
   return (
-    <div className="relative flex flex-col min-h-screen">
+    <div className="relative flex flex-col min-h-screen ">
       <Navbar isLoggedIn={isLoggedIn} />
       <main className="container mx-auto max-w-14xl pt-16 px-6 flex-grow bg-gray-800">
-        <div className="flex flex-col md:flex-row-reverse">
+        <div className="flex flex-col md:flex-row-reverse ">
           {/* sidebar */}
           <div className="bg-gray-800 md:min-h-screen md:w-80 flex flex-col items-stretch p-4 space-y-4">
             <SidebarItem
@@ -50,7 +50,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
 
           {/* main body */}
-          <div className="flex-1 mb-8 md:mb-0">{children}</div>
+          <div className="flex-1 mb-8 md:mb-0 flex-shrink-0">{children}</div>
         </div>
       </main>
       {/* Footer */}

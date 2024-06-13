@@ -26,6 +26,8 @@ export interface Course {
   tags?: string[];
   createdAt?: Date;
   updatedAt?: Date;
+  completedQuizzesCount?: number;
+  userProgress?: UserProgress;
 }
 
 export interface Quiz {
@@ -51,6 +53,7 @@ export interface Review {
 export interface UserProgress {
   courseId: string;
   progress: number;
+  completedQuizzes: { quizId: string }[];
 }
 
 export interface SidebarItemProps {

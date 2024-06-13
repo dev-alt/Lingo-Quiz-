@@ -3,18 +3,15 @@ import Link from 'next/link'
 import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
 import CourseCard from "@/components/courseCard";
-import { motion, Reorder } from 'framer-motion';
+import { AnimatePresence, motion, Reorder } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { GET_ENROLLED_COURSES } from '@/queries/graphql';
 import { useAuth } from './AuthContext';
-
-interface Course {
-  _id: string;
-  title: string;
-  language: string;
-  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
-}
+import HeroSection from '@/components/heroSection';
+import NoCourseEnrolled from '@/components/noCourseEnrolled';
+import CTACard from '@/components/ctaCard';
+import { Course } from '@/types';
 
 export default function Home() {
   const { user } = useAuth();
@@ -26,6 +23,16 @@ export default function Home() {
     fetchPolicy: 'cache-and-network',
   });
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.4,
+      },
+    },
+  };
 
   useEffect(() => {
     if (data && data.courses) {
@@ -33,48 +40,36 @@ export default function Home() {
     }
   }, [data]);
 
-  const handleReorder = (newOrder: number[]) => {
-    setCourseOrder(newOrder);
-  };
-
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <section className="flex flex-col justify-center gap-4 py-8 md:py-10 ">
-      {/* Title */}
-      <div className="text-center overflow-hidden p-4 md:p-6 shadow-[5px_3px_5px_5px_#14b8a6] mr-4">
-        <h1 className={title({ color: "violet" })} >LingoQuiz&nbsp;</h1>
+    <section className="bg-gradient-to-br from-blue-900 to-purple-900 text-white py-8 md:py-12 mt-4 h-screen">
+      <HeroSection />
+      <CTACard />
+
+      {/* Enrolled Courses or "No Courses" Message */}
+      <div className="max-w-6xl mx-auto">
+        <AnimatePresence>
+          {data.enrolledCourses.length === 0 ? (
+            <NoCourseEnrolled />
+          ) : (
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-8"
+            >
+              {data.enrolledCourses.map((course: Course) => (
+                <motion.div key={course._id} variants={containerVariants} className='p-2'>
+                  <CourseCard course={course}
+                  />                </motion.div>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
-      {/* Check if there are enrolled courses */}
-      {data.enrolledCourses.length === 0 ? (
-        <div className="text-center mt-4">
-          <p className="text-lg text-white">No enrolled courses.</p>
-          <div className="max-w-md mx-auto mt-5">
-            <div className=" rounded-lg shadow-md p-6 bg-slate-400">
-              <h2 className="text-xl font-semibold mb-4">Explore available courses</h2>
-              <p className="text-black mb-6">You have not enrolled in any courses yet. Start your learning journey by exploring available courses.</p>
-              <Link href="/learn" className="block w-full text-center bg-yellow-500 text-black py-2 px-4 rounded-md shadow-md hover:bg-blue-600 transition duration-300 ease-in-out">Explore Courses
-              </Link>
-            </div>
-          </div>
-        </div>
-      ) : (
-        /* Course Cards */
-        <Reorder.Group
-          values={courseOrder}
-          onReorder={handleReorder}
-          axis="y"
-          className="inline-block text-center justify-center py-4 gap-8 md:py-10 space-y-8 max-w-4xl md:ml-10"
-        >
-          {data.enrolledCourses.map((course: Course) => (
-            <Reorder.Item key={course._id} value={course._id} className="w-full">
-              <CourseCard course={course} />
-            </Reorder.Item>
-          ))}
-        </Reorder.Group>
-      )}
     </section>
   );
 }
