@@ -17,7 +17,7 @@ import {
   import { onError } from '@apollo/client/link/error';
 import { ToastProvider } from "./toastContext";
 import { ToastContainer } from "react-toastify";
-  
+import 'react-toastify/dist/ReactToastify.css'
   export interface ProvidersProps {
 	children: React.ReactNode;
 	themeProps?: ThemeProviderProps;
@@ -59,8 +59,8 @@ import { ToastContainer } from "react-toastify";
 		<NextUIProvider navigate={router.push}>
 			<NextThemesProvider {...themeProps}>
 			<ToastProvider>
-				{children}
 				<ToastContainer />
+				{children}
 				</ToastProvider>
 				</NextThemesProvider>
 		</NextUIProvider>

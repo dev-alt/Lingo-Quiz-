@@ -35,12 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		  <body className={clsx("min-h-screen bg-gray-800 font-sans antialiased", fontSans.variable)}>
 			<Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
 			  <AuthProvider> 
-			  <ToastProvider>
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-        />
-       </ToastProvider>
+
 			  <AppLayout>{children}</AppLayout>
 					</AuthProvider>
 				</Providers>

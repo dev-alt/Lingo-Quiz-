@@ -1,6 +1,8 @@
-import React from 'react';
-import { Button, Spacer } from '@nextui-org/react';
-import { Question } from '@/types';
+import React from "react";
+import { motion } from "framer-motion";
+import { Button, Spacer } from "@nextui-org/react";
+import { Icon } from "@iconify/react";
+import { Question } from "@/types";
 
 interface QuestionDisplayProps {
   question: Question;
@@ -9,42 +11,66 @@ interface QuestionDisplayProps {
   onNextQuestion: () => void;
 }
 
-
-
-const QuestionDisplay: React.FC<QuestionDisplayProps> = ({ 
-  question, 
-  selectedOption, 
+const QuestionDisplay: React.FC<QuestionDisplayProps> = ({
+  question,
+  selectedOption,
   onAnswerSelect,
-  onNextQuestion 
+  onNextQuestion,
 }) => {
+  // Framer Motion Variants for animation (with more refined properties)
+  const buttonVariants = {
+    initial: { opacity: 0, scale: 0.95 },
+    animate: { opacity: 1, scale: 1 },
+    hover: { scale: 1.05 }, // Subtle hover effect
+    tap: { scale: 0.9 }, // Tap/click effect
+  };
 
-  
   return (
-    <>
-      <h4>{question.question}</h4>
-      <ul className="list-none p-0">
+    <div className="mt-4 space-y-6"> 
+      {/* Question Text */}
+      <h4 className="text-2xl md:text-3xl font-bold text-center text-gray-800">
+        {question.question}
+      </h4>
+
+      {/* Answer Choices */}
+      <motion.ul
+        className="list-none p-0 grid grid-cols-1 md:grid-cols-2 gap-4"
+        variants={buttonVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
         {question.options.map((option, index) => (
-          <li key={index}>
+          <motion.li
+            key={index}
+            variants={buttonVariants}
+            whileHover="hover"
+            whileTap="tap"
+          >
             <Button
               onClick={() => onAnswerSelect(index)}
-              className={`text-black my-2 w-full ${selectedOption === index ? 'bg-green-400' : 'bg-blue-200'}`}
+              className={`w-full p-4 text-left rounded-lg text-gray-800 shadow-sm
+                ${selectedOption === index ? "bg-teal-500 text-white" : "bg-white hover:bg-gray-100"}
+              `}
             >
-              {option}
+              <span className="font-semibold mr-2">{String.fromCharCode(65 + index)}.</span> {option}
             </Button>
-          </li>
+          </motion.li>
         ))}
-      </ul>
-      <Spacer y={1} />
-      <div className="text-right">
+      </motion.ul>
+
+      {/* Next Button */}
+      <div className="flex justify-end mt-4">
         <Button
-          isDisabled={selectedOption === null}
           onClick={onNextQuestion}
-          className="text-white bg-teal-400 disabled:bg-gray-900 disabled:text-white hover:bg-teal-600 text-sm rounded-md md:text-base font-bold py-2 px-4 shadow-lg"
+          className="bg-blue-500 hover:bg-blue-700 text-white rounded-md shadow-md disabled:opacity-50"
+          isDisabled={selectedOption === null}
         >
-          Next
+          <Icon icon="mdi:arrow-right" className="ml-2" /> Next
         </Button>
       </div>
-    </>
+    </div>
   );
 };
+
 export default QuestionDisplay;

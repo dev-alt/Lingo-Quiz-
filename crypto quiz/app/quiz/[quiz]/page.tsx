@@ -6,7 +6,6 @@ import { useParams, useRouter, usePathname } from "next/navigation";
 import { useQuery } from "@apollo/client";
 import { GET_QUIZ } from "@/queries/graphql";
 import { AnimatePresence, motion } from "framer-motion";
-import { title, subtitle } from "@/components/primitives";
 import {
   Question,
   Quiz,
@@ -132,7 +131,6 @@ export default function QuizPage() {
 
   const handleNextQuestion = useCallback(async () => {
     if (selectedOption !== null) {
-      // Store the selected option for the current question
       setSelectedAnswers(prevAnswers => [
         ...prevAnswers.slice(0, currentQuestion),
         selectedOption,
@@ -207,7 +205,7 @@ export default function QuizPage() {
           exit="exit"
           whileHover={{ scale: 1.05 }}
         >
-          <Card className="bg-yellow-400 border-4 border-teal-500 flex flex-col mt-8">
+          <Card className="p-4 bg-gradient-to-r from-blue-500 to-purple-500 flex flex-col mt-8">
 
             {/* Quiz Header */}
             <QuizHeader
@@ -218,7 +216,7 @@ export default function QuizPage() {
               timeUp={timeUp}
             />
 
-            {/* Question or Result Display (Conditional Rendering) */}
+            {/* Question or Result Display */}
             <AnimatePresence mode="wait">
               {showResult ? (
                 <QuizResult
@@ -239,12 +237,13 @@ export default function QuizPage() {
             </AnimatePresence>
 
             {/* Exit Button */}
-            <div className="absolute bottom-0 left-0 mt-4">
+            <div className="mt-4">
               <Button
                 onClick={() => router.back()}
-                className="bg-red-500 hover:bg-blue-900 text-white text-sm rounded-md md:text-base font-bold py-2 px-4 border-2 border-black shadow-lg"
+                color="success"
+                className="shadow-md hover:bg-red-600 text-2xl"
               >
-                Exit
+                Exit Quiz
               </Button>
             </div>
           </Card>

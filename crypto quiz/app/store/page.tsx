@@ -5,7 +5,7 @@ import generateFakeProducts from '@/components/generateFakeData';
 import { Input, useDisclosure } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 import ConfirmPurchaseModal from "@/components/confirmStoreModal";
-import { Product} from '@/types/products.types';
+import { Product } from '@/types';
 import { useToast } from "../toastContext";
 
 export default function StorePage() {
@@ -13,20 +13,20 @@ export default function StorePage() {
 	const [searchQuery, setSearchQuery] = useState('');
 	const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 	const { isOpen, onOpen, onClose } = useDisclosure();
-    const { showToast } = useToast();
+	const { showToast } = useToast();
 	useEffect(() => {
-        setFakeProducts(generateFakeProducts(10));
-    }, []);
+		setFakeProducts(generateFakeProducts(10));
+	}, []);
 
-	
-	const filteredProducts = fakeProducts.filter((product) =>
-		product.title.toLowerCase().includes(searchQuery.toLowerCase())
+
+	const filteredProducts = fakeProducts.filter((products) =>
+		products.title.toLowerCase().includes(searchQuery.toLowerCase())
 	);
 
 	const handleBuy = (product: Product) => {
 		console.log("Buying product:", product.title);
 		setSelectedProduct(product);
-		console.log("Selected product:", selectedProduct); 
+		console.log("Selected product:", selectedProduct);
 		onOpen();
 	};
 
@@ -45,29 +45,19 @@ export default function StorePage() {
 	return (
 
 		<div className="max-w-7xl mx-auto py-12 bg-gray-900 p-6 rounded-md shadow-lg shadow-teal-500 border-2 border-teal-500">
-			<div className="flex items-center justify-between mb-8">
-				<h1 className={title({ color: "violet" })}>
-					LingoQuiz Store
-				</h1>
-				<div className="items-center mt-2">
-					<Input
-						type="text"
-						placeholder="Search products..."
-						value={searchQuery}
-						onChange={(e) => setSearchQuery(e.target.value)}
-						className="max-w-xs rounded-md"
-					/>
-				</div>
+
+<div className="flex flex-col items-center justify-center">
+			<p className="text-3xl font-bold text-white pb-4">LINGOQUIZ STORE</p>
 			</div>
 			<ProductList products={filteredProducts} onBuy={handleBuy} />
 			{selectedProduct && (
-                <ConfirmPurchaseModal
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    product={selectedProduct}
+				<ConfirmPurchaseModal
+					isOpen={isOpen}
+					onClose={onClose}
+					product={selectedProduct}
 					handleBuy={handleConfirmPurchase}
-                />
-            )}
+				/>
+			)}
 
 		</div>
 	);

@@ -3,12 +3,12 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Image, Skeleton } from '@nextui-org/react';
-import { ProductCardProps, Product } from '../types/products.types';
+import { ProductCardProps, Product } from '@/types/';
 
 interface ProductCardComponentProps extends ProductCardProps {
-  isLoading: boolean;
+  product: Product;
   onBuy: (product: Product) => void;
-  
+  isLoading: boolean;  
 }
 
 const ProductCard: React.FC<ProductCardComponentProps> = ({ product, onBuy, isLoading }) => {

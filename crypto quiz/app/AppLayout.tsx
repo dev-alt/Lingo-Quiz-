@@ -12,9 +12,6 @@ import { useQuery, gql } from '@apollo/client';
 import { GET_USER_PROFILE_BY_USER_ID } from "@/queries/graphql";
 import LandingPage from "./landingPage";
 
-
-
-
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const { isLoggedIn, user } = useAuth();
 
@@ -34,6 +31,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
     <div className="relative flex flex-col min-h-screen ">
       <Navbar isLoggedIn={isLoggedIn} />
       <main className="container mx-auto max-w-14xl pt-4 px-6 flex-grow bg-gray-800">
+
         <div className="flex flex-col md:flex-row-reverse ">
           {/* sidebar */}
           <div className="bg-gray-800 md:min-h-screen md:w-80 flex flex-col items-stretch p-4 space-y-4">
