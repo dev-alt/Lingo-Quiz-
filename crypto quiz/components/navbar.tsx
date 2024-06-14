@@ -13,9 +13,9 @@ import { Logo } from "@/components/icons";
 import { Avatar } from "@nextui-org/avatar";
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
 import { useState } from "react";
-import { useAuth } from "@/app/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { useDisclosure } from "@nextui-org/modal";
-import AuthModal from "./authModal";
+import AuthModal from "./modals/authModal";
 
 interface NavbarProps {
 	isLoggedIn: boolean;

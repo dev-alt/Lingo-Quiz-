@@ -44,6 +44,7 @@ export const GET_USER_PROFILE_BY_USER_ID = gql`
       rank
       badges
       streak
+      balance
     }
   }
 `;

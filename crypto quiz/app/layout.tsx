@@ -4,10 +4,9 @@ import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Providers } from "./providers";
 import clsx from "clsx";
-import { AuthProvider } from "./AuthContext";
+import { AuthProvider } from "../context/AuthContext";
 import AppLayout from "./AppLayout";
-import { ToastProvider } from "./toastContext";
-import { ToastContainer } from "react-toastify";
+
 
 export const metadata: Metadata = {
 	title: {
@@ -28,15 +27,15 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-    
+
 	return (
 		<html lang="en" suppressHydrationWarning>
-		  <head />
-		  <body className={clsx("min-h-screen bg-gray-800 font-sans antialiased", fontSans.variable)}>
-			<Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
-			  <AuthProvider> 
+			<head />
+			<body className={clsx("min-h-screen bg-gray-800 font-sans antialiased", fontSans.variable)}>
+				<Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
+					<AuthProvider>
 
-			  <AppLayout>{children}</AppLayout>
+						<AppLayout>{children}</AppLayout>
 					</AuthProvider>
 				</Providers>
 			</body>

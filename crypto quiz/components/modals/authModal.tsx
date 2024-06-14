@@ -14,7 +14,7 @@ import {
 } from "@nextui-org/react";
 import { ToastContainer, toast } from "react-toastify";
 import { motion } from 'framer-motion';
-import { useAuth } from "@/app/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 
 interface AuthModalProps {
     isOpen: boolean;

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Progress } from "@nextui-org/progress";
 import Link from 'next/link'
 import { Icon } from '@iconify/react';
-import { CourseCardProps } from '../types/quizCard.types';
+import { CourseCardProps } from '@/types/';
 
 
 const ResumeCard: React.FC<CourseCardProps> = ({

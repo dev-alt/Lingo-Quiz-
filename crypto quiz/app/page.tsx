@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { GET_ENROLLED_COURSES } from '@/queries/graphql';
-import { useAuth } from './AuthContext';
+import { useAuth } from '@/context/AuthContext';
 import HeroSection from '@/components/heroSection';
 import NoCourseEnrolled from '@/components/noCourseEnrolled';
 import CTACard from '@/components/ctaCard';

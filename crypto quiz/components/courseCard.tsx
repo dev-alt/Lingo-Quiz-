@@ -3,7 +3,7 @@ import { motion, useAnimation } from "framer-motion";
 import { Button, Card, CardBody, Image, Progress, } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
 import { useDisclosure } from "@nextui-org/react";
-import CourseDetailsModal from "./courseDetailsModal";
+import CourseDetailsModal from "@/components/modals/courseDetailsModal";
 import { Course } from "@/types/";
 interface CourseCardProps {
   course: Course;

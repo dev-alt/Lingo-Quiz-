@@ -9,7 +9,7 @@ export const InviteFriend = () => {
   };
 
   return (
-    <div className="bg-gray-800 p-8 rounded-lg shadow-md text-white border-4 border-teal-500">
+    <div className="bg-gradient-to-b from-gray-800 to-gray-900 p-4 rounded-lg shadow-md border-4 border-teal-500 text-white">
 
       {/* --- Heading Section --- */}
       <div className="flex items-center justify-center mb-4">

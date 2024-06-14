@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 export const CommunityBar = () => {
   return (
-    <div className="bg-gray-800 p-8 rounded-lg shadow-md text-white border-4 border-teal-500">
+    <div className="bg-gradient-to-b from-gray-800 to-gray-900 p-4 rounded-lg shadow-md border-4 border-teal-500 text-white">
       <h3 className="text-lg font-semibold mb-4 text-center">
         Make friends and learn together in the LingoQuiz Community
       </h3>

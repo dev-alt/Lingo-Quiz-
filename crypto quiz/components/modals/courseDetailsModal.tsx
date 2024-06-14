@@ -3,11 +3,11 @@
 import React, { useState } from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Spinner } from "@nextui-org/react";
 import { Course } from '@/types';
-import { useAuth } from '@/app/AuthContext';
+import { useAuth } from "@/context/AuthContext";
 import { ENROLL_IN_COURSE, GET_ENROLLED_COURSES, UNENROLL_FROM_COURSE } from '@/queries/graphql';
 import { useMutation, useQuery } from '@apollo/client';
 import { toast } from "react-toastify";
-import { useToast } from "@/app/toastContext";
+import { useToast } from "@/context/toastContext";
 import { useRouter } from 'next/navigation';
 
 interface CourseDetailsModalProps {

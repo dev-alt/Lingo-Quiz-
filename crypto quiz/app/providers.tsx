@@ -15,7 +15,7 @@ import {
 	gql,
   } from '@apollo/client';
   import { onError } from '@apollo/client/link/error';
-import { ToastProvider } from "./toastContext";
+import { ToastProvider } from "../context/toastContext";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
   export interface ProvidersProps {

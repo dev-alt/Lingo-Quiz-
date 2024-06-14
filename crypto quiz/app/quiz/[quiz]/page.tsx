@@ -7,16 +7,14 @@ import { useQuery } from "@apollo/client";
 import { GET_QUIZ } from "@/queries/graphql";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  Question,
   Quiz,
   QuizResult as QuizResultType,
   Response as QuizResponse,
-  SubmitQuizResultResponse
 } from "@/types/";
 import QuizHeader from "@/components/quizHeader";
 import QuestionDisplay from "@/components/questionDisplay";
 import QuizResult from "@/components/quizResult";
-import { useAuth } from "@/app/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { toast } from "react-toastify";
 
 
@@ -32,27 +30,27 @@ export default function QuizPage() {
     variables: { quizId },
   });
 
-  console.log("Quiz Data:", data)
-
   const quiz: Quiz | undefined = data?.quiz;
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
-  const [quizResults, setQuizResults] = useState<QuizResultType | null>(null);
-  const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(30);
   const [timerRunning, setTimerRunning] = useState(true);
   const startTime = useRef(Date.now());
   const [endTime, setEndTime] = useState<number | null>(null);
   const [timeUp, setTimeUp] = useState(false);
-  const [selectedAnswers, setSelectedAnswers] = useState<number[]>(
-    Array(quiz?.questions.length || 0).fill(null)
-  );
-  const token = localStorage.getItem('token');
+  const [quizResults, setQuizResults] = useState<QuizResponse | null>(null);
+  const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
+
   const handleAnswerSelect = useCallback((optionIndex: number) => {
     setSelectedOption(optionIndex);
   }, []);
+
+  const token = localStorage.getItem('token');
+
+
+
 
   const handleSubmitQuiz = useCallback(async () => {
     if (!quiz) return;
@@ -70,15 +68,15 @@ export default function QuizPage() {
           },
           body: JSON.stringify({
             quizId,
-            userAnswers: selectedOption,
-            quizTimeTaken: 30 - timeRemaining,
+            userAnswers: selectedAnswers,
+            quizTimeTaken: 60 - timeRemaining,
           }),
         }
       );
       const data: QuizResponse = await validationResponse.json();
 
       if (data.score !== null) {
-        // Store results if the last question has been reached
+        setQuizResults(data);
         const recordProgressResponse = await fetch(
           "http://localhost:7100/api/transactions/record-progress",
           {
@@ -99,11 +97,6 @@ export default function QuizPage() {
         if (recordProgressResponse.ok) {
           const recordProgressData =
             await recordProgressResponse.json();
-          setQuizResults({
-            score: data.score,
-            results: data.results,
-            timeTaken: 30 - timeRemaining,
-          });
           setShowResult(true);
         } else {
           toast.error("Failed to record quiz results", {
@@ -125,7 +118,7 @@ export default function QuizPage() {
     quiz,
     user?.userId,
     quizId,
-    selectedOption,
+    selectedAnswers,
     timeRemaining,
   ]);
 
@@ -220,8 +213,8 @@ export default function QuizPage() {
             <AnimatePresence mode="wait">
               {showResult ? (
                 <QuizResult
-                  score={score || 0}
-                  results={[]}
+                  score={quizResults?.score || 0}
+                  results={quizResults?.results || []}
                   totalQuestions={quiz.questions.length}
                   totalTimeTaken={totalTimeTaken}
                   onRewardSelect={handleRewardSelect}

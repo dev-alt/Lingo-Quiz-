@@ -65,6 +65,7 @@ export interface SidebarItemProps {
   rank: string;
   badges: number;
   streak: number;
+  balance: number;
 }
 
 export interface User {

@@ -1,7 +1,7 @@
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Spinner, Spacer } from "@nextui-org/react";
 
 import { useState, useEffect } from 'react';
-import { Product } from '../types/products.types';
+import { Product } from '@/types/';
 
 interface ComfirmModalProps {
     isOpen: boolean;

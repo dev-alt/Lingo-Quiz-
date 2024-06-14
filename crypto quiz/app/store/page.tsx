@@ -4,9 +4,9 @@ import ProductList from "@/components/productList";
 import generateFakeProducts from '@/components/generateFakeData';
 import { Input, useDisclosure } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
-import ConfirmPurchaseModal from "@/components/confirmStoreModal";
+import ConfirmPurchaseModal from "@/components/modals/confirmStoreModal";
 import { Product } from '@/types';
-import { useToast } from "../toastContext";
+import { useToast } from "@/context/toastContext";
 
 export default function StorePage() {
 	const [fakeProducts, setFakeProducts] = useState<Product[]>([]);

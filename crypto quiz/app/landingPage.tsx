@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { Navbar } from '@/components/navbar';
 import { title } from '@/components/primitives';
 import { Footer } from '@/components/footer';
-import { useDisclosure } from "@nextui-org/modal";
 import { motion } from "framer-motion";
 import Image from 'next/image';
-import Testimonials from '../components/Testimonials';
-import AuthModal from '@/components/authModal';
+import Testimonials from '@/components/Testimonials';
+import AuthModal from '@/components/modals/authModal';
 
 export default function LandingPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);

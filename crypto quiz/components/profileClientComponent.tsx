@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react"; 
-import Image from "next/image";
+
 export default function ProfileClientComponent({ profileData }: { profileData: any }) {
   const {
     username,
@@ -15,7 +15,6 @@ export default function ProfileClientComponent({ profileData }: { profileData: a
     rank,
     badges,
     streak,
-    // Destructure other fields as needed
   } = profileData.profileByHandle;
 
   return (

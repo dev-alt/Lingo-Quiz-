@@ -1,5 +1,5 @@
 import React from "react";
-import { Progress, Spacer } from "@nextui-org/react";
+import { Progress } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
 
 interface QuizHeaderProps {
