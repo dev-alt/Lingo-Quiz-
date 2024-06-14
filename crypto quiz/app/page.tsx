@@ -50,11 +50,19 @@ export default function Home() {
       <div className="max-w-6xl mx-auto">
         <AnimatePresence>
           {data.enrolledCourses.length === 0 ? (
-            <motion.div key="noCourses" variants={containerVariants} className="p-2">
-            <NoCourseEnrolled />
-          </motion.div>
+            <motion.div
+              key="no-courses-message"
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={containerVariants}
+              className="p-2"
+            >
+              <NoCourseEnrolled />
+            </motion.div>
           ) : (
             <motion.div
+             key="course-container"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
@@ -62,8 +70,8 @@ export default function Home() {
             >
               {data.enrolledCourses.map((course: Course) => (
                 <motion.div key={course._id} variants={containerVariants} className='p-2'>
-                  <CourseCard course={course}
-                  />                </motion.div>
+                  <CourseCard course={course}/>                
+                  </motion.div>
               ))}
             </motion.div>
           )}

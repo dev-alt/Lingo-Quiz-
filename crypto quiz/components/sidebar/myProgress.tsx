@@ -37,7 +37,7 @@ const MyProgress: React.FC<SidebarItemProps> = ({
           <p className="text-gray-400 text-sm mb-2">
             Level {level} ({xp} XP / {nextLevelXP} XP)
           </p>
-          <Progress color="success" value={xpPercentage} className="w-full" />
+          <Progress color="success" value={xpPercentage} className="w-full" aria-label={`Current Level Progress: ${xpPercentage}%`} />
         </div>
 
         {/* Progress Section */}
