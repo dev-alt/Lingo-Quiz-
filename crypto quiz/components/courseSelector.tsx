@@ -12,11 +12,6 @@ interface Course {
   language: string;
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
 }
-interface UserProgress {
-  courseId: string;
-  progress: number;
-}
-
 
 const CourseSelector: React.FC = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('');
@@ -44,10 +39,6 @@ const CourseSelector: React.FC = () => {
     setSelectedDifficulty(difficulty === selectedDifficulty ? '' : difficulty);
   };
 
-  const handleShowAllCourses = () => {
-    setSelectedLanguage("");
-    setSelectedDifficulty("");
-  }; 
 
   return (
     <div className="bg-gray-900 p-6 rounded-md shadow-lg shadow-teal-500 border-2 border-teal-500">

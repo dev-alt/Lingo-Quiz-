@@ -15,13 +15,13 @@ const CoursePage: React.FC = () => {
     const params = useParams();
     const courseId = params.courseId as string;
 
-    useEffect(() => {
-        refetch();
-    }, []);
-
     const { loading, error, data, refetch } = useQuery(GET_COURSE, {
         variables: { id: courseId },
     });
+    
+    useEffect(() => {
+      refetch();
+    }, [refetch]);
 
 
     const languageFlags: { [key: string]: string } = {

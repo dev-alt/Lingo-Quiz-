@@ -90,7 +90,6 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                             <ModalBody>
                                 {mode === 'signup' && (
                                     <Input
-                                        autoFocus
                                         label="Username"
                                         placeholder="Your unique username"
                                         value={username}

@@ -116,10 +116,11 @@ export default function QuizPage() {
     }
   }, [
     quiz,
-    user?.userId,
     quizId,
     selectedAnswers,
     timeRemaining,
+    token,
+    user,
   ]);
 
   const handleNextQuestion = useCallback(async () => {

@@ -58,7 +58,7 @@ const QuizResult: React.FC<QuizResultProps> = ({
             />
             <p className="text-3xl">
               {" "}
-              Sorry, you didn't pass. Try again later.
+              Sorry, you didn&apos;t pass. Try again later.
             </p>
           </div>
         )}
@@ -68,9 +68,8 @@ const QuizResult: React.FC<QuizResultProps> = ({
           {results.map((result, index) => (
             <div
               key={index}
-              className={`p-4 rounded-md ${
-                result.isCorrect ? "bg-green-200" : "bg-red-200"
-              } `}
+              className={`p-4 rounded-md ${result.isCorrect ? "bg-green-200" : "bg-red-200"
+                } `}
             >
               <p className="font-semibold">
                 Question {index + 1}: {result.questionText}
@@ -78,9 +77,8 @@ const QuizResult: React.FC<QuizResultProps> = ({
               <p>
                 Your answer:{" "}
                 <span
-                  className={`${
-                    result.isCorrect ? "text-green-700" : "text-red-700"
-                  }`}
+                  className={`${result.isCorrect ? "text-green-700" : "text-red-700"
+                    }`}
                 >
                   {result.userAnswer}
                 </span>
@@ -88,9 +86,8 @@ const QuizResult: React.FC<QuizResultProps> = ({
               <p>
                 Correct answer:{" "}
                 <span
-                  className={`${
-                    result.isCorrect ? "text-green-700" : "text-red-700"
-                  }`}
+                  className={`${result.isCorrect ? "text-green-700" : "text-red-700"
+                    }`}
                 >
                   {result.correctAnswer}
                 </span>

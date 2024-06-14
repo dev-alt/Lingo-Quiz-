@@ -1,5 +1,5 @@
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Spinner, Spacer } from "@nextui-org/react";
-
+import Image from "next/image";
 import { useState, useEffect } from 'react';
 import { Product } from '@/types/';
 
@@ -31,7 +31,7 @@ const ConfirmPurchaseModal: React.FC<ComfirmModalProps> = ({ isOpen, onClose, pr
                 </ModalHeader>
                 <ModalBody className="py-6 px-8">
                     <div className="mb-4">
-                        <img
+                        <Image
                             src={product?.imageUrl}
                             alt={product?.title}
                             className="w-full h-auto rounded-md"

@@ -1,3 +1,7 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next/core-web-vitals", "plugin:jsx-a11y/recommended"],
+  "rules": {
+    // Add any custom ESLint rules you want here
+  },
+  "plugins": ["jsx-a11y"]
 }
