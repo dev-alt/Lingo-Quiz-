@@ -6,23 +6,21 @@ import { useEffect, useState } from 'react';
 import ConfirmPurchaseModal from "@/components/modals/confirmStoreModal";
 import { Product } from '@/types';
 import { useToast } from "@/context/toastContext";
+import { useQuery } from "@apollo/client";
+import { GET_ITEMS } from "@/queries/graphql";
 
 export default function StorePage() {
-	const [fakeProducts, setFakeProducts] = useState<Product[]>([]);
 	const [searchQuery, setSearchQuery] = useState('');
 	const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { showToast } = useToast();
 	
-	// Generate fake products on component mount
-	useEffect(() => {
-		setFakeProducts(generateFakeProducts(10));
-	}, []);
+	const { loading, error, data } = useQuery(GET_ITEMS);
 
 	// Filter products based on search query
-	const filteredProducts = fakeProducts.filter((product) =>
-		product.title.toLowerCase().includes(searchQuery.toLowerCase())
-	);
+	const filteredProducts = data?.getItems.filter((product: Product) => 
+		product.name.toLowerCase().includes(searchQuery.toLowerCase())
+	  ) || [];
 
 	// Handle buy button click
 	const handleBuy = (product: Product) => {
@@ -31,12 +29,47 @@ export default function StorePage() {
 	};
 
 	// Handle confirm purchase button click
-	const handleConfirmPurchase = () => {
+	const handleConfirmPurchase = async () => {
 		if (selectedProduct) {
-			onClose();
-			showToast('Purchase successful!', 'success');
+			console.log('Buying product:', selectedProduct);
+		  try {
+			// Fetch the token from localStorage
+			const token = localStorage.getItem('token');
+			if (!token) {
+			  throw new Error('No authentication token found');
+			}
+	
+			// Send the purchase request to the backend
+			const response = await fetch('http://localhost:7100/api/transactions/buy-item', {
+			  method: 'POST',
+			  headers: {
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${token}`
+			  },
+			  body: JSON.stringify({ itemId: selectedProduct._id })
+			});
+	
+			if (response.ok) {
+			  const data = await response.json();
+			  showToast(data.message, 'success');
+			  onClose(); 
+			} else {
+			  const errorData = await response.json();
+			  showToast(errorData.error, 'error');
+			}
+		  } catch (error) {
+			showToast('An error occurred while processing your purchase.', 'error');
+			console.error(error); 
+		  }
 		}
-	};
+	  };
+
+	  if (loading) {
+		return <p>Loading...</p>;
+	  }
+	  if (error) {
+		return <p>Error: {error.message}</p>;
+	  }
 
 	return (
 		<div className="max-w-7xl mx-auto py-12 bg-gray-900 p-6 rounded-md shadow-lg shadow-teal-500 border-2 border-teal-500">

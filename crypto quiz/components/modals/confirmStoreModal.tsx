@@ -3,12 +3,12 @@ import Image from "next/image";
 import { useState } from 'react';
 import { Product } from '@/types/';
 
+
 interface ComfirmModalProps {
     isOpen: boolean;
     onClose: () => void;
     product: Product
     handleBuy: () => void;
-
 }
 
 const ConfirmPurchaseModal: React.FC<ComfirmModalProps> = ({ isOpen, onClose, product, handleBuy }) => {

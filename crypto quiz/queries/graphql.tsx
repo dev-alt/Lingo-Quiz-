@@ -130,3 +130,16 @@ export const GET_QUIZ = gql`
     }
   }
 `;
+
+export const GET_ITEMS = gql`
+query GetItems {
+  getItems {
+    _id
+    name
+    description
+    price
+    imageUrl
+    quantity
+  }
+}
+`;

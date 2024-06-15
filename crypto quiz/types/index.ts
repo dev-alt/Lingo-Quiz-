@@ -154,11 +154,13 @@ export interface LeaderboardEntry {
   avatar: string;
 }
 export interface Product {
+  _id: any;
   id: string;
-  title: string;
+  name: string;
   imageUrl: string;
   description: string;
   price: number;
+  quantity: number;
 }
 
 export interface ProductListProps {
@@ -169,7 +171,7 @@ export interface ProductListProps {
 export interface ProductCardProps {
   product: {
       id: string;
-      title: string;
+      name: string;
       imageUrl: string;
       description: string;
       price: number;

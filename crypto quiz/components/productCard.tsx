@@ -31,7 +31,7 @@ const ProductCard: React.FC<ProductCardComponentProps> = ({ product, onBuy, isLo
           >
             <Image
               src={product.imageUrl}
-              alt={product.title}
+              alt={product.name}
               width={200}
               height={200}
               className="object-cover rounded-lg w-full h-48"
@@ -43,7 +43,7 @@ const ProductCard: React.FC<ProductCardComponentProps> = ({ product, onBuy, isLo
             whileHover={{ scale: 1.1, color: '#4299e1' }}
             transition={{ duration: 0.2 }}
           >
-            {product.title}
+            {product.name}
           </motion.h4>
 
           <motion.button
@@ -57,7 +57,7 @@ const ProductCard: React.FC<ProductCardComponentProps> = ({ product, onBuy, isLo
   `}
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
-            aria-label={`Add ${product.title} to Cart`}
+            aria-label={`Add ${product.name} to Cart`}
           >
             ${product.price}
           </motion.button>
