@@ -2,13 +2,14 @@
 
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Image, Skeleton } from '@nextui-org/react';
+import { Skeleton } from '@nextui-org/react';
 import { ProductCardProps, Product } from '@/types/';
+import Image from 'next/image';
 
 interface ProductCardComponentProps extends ProductCardProps {
   product: Product;
   onBuy: (product: Product) => void;
-  isLoading: boolean;  
+  isLoading: boolean;
 }
 
 const ProductCard: React.FC<ProductCardComponentProps> = ({ product, onBuy, isLoading }) => {
@@ -35,9 +36,7 @@ const ProductCard: React.FC<ProductCardComponentProps> = ({ product, onBuy, isLo
               height={200}
               className="object-cover rounded-lg w-full h-48"
             />
-            <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white">
-              <p>{product.description}</p>
-            </div>
+
           </motion.div>
           <motion.h4
             className="text-center text-white mb-2 mt-2"
@@ -48,7 +47,7 @@ const ProductCard: React.FC<ProductCardComponentProps> = ({ product, onBuy, isLo
           </motion.h4>
 
           <motion.button
-           type="button" 
+            type="button"
             onClick={() => onBuy(product)}
             className={`
     w-full text-white font-bold py-2 px-4 rounded-lg

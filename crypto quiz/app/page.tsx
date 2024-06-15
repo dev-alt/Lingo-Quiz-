@@ -10,6 +10,7 @@ import NoCourseEnrolled from '@/components/noCourseEnrolled';
 import CTACard from '@/components/ctaCard';
 import { Course } from '@/types';
 import LeaderboardCTA from '@/components/leaderboardCTA';
+import CommunityCTA from "@/components/communityCTA";
 
 export default function Home() {
   const { user } = useAuth();
@@ -62,23 +63,27 @@ export default function Home() {
             </motion.div>
           ) : (
             <motion.div
-             key="course-container"
+              key="course-container"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
               className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-8"
             >
-              {data.enrolledCourses.map((course: Course) => (
-                <motion.div key={course._id} variants={containerVariants} className='p-2'>
-                  <CourseCard course={course}/>                
-                  </motion.div>
+              {data.enrolledCourses.map((course: Course, index: any) => (
+                <motion.div key={course._id || `course-${index}`} variants={containerVariants} className='p-2'>
+                  <CourseCard course={course} />
+                </motion.div>
               ))}
+
             </motion.div>
           )}
-          <LeaderboardCTA />
+
+          <div>
+            <LeaderboardCTA />
+            <CommunityCTA />
+          </div>
         </AnimatePresence>
       </div>
-
     </section>
   );
 }

@@ -20,7 +20,6 @@ const QuizResult: React.FC<QuizResultProps> = ({
   totalTimeTaken,
   onRewardSelect,
 }) => {
-  console.log("Results", results);
   const passMark = totalQuestions * 0.8;
 
   // Calculate the number of correct answers

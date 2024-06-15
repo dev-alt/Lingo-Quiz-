@@ -22,31 +22,30 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
     },
     skip: !isLoggedIn,
   });
-  
+
   if (!isLoggedIn) {
     return <LandingPage />;
   }
   return (
-    <div className="relative flex flex-col min-h-screen ">
+    <div className="relative flex flex-col min-h-screen">
+      {/* ... (Navbar) ... */}
       <Navbar isLoggedIn={isLoggedIn} />
+              {/* Main Content and Sidebar */}
       <main className="container mx-auto max-w-14xl pt-4 px-6 flex-grow bg-gray-800">
-
-        <div className="flex flex-col md:flex-row-reverse ">
-          {/* sidebar */}
-          <div className="bg-gray-800 md:min-h-screen md:w-80 flex flex-col items-stretch p-4 space-y-4">
-            <SidebarItem
-              {...profileData?.profileByUserId}
-            />
-            <div className="hidden md:flex">
+        <div className="flex flex-col md:flex-row">
+        
+          {/* Main body */}
+          <div className="flex-1 mb-8 md:mb-0 flex-shrink-0">{children}</div>
+          {/* Sidebar  */}
+          <div className="md:min-h-screen md:w-80 flex flex-col items-stretch p-4 space-y-4 order-last"> 
+            <SidebarItem {...profileData?.profileByUserId} />
+            <div className="hidden md:flex"> 
               <InviteFriend />
             </div>
-            <div className="hidden md:flex">
+            <div className="hidden md:flex"> 
               <CommunityBar />
             </div>
           </div>
-
-          {/* main body */}
-          <div className="flex-1 mb-8 md:mb-0 flex-shrink-0">{children}</div>
         </div>
       </main>
       {/* Footer */}

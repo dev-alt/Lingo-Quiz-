@@ -8,110 +8,117 @@ import { Icon } from "@iconify/react";
 
 function TopThree({ topPlayers }: { topPlayers: LeaderboardEntry[] }) {
   return (
-    <div className="flex justify-center gap-2 mb-2 relative">
-
+    <div className="flex flex-col md:flex-row justify-center gap-4 mb-4 relative">
       {/* Second Place (index 0 in the array) */}
       <motion.div
-        key={topPlayers[1].id}
-        className="p-3 text-center relative rounded-lg text-black"
+        key={topPlayers[0].id}
+        className="p-3 text-center relative rounded-lg text-black md:w-1/3"
         style={{
           zIndex: topPlayers.length - 0,
-          width: "25%",
-          transform: "translateX(-20%)",
+          transform: "translateX(-20%)", 
         }}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ scale: 1.05 }}
         transition={{ duration: 0.5, delay: 0 * 0.2 }}
       >
-        <Card className="w-full bg-gradient-to-r from-slate-400 to-slate-500 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out" style={{ height: '90%' }}>
+        <Card className="w-full bg-gradient-to-r from-slate-400 to-slate-500 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
           <CardBody className="flex flex-col items-center p-4">
             <div className="bg-slate-200 text-slate-800 rounded-full px-3 py-1 mb-2 shadow-inner">
               <span className="text-lg md:text-xl font-bold">2nd</span>
             </div>
-            <Avatar src="{topPlayers[0].avatar}" alt="Avatar" className="w-24 h-24 rounded-full shadow-md border-4 border-slate-300 mb-2" />
-            <h3 className="text-xl md:text-2xl font-bold mt-2">{topPlayers[1].username}</h3>
-            <div className="text-md md:text-lg mt-1">XP: {topPlayers[1].xp}</div>
+            <Avatar src={topPlayers[0].avatar} alt="Avatar" size="lg" className="mb-2" />
+            <h3 className="text-xl md:text-2xl font-bold mt-2">
+              {topPlayers[0].username}
+            </h3>
+            <div className="text-md md:text-lg mt-1">
+              XP: {topPlayers[0].xp}
+            </div>
             <div className="text-md md:text-lg">
-              Correct Answers: {topPlayers[1].correctAnswers}
+              Correct Answers: {topPlayers[0].correctAnswers}
             </div>
             <div className="mt-4">
-              <span className="inline-block bg-slate-600 text-white rounded-full px-3 py-1 text-sm font-semibold">Outstanding Performer</span>
+              <span className="inline-block bg-slate-600 text-white rounded-full px-3 py-1 text-sm font-semibold">
+                Outstanding Performer
+              </span>
             </div>
           </CardBody>
         </Card>
       </motion.div>
 
-
       {/* First Place (index 1 in the array) */}
       <motion.div
-        key={topPlayers[0].id}
-        className="p-4 text-center relative rounded-md text-black" // Gold for 1st
-        style={{
-          zIndex: topPlayers.length - 1,
-          width: "50%",
-          transform: "translateY(-16px)",
-        }}
+        key={topPlayers[1].id}
+        className="p-3 text-center relative rounded-lg text-black md:w-1/2 md:transform-none" 
+        style={{ zIndex: topPlayers.length - 1 }}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ scale: 1.05 }}
         transition={{ duration: 0.5, delay: 1 * 0.2 }}
       >
-        <Card className="w-full h-full bg-gradient-to-r from-yellow-400 to-yellow-500 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
-          <CardBody className="flex flex-col items-center p-6">
+        <Card className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
+          <CardBody className="flex flex-col items-center p-4">
             <div className="bg-yellow-200 text-yellow-800 rounded-full px-3 py-1 mb-2 shadow-inner">
               <span className="text-lg md:text-xl font-bold">1st</span>
             </div>
-            <Avatar src="{topPlayers[1].avatar}" alt="Avatar" className="w-24 h-24 rounded-full shadow-md border-4 border-yellow-300" />
-            <h3 className="text-xl md:text-2xl font-bold mt-2">{topPlayers[0].username}</h3>
-            <div className="text-md md:text-lg mt-1">XP: {topPlayers[0].xp}</div>
+            <Avatar src={topPlayers[1].avatar} alt="Avatar" size="lg" className="mb-2" /> 
+            <h3 className="text-xl md:text-2xl font-bold mt-2">
+              {topPlayers[1].username}
+            </h3>
+            <div className="text-md md:text-lg mt-1">
+              XP: {topPlayers[1].xp}
+            </div>
             <div className="text-md md:text-lg">
-              Correct Answers: {topPlayers[0].correctAnswers}
+              Correct Answers: {topPlayers[1].correctAnswers}
             </div>
             <div className="mt-4">
-              <span className="inline-block bg-yellow-600 text-white rounded-full px-3 py-1 text-sm font-semibold">Top Performer</span>
+              <span className="inline-block bg-yellow-600 text-white rounded-full px-3 py-1 text-sm font-semibold">
+                Top Performer
+              </span>
             </div>
           </CardBody>
         </Card>
-
       </motion.div>
 
       {/* Third Place (index 2 in the array) */}
       <motion.div
         key={topPlayers[2].id}
-        className="p-3 text-center relative rounded-lg text-black"
+        className="p-3 text-center relative rounded-lg text-black md:w-1/3"
         style={{
           zIndex: topPlayers.length - 2,
-          width: "25%",
-          transform: "translateX(20%)",
+          transform: "translateX(20%)", 
         }}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ scale: 1.05 }}
         transition={{ duration: 0.5, delay: 2 * 0.2 }}
       >
-        <Card className="w-full bg-gradient-to-r from-amber-500 to-amber-600 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out" style={{ height: '90%' }}>
+        <Card className="w-full bg-gradient-to-r from-orange-400 to-orange-600 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
           <CardBody className="flex flex-col items-center p-4">
-            <div className="bg-amber-200 text-amber-800 rounded-full px-3 py-1 mb-2 shadow-inner">
+            <div className="bg-orange-200 text-orange-800 rounded-full px-3 py-1 mb-2 shadow-inner">
               <span className="text-lg md:text-xl font-bold">3rd</span>
             </div>
-            <Avatar src="{topPlayers[2].avatar}" alt="Avatar" className="w-24 h-24 rounded-full shadow-md border-4 border-amber-300 mb-2" />
-            <h3 className="text-xl md:text-2xl font-bold mt-2">{topPlayers[2].username}</h3>
-            <div className="text-md md:text-lg mt-1">XP: {topPlayers[2].xp}</div>
+            <Avatar src={topPlayers[2].avatar} alt="Avatar" size="lg" className="mb-2" />
+            <h3 className="text-xl md:text-2xl font-bold mt-2">
+              {topPlayers[2].username}
+            </h3>
+            <div className="text-md md:text-lg mt-1">
+              XP: {topPlayers[2].xp}
+            </div>
             <div className="text-md md:text-lg">
               Correct Answers: {topPlayers[2].correctAnswers}
             </div>
             <div className="mt-4">
-              <span className="inline-block bg-amber-700 text-white rounded-full px-3 py-1 text-sm font-semibold">Achiever</span>
+              <span className="inline-block bg-orange-600 text-white rounded-full px-3 py-1 text-sm font-semibold">
+                Great Job!
+              </span>
             </div>
           </CardBody>
         </Card>
       </motion.div>
-
     </div>
   );
 }
-
 
 
 function RemainingPlayers({ players }: { players: LeaderboardEntry[] }) {

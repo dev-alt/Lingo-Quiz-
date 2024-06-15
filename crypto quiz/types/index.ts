@@ -9,6 +9,7 @@ export interface LeaderboardEntry {
   username: string;
   xp: number;
   correctAnswers: number;
+  avatar: string;
 }
 export interface Course {
   _id: string;
@@ -150,6 +151,7 @@ export interface LeaderboardEntry {
   username: string;
   xp: number;
   correctAnswers: number;
+  avatar: string;
 }
 export interface Product {
   id: string;

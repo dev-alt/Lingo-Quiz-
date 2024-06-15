@@ -1,6 +1,6 @@
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Spinner, Spacer } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button} from "@nextui-org/react";
 import Image from "next/image";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Product } from '@/types/';
 
 interface ComfirmModalProps {
@@ -12,9 +12,6 @@ interface ComfirmModalProps {
 }
 
 const ConfirmPurchaseModal: React.FC<ComfirmModalProps> = ({ isOpen, onClose, product, handleBuy }) => {
-    const [isModalVisible, setIsModalVisible] = useState(false);
-
-
     return (
         <Modal
             isOpen={isOpen}
@@ -33,6 +30,7 @@ const ConfirmPurchaseModal: React.FC<ComfirmModalProps> = ({ isOpen, onClose, pr
                     <div className="mb-4">
                         <Image
                             width={300}
+                            height={300}
                             src={product?.imageUrl}
                             alt={product?.title}
                             className="w-full h-auto rounded-md"
