@@ -52,18 +52,26 @@ import 'react-toastify/dist/ReactToastify.css'
 	cache: new InMemoryCache(),
   });
   
-  export function Providers({ children, themeProps }: ProvidersProps) {
+/**
+ * Renders the Providers component.
+ *
+ * @param {ProvidersProps} props - The component props.
+ * @param {ReactNode} props.children - The child components to render.
+ * @param {ThemeProps} props.themeProps - The theme properties.
+ * @returns {ReactNode} The rendered Providers component.
+ */
+export function Providers({ children, themeProps }: ProvidersProps): React.ReactNode {
 	const router = useRouter();
 	return (
 		<ApolloProvider client={client}>
-		<NextUIProvider navigate={router.push}>
-			<NextThemesProvider {...themeProps}>
-			<ToastProvider>
-				<ToastContainer />
-				{children}
-				</ToastProvider>
+			<NextUIProvider navigate={router.push}>
+				<NextThemesProvider {...themeProps}>
+					<ToastProvider>
+						<ToastContainer />
+						{children}
+					</ToastProvider>
 				</NextThemesProvider>
-		</NextUIProvider>
+			</NextUIProvider>
 		</ApolloProvider>
 	);
 }

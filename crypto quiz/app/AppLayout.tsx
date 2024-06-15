@@ -26,6 +26,15 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   if (!isLoggedIn) {
     return <LandingPage />;
   }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error! {error.message}</div>;
+  }
+
   return (
     <div className="relative flex flex-col min-h-screen">
       {/* ... (Navbar) ... */}

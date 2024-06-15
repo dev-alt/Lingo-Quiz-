@@ -11,10 +11,12 @@ export default function LandingPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const handleOpenModal = () => setIsModalOpen(true);
     const handleCloseModal = () => setIsModalOpen(false);
+
     const sectionVariants = {
         hidden: { opacity: 0, y: 50 },
         visible: { opacity: 1, y: 0 },
-    }; const cardVariants = {
+    }; 
+    const cardVariants = {
         hidden: { opacity: 0, y: 50 },
         visible: { opacity: 1, y: 0 },
     };
@@ -22,7 +24,10 @@ export default function LandingPage() {
     return (
         <div className="relative flex flex-col min-h-screen bg-gray-800 text-white">
             <Navbar isLoggedIn={false} />
+
+            {/* Main content */}
             <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
+                {/* Section 1: Introduction */}
                 <motion.section
                     initial="hidden"
                     animate="visible"
@@ -36,17 +41,18 @@ export default function LandingPage() {
                     </div>
                 </motion.section>
 
+                {/* Section 2: How It Works */}
                 <motion.section
                     initial="hidden"
                     animate="visible"
                     transition={{ staggerChildren: 0.3 }}
                     className="py-8 md:py-10 "
                 >
-
                     <motion.div className="text-center mb-8" variants={cardVariants}>
                         <h2 className="text-2xl md:text-3xl font-bold">How It Works</h2>
                     </motion.div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {/* Card 1: Interactive Quizzes */}
                         <motion.div
                             variants={cardVariants}
                             className="flex flex-col items-center bg-gray-700 p-6 rounded-lg shadow-[5px_3px_0px_0px_#14b8a6]"
@@ -55,6 +61,8 @@ export default function LandingPage() {
                             <h3 className="text-xl font-semibold">Interactive Quizzes</h3>
                             <p className="mt-2 text-center">Journey through the exciting world of language learning. Earn experience points (XP) to unlock new levels and collect badges.</p>
                         </motion.div>
+
+                        {/* Card 2: Personalized Learning */}
                         <motion.div
                             variants={cardVariants}
                             className="flex flex-col items-center bg-gray-700 p-6 rounded-lg shadow-[5px_3px_0px_0px_#14b8a6]"
@@ -63,6 +71,8 @@ export default function LandingPage() {
                             <h3 className="text-xl font-semibold">Personalized Learning</h3>
                             <p className="mt-2 text-center">Improve your language skills by participating in community challenges and receiving live help from language mentors.</p>
                         </motion.div>
+
+                        {/* Card 3: Community Challenges */}
                         <motion.div
                             variants={cardVariants}
                             className="flex flex-col items-center bg-gray-700 p-6 rounded-lg shadow-[5px_3px_0px_0px_#14b8a6]"
@@ -74,6 +84,7 @@ export default function LandingPage() {
                     </div>
                 </motion.section>
 
+                {/* Section 3: Get Started Today */}
                 <motion.section
                     initial="hidden"
                     animate="visible"
@@ -96,9 +107,10 @@ export default function LandingPage() {
                     </div>
                 </motion.section>
 
+                {/* Section 4: Testimonials */}
                 <Testimonials />
 
-
+                {/* Section 5: FAQ */}
                 <motion.section
                     initial="hidden"
                     animate="visible"
@@ -121,6 +133,8 @@ export default function LandingPage() {
                     </div>
                 </motion.section>
             </main>
+
+            {/* Footer */}
             <Footer />
         </div>
     );

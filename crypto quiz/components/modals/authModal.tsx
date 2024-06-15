@@ -21,6 +21,7 @@ interface AuthModalProps {
     onClose: () => void;
 }
 
+// AuthModal component
 const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     const [mode, setMode] = useState<'signin' | 'signup'>('signin');
     const [email, setEmail] = useState("");
@@ -29,12 +30,16 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     const { login } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
 
+    // Handle form submission
     const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         setIsLoading(true);
         if (e) {e.preventDefault();}
+        if (e) {
+            e.preventDefault();
+        }
         try {
             if (mode === 'signup') {
-                const response = await fetch("http://localhost:7100/api/users/register", {
+                const response = await fetch(`${process.env.API_URL}/api/users/register`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ username, email, password }),
@@ -69,7 +74,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         <>
             <Modal isOpen={isOpen} onClose={onClose} backdrop={"blur"} scrollBehavior={"inside"} >
                 <ModalContent>
-                    {(onClose) => (
+                    {() => (
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}

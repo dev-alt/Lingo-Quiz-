@@ -35,7 +35,7 @@ export default function Home() {
 
   useEffect(() => {
     if (data && data.courses) {
-      setCourseOrder(data.courses.map((course: { id: any; }) => course.id));
+      setCourseOrder(data.courses.map((course: { id: number }) => course.id));
     }
   }, [data]);
 
@@ -69,7 +69,7 @@ export default function Home() {
               animate="visible"
               className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-8"
             >
-              {data.enrolledCourses.map((course: Course, index: any) => (
+              {data.enrolledCourses.map((course: Course, index: number) => (
                 <motion.div key={course._id || `course-${index}`} variants={containerVariants} className='p-2'>
                   <CourseCard course={course} />
                 </motion.div>

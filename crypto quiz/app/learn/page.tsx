@@ -8,7 +8,7 @@ const CourseSelectPage: React.FC = () => {
 		<main>
 
 			<CourseSelector />
-			</main>
+		</main>
 	);
 };
 

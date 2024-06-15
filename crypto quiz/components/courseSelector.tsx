@@ -13,6 +13,10 @@ interface Course {
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
 }
 
+/**
+ * CourseSelector component displays a selector for filtering courses based on language and difficulty.
+ * It also renders the filtered courses in a grid layout.
+ */
 const CourseSelector: React.FC = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [selectedDifficulty, setSelectedDifficulty] = useState('');
@@ -27,14 +31,27 @@ const CourseSelector: React.FC = () => {
   const availableDifficulties = ['Beginner', 'Intermediate', 'Advanced'];
   const userProgress = data?.userProgress || [];
 
+  /**
+   * Checks if the user has made progress in a specific course.
+   * @param courseId - The ID of the course to check progress for.
+   * @returns True if the user has made progress in the course, false otherwise.
+   */
   const userHasProgress = (courseId: string) => {
     return userProgress.some((progress: { courseId: string; progress: number; }) => progress.courseId === courseId && progress.progress > 0);
   };
 
+  /**
+   * Handles the click event when a language button is clicked.
+   * @param language - The selected language.
+   */
   const handleLanguageClick = (language: string) => {
     setSelectedLanguage(language === selectedLanguage ? '' : language);
   };
 
+  /**
+   * Handles the click event when a difficulty button is clicked.
+   * @param difficulty - The selected difficulty.
+   */
   const handleDifficultyClick = (difficulty: string) => {
     setSelectedDifficulty(difficulty === selectedDifficulty ? '' : difficulty);
   };
