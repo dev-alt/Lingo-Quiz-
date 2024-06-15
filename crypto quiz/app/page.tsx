@@ -43,7 +43,7 @@ export default function Home() {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <section className="border-1 border-teal-500 bg-gradient-to-br from-blue-900 to-purple-900 text-white py-8 md:py-12 mt-4 h-screen mb-2">
+    <section className="border-1 border-teal-500 bg-gradient-to-br from-blue-900 to-purple-900 text-white py-8 md:py-12 mt-4 full-h-screen mb-2">
       <HeroSection />
       <CTACard />
 

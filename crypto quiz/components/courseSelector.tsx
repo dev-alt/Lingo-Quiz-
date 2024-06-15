@@ -44,7 +44,8 @@ const CourseSelector: React.FC = () => {
     <div className="bg-gray-900 p-6 rounded-md shadow-lg shadow-teal-500 border-2 border-teal-500">
       <div className="bg-gray-800 p-4 rounded-md shadow-md flex flex-col items-center min-h-full">
 
-        <div className="flex gap-2 mb-4 w-full justify-center min-h-full">
+        {/* Languages */}
+        <div className="flex flex-wrap gap-2 mb-4 w-full justify-center min-h-full">
           {['', ...availableLanguages].map((language) => (
             <button
               key={language}
@@ -57,7 +58,8 @@ const CourseSelector: React.FC = () => {
         </div>
 
         {/* Difficulties */}
-        <div className="flex gap-2 w-full justify-center">
+        <div className="flex flex-wrap gap-2 mb-4 w-full justify-center min-h-full">
+
           {['', ...availableDifficulties].map((difficulty: string) => (
             <button
               key={difficulty}
@@ -79,7 +81,7 @@ const CourseSelector: React.FC = () => {
                 key={course._id}
                 className="p-2 rounded-md text-white shadow hover:shadow-lg transition duration-300"
               >
-              <CourseCard course={course}/> 
+                <CourseCard course={course} />
               </div>
             ))
           ) : (
