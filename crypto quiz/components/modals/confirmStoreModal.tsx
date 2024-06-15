@@ -23,7 +23,7 @@ const ConfirmPurchaseModal: React.FC<ComfirmModalProps> = ({ isOpen, onClose, pr
             <ModalContent className=" rounded-lg">
                 <ModalHeader className="border-b border-gray-600 py-4">
                     <p className="text-center text-lg font-semibold text-white">
-                        {product?.title}
+                        {product?.name}
                     </p>
                 </ModalHeader>
                 <ModalBody className="py-6 px-8">
@@ -31,8 +31,8 @@ const ConfirmPurchaseModal: React.FC<ComfirmModalProps> = ({ isOpen, onClose, pr
                         <Image
                             width={300}
                             height={300}
-                            src={product?.imageUrl}
-                            alt={product?.title}
+                            src={`/images/store/${product.imageUrl}`} 
+                            alt={product?.name}
                             className="w-full h-auto rounded-md"
                         />
                     </div>

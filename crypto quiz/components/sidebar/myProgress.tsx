@@ -20,7 +20,7 @@ const MyProgress: React.FC<SidebarItemProps> = ({
   const xpPercentage = Math.round((xp / nextLevelXP) * 100);
 
   const iconStyle = "text-4xl text-white mr-2";
-
+  const placeholderAvatar = "/images/avatar.jpg"; 
   return (
     <Card className="bg-gray-900 text-white p-6 rounded-xl shadow-lg border-4 border-teal-500">
       <CardBody>
@@ -30,7 +30,8 @@ const MyProgress: React.FC<SidebarItemProps> = ({
 
         {/* Profile Section */}
         <div className="flex flex-col items-center mb-6">
-          <Avatar src={avatar} alt={username} size="lg" className="mb-2" />
+        <Avatar 
+          src={avatar || placeholderAvatar} alt={username} size="lg" className="mb-2" />
           <p className="text-white text-2xl font-semibold mb-1">{username}</p>
           <p className="text-gray-400 text-sm mb-4">
             Level {level} ({xp} XP / {nextLevelXP} XP)

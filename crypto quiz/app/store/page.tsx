@@ -1,6 +1,5 @@
 'use client'
 import ProductList from "@/components/productList";
-import generateFakeProducts from '@/components/generateFakeData';
 import {useDisclosure } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 import ConfirmPurchaseModal from "@/components/modals/confirmStoreModal";
