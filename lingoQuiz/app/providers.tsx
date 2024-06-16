@@ -45,7 +45,7 @@ import 'react-toastify/dist/ReactToastify.css'
 	return forward(operation);
   });
   
-  const httpLink = new HttpLink({ uri: 'http://localhost:7100/graphql' });
+  const httpLink = new HttpLink({ uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql` });
   
   const client = new ApolloClient({
 	link: from([errorLink, authLink, httpLink]),

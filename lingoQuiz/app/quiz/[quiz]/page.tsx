@@ -59,7 +59,7 @@ export default function QuizPage() {
     }
     try {
       const validationResponse = await fetch(
-        "http://localhost:7100/api/quizzes/validate-answers",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/quizzes/validate-answers`,
         {
           method: "POST",
           headers: {
@@ -78,7 +78,7 @@ export default function QuizPage() {
       if (data.score !== null) {
         setQuizResults(data);
         const recordProgressResponse = await fetch(
-          "http://localhost:7100/api/transactions/record-progress",
+          `${process.env.NEXT_PUBLIC_API_URL}/api/transactions/record-progress`,
           {
             method: "POST",
             headers: {

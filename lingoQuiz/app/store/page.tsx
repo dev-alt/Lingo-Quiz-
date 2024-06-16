@@ -39,7 +39,7 @@ export default function StorePage() {
 			}
 	
 			// Send the purchase request to the backend
-			const response = await fetch('http://localhost:7100/api/transactions/buy-item', {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/transactions/buy-item`, {
 			  method: 'POST',
 			  headers: {
 				'Content-Type': 'application/json',
