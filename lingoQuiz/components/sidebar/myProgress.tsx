@@ -30,8 +30,6 @@ const MyProgress: React.FC<SidebarItemProps> = ({
 
         {/* Profile Section */}
         <div className="flex flex-col items-center mb-6">
-        <Avatar 
-          src={avatar || placeholderAvatar} alt={username} size="lg" className="mb-2" />
           <p className="text-white text-2xl font-semibold mb-1">{username}</p>
           <p className="text-gray-400 text-sm mb-4">
             Level {level} ({xp} XP / {nextLevelXP} XP)
@@ -42,28 +40,28 @@ const MyProgress: React.FC<SidebarItemProps> = ({
         {/* Progress Section */}
         <div className="grid grid-cols-2 gap-6 mb-6">
           {/* Rank */}
-          <div className="flex flex-col items-center bg-gray-800 rounded-lg p-4">
+          <div className="flex flex-col items-center bg-gray-800 rounded-lg p-2">
             <Icon icon="mdi:trophy-award" className={iconStyle} />
             <p className="font-semibold text-lg">Rank</p>
             <p className="text-teal-400">{rank}</p>
           </div>
 
           {/* Badges */}
-          <div className="flex flex-col items-center bg-gray-800 rounded-lg p-4">
+          <div className="flex flex-col items-center bg-gray-800 rounded-lg p-2">
             <Icon icon="mdi:shield-account-outline" className={iconStyle} />
             <p className="font-semibold text-lg">Badges</p>
             <p className="text-teal-400">{badges}</p>
           </div>
 
           {/* Streak */}
-          <div className="flex flex-col items-center bg-gray-800 rounded-lg p-4">
+          <div className="flex flex-col items-center bg-gray-800 rounded-lg p-2">
             <Icon icon="mdi:fire" className={iconStyle} />
             <p className="font-semibold text-lg">Streak</p>
-            <p className="text-teal-400">{streak} Day Streak</p>
+            <p className="text-teal-400 pl-3">{streak} Day Streak</p>
           </div>
 
           {/* Points */}
-          <div className="flex flex-col items-center bg-gray-800 rounded-lg p-4">
+          <div className="flex flex-col items-center bg-gray-800 rounded-lg p-2">
             <Icon icon="ic:twotone-monetization-on" className={iconStyle} />
             <p className="font-semibold text-lg">Points</p>
             <p className="text-teal-400">{balance}</p>

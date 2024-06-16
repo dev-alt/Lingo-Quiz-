@@ -36,11 +36,11 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <div className="relative flex flex-col min-h-screen">
+    <div className="relative flex flex-col min-h-screen bg-gradient-to-br from-blue-950 to-purple-900">
       {/* ... (Navbar) ... */}
       <Navbar isLoggedIn={isLoggedIn} />
               {/* Main Content and Sidebar */}
-      <main className="container mx-auto max-w-14xl pt-4 px-6 flex-grow bg-gray-800">
+      <main className="container mx-auto max-w-14xl pt-4 px-6 flex-grow">
         <div className="flex flex-col md:flex-row">
         
           {/* Main body */}
