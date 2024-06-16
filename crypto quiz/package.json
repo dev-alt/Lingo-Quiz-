@@ -52,8 +52,6 @@
 		"typescript": "5.0.4"
 	},
 	"devDependencies": {
-		"@faker-js/faker": "^8.4.1",
-		"@iconify/react": "^4.1.1",
-		"eslint-plugin-jsx-a11y": "^6.8.0"
+		"@iconify/react": "^4.1.1"
 	}
 }
