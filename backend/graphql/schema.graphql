@@ -1,0 +1,164 @@
+# schema.graphql
+
+type Query {
+  courses(
+    language: String
+    difficulty: String
+    limit: Int
+    offset: Int
+  ): [Course]
+  languages: [String!]!
+  difficulties: [String!]!
+  userProgress(userId: ID!): [UserProgress]
+  quiz(id: ID!): Quiz
+  profileByUserId(userId: ID!): Profile
+  profileByHandle(handle: String!): Profile
+  enrolledCourses(userId: ID!): [Course]
+  getCourse(courseId: ID!): Course
+  getUserProgress(userId: ID): UserProgress!
+  getItems: [Item]
+}
+
+type Mutation {
+  enrollInCourse(userId: ID!, courseId: ID!): EnrollResponse!
+  testMutation(message: String!): TestResponse!
+  addItem(name: String!, description: String): Item
+  unenrollFromCourse(userId: ID!, courseId: ID!): EnrollResponse!
+  createQuiz(input: QuizInput!, courseId: ID!): QuizCreationResult!
+  storeQuizResult(quizId: ID!, score: Int!): StoreQuizResultResponse!
+}
+
+# Interfaces
+interface MutationResponse {
+  success: Boolean!
+  message: String!
+}
+
+# Types
+type Item {
+  _id: ID!
+  name: String!
+  description: String!
+  price: Int!
+  imageUrl: String!
+  quantity: Int!
+}
+
+type Course {
+  _id: ID!
+  title: String!
+  language: String!
+  difficulty: Difficulty!
+  description: String
+  imageUrl: String
+  duration: Int
+  quizzes: [Quiz]
+  userProgress: UserProgress
+}
+
+enum Difficulty {
+  Beginner
+  Intermediate
+  Advanced
+}
+type Quiz {
+  _id: ID!
+  title: String!
+  language: String!
+  difficulty: String!
+  questions: [Question!]!
+  isCompleted: Boolean
+}
+
+type Question {
+  question: String!
+  options: [String!]!
+  answer: Int!
+}
+
+type CompletedQuiz {
+  quizId: ID!
+  score: Int!
+  timeTaken: Int!
+  completedAt: String!
+}
+type UserProgress {
+  _id: ID!
+  userId: ID!
+  courseId: ID!
+  completedQuizzes: [CompletedQuiz!]!
+  score: Int!
+  timeTaken: Int!
+  lastActive: String!
+  progress: Float
+}
+
+type Profile {
+  _id: ID!
+  userId: ID!
+  username: String!
+  handle: String!
+  bio: String
+  level: Int!
+  xp: Int!
+  challengesCompleted: Int!
+  rank: String!
+  badges: Int!
+  streak: Int!
+  achievements: [ID!]!
+  progress: [ID!]!
+  joinDate: String!
+  lastActive: String!
+  avatarUrl: String
+  bannerUrl: String
+  ownedBanners: [Banner]
+  ownedAvatars: [Avatar]
+  balance: Int!
+}
+
+type Banner {
+  tokenId: String!
+  contractAddress: String!
+}
+
+type Avatar {
+  tokenId: String!
+  contractAddress: String!
+}
+
+type StoreQuizResultResponse {
+  success: Boolean!
+  message: String
+  txHash: String
+}
+
+# Input Types
+input QuizInput {
+  title: String!
+  language: String!
+  difficulty: String!
+  questions: [QuestionInput!]!
+}
+
+input QuestionInput {
+  question: String!
+  options: [String!]!
+  answer: Int!
+}
+
+# Mutation Response Types (Implementing the Interface)
+type QuizCreationResult implements MutationResponse {
+  success: Boolean!
+  message: String!
+  quiz: Quiz
+}
+
+type EnrollResponse implements MutationResponse {
+  success: Boolean!
+  message: String!
+}
+
+type TestResponse {
+  success: Boolean!
+  echo: String!
+}
