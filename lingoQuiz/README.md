@@ -1,51 +1,55 @@
-# Next.js & NextUI Template
+# LingoQuiz
 
-This is a template for creating applications using Next.js 14 (app directory) and NextUI (v2).
+LingoQuiz is an interactive language learning platform that offers engaging quizzes, personalized learning experiences, and community challenges to help users improve their language skills.
 
-## Technologies Used
+## Features
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [NextUI v2](https://nextui.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+- Interactive language quizzes
+- Personalized learning paths
+- Community challenges and leaderboards
+- Reward system for completed quizzes
+- User profiles and progress tracking
+- Course enrollment and management
+- In-app store for additional resources
 
-## How to Use
+## Technology Stack
 
-### Use the template with create-next-app
+- **Frontend**: Next.js 14 (React), TypeScript
+- **UI Framework**: NextUI v2
+- **Styling**: Tailwind CSS, Tailwind Variants
+- **State Management**: Apollo Client (for GraphQL)
+- **Animations**: Framer Motion
+- **Icons**: Iconify
+- **Authentication**: Custom JWT-based auth system
+- **API**: GraphQL
 
-To create a new project based on this template using `create-next-app`, run the following command:
+## Getting Started
 
-```bash
-npx create-next-app -e https://github.com/nextui-org/next-app-template
-```
+1. Clone the repository
+2. Install dependencies:
+   ```
+   npm install
+   ```
+3. Set up environment variables (create a `.env.local` file based on `.env.example`)
+4. Run the development server:
+   ```
+   npm run dev
+   ```
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-### Install dependencies
+## Project Structure
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+- `/app`: Next.js app router and page components
+- `/components`: Reusable React components
+- `/context`: React context providers (e.g., AuthContext)
+- `/queries`: GraphQL queries and mutations
+- `/styles`: Global styles and Tailwind config
+- `/types`: TypeScript type definitions
 
-```bash
-npm install
-```
+## Contributing
 
-### Run the development server
-
-```bash
-npm run dev
-```
-
-### Setup pnpm (optional)
-
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
-
-```bash
-public-hoist-pattern[]=*@nextui-org/*
-```
-
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
