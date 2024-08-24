@@ -1,6 +1,6 @@
-# LinguoQuiz
+# LingoQuiz
 
-LinguoQuiz is a comprehensive language learning platform that offers interactive quizzes, courses, and progress tracking. This repository contains both the frontend and backend code for the LinguoQuiz application.
+LingoQuiz is a comprehensive language learning platform that offers interactive quizzes, courses, and progress tracking. This repository contains both the frontend and backend code for the LinguoQuiz application.
 
 ## Project Structure
 
