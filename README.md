@@ -7,7 +7,11 @@ LingoQuiz is a comprehensive language learning platform that offers interactive 
 ```
 lingoquiz/
 ├── frontend/
-│   └── [Frontend files and folders]
+│   ├── app/
+│   ├── components/
+│   ├── styles/
+│   ├── lib/
+│   └── [Other frontend files and folders]
 ├── backend/
 │   ├── app.js
 │   ├── db.js
@@ -21,11 +25,22 @@ lingoquiz/
 
 ## Frontend
 
-The frontend is built using [frontend technology, Next.JS]. For more details on the frontend implementation and setup, please refer to the `frontend/README.md` file.
+The frontend is built using Next.js 14 with the new App Router for routing and server-side rendering. It uses Apollo Client for state management and data fetching, and Tailwind CSS with NextUI for styling.
+
+Key features:
+- Authentication system with JWT
+- Course management and enrollment
+- Interactive quiz system
+- User profile and progress tracking
+- Leaderboards
+- Community features
+- In-app store
+
+For more details on the frontend implementation and setup, please refer to the `frontend/README.md` file.
 
 ## Backend
 
-The backend is an Express.js application that provides both REST API and GraphQL endpoints. It uses MongoDB for data storage and integrates with blockchain technology for storing quiz results.
+The backend is an Express.js application that provides GraphQL API endpoints. It uses MongoDB for data storage.
 
 For more details on the backend implementation and setup, please refer to the `backend/README.md` file.
 
@@ -35,13 +50,12 @@ For more details on the backend implementation and setup, please refer to the `b
 
 - Node.js (v14 or later)
 - MongoDB
-- Ganache (for local blockchain testing)
 
 ### Installation
 
 1. Clone the repository:
    ```
-   git clone https://github.com/dev-alt/lingoquiz.git
+   git clone https://github.com/dev=alt/lingoquiz.git
    cd lingoquiz
    ```
 
@@ -67,7 +81,7 @@ For more details on the backend implementation and setup, please refer to the `b
 5. Start the frontend development server:
    ```
    cd ../frontend
-   npm start
+   npm run dev
    ```
 
 ## Features
@@ -76,7 +90,8 @@ For more details on the backend implementation and setup, please refer to the `b
 - Interactive language quizzes
 - Course creation and management
 - User progress tracking
-- Blockchain integration for quiz result storage
+- Leaderboards
+- Community features
 - Virtual item shop
 
 ## Contributing
